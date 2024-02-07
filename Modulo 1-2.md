@@ -171,7 +171,7 @@ $CFG->session_redis_acquire_lock_timeout = 120;
 $CFG->session_redis_lock_expire = 7200;
 ```
 
-driver alternativi includono il database (anch-esso poco performante) e memcached.
+driver alternativi includono il database (anch'esso poco performante) e memcached.
 
 [Documentazione dettagliata su sessioni](https://docs.moodle.org/403/en/Session_handling)
 

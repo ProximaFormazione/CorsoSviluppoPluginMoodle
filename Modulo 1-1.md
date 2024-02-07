@@ -20,11 +20,9 @@ Esempio pratico
 
 Vediamo un esempio di corso online, collegandoci al seguente url abbiamo il materiale di questo corso:
 
-> TODO
+> [link](https://www.e-prox.it/course/view.php?id=1079)
 
 Da notare che in questo caso e' necessaria una login per accedere, il che e' preferibile laddove si vuole identificare l'attivita' dello studente, ma e' possibile fare accedere gli utenti in maniera anonima se richiesto. Chiaramente il corso in questo caso deve essere "stateless"
-
-*mostrare ai corsisti varie attivita' a scopo esemplificativo*
 
 Qui possiamo vedere la struttura di un corso: lo studente si trova all'interno una serie di **Attivita** eventualmente divisi in gruppi/argomenti. Le attivita' possono essere le piu' disparate e vanno da semplici blocchi di testo, a contenuti quali video, audio o pacchetti SCORM; fino a plugin con comportamenti complessi come ad esempio questionari o scaricamento attestati o qualsiasi altra cosa.
 
