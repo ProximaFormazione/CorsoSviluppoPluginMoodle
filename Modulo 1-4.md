@@ -74,12 +74,12 @@ Installeremo PHP 8.1 per una buona compatibilta' con le versioni 4.1 ed oltre di
 
 se non presente aggiungere il seguente repository apt:
 
-* $`sudo apt-get install software-properties-common`
-* $`sudo add-apt-repository ppa:ondrej/php`
+* $ `sudo apt-get install software-properties-common`
+* $ `sudo add-apt-repository ppa:ondrej/php`
 
 Per l'ambiente di sviluppo (ma anche per la produzione), consiglio un approccio abbondante:
 
-$`sudo apt install php8.1-fpm php8.1-common php8.1-mbstring php8.1-xmlrpc php8.1-soap php8.1-gd php8.1-xml php8.1-intl php8.1-mysql php8.1-cli php8.1-mcrypt php8.1-ldap php8.1-zip php8.1-curl`
+$ `sudo apt install php8.1-fpm php8.1-common php8.1-mbstring php8.1-xmlrpc php8.1-soap php8.1-gd php8.1-xml php8.1-intl php8.1-mysql php8.1-cli php8.1-mcrypt php8.1-ldap php8.1-zip php8.1-curl`
 
 Per l'ambiente di sviluppo sara' necessaria l'estensione $ `sudo apt-get install php8.1-xdebug`
 
@@ -125,9 +125,9 @@ xdebug.start_with_request = yes
 
 indicando il percorso corretto e la porta a vostro piacimento
 
-Dopo aver terminato le modifiche rilanziare il servizio fpm
+Dopo aver terminato le modifiche rilanciare il servizio fpm
 
-$`sudo service php7.4-fpm restart`
+$ `sudo service php7.4-fpm restart`
 
 ### NGINX
 
@@ -235,8 +235,38 @@ a questo punto converra' creare un branch separato per la nostra versione
 
 * `sudo git checkout -b develop` o altro nome di branch a vostra discrezione
 
-...
+ora il sito e' pronto all'installazione
 
+Installazione
+=============
+
+Configurazione iniziale
+-----------------------
+
+Moodle ha una procedura di installazione integrata, nel file **install.php**, che viene lanciata se si accede al sito senza avere il file config.php presente, la procedura provvede a creare il file inserendo i dati base riguardanti:
+
+* Percorsi delle cartelle
+* Driver del database da usare
+* Credenziali del database
+
+E' possibile creare a mano il file config.php ed inserire talli valori, ma non vi e' un vero vantaggio (lo potete editare anche dopo), la procedura e' poi comoda per i casi dove si ha un accesso ridotto al server, ad esempio se abbiamo solo accesso http/s, o per utenti piu' base.
+
+Nel caso la piattaforma sia una copia di una piattaforma esistente, il file config.php sara' gia' presente quindi non serve nessuna procedura.
+
+Allineamento Database
+---------------------
+
+Moodle ha robusto sistema per verificare che il database sia aggiornato alla versione richiesta dal sorgente, ogniqualvolta viene individuata una modifica, ovvero quando si aggiorna la piattaforma o anche solo un plugin. 
+
+Questo secondo processo esegue le operazioni sul database per aggiungere effettivamente le tabelle, quindi da un certo punto di vista e' la vera installazione.
+
+La procedura parte automaticamente se si logga un utente amministratore al sito, e pre prima cosegue un controllo sui requisiti prima di procedere, con una maschera riassuntiva con tutti i problemi ed i warning del caso.
+
+Segue poi una maschera con il riassunto dei plugin che verranno installati ed aggiornati. Per la prima installazione sara' una lista oscenamente lunga in quanto include tutti i plugin nel pacchetto di moodle base.
+
+Se si procede, moodle provvedera' ad aggiornare le tabelle del db, secondo le istruzioni fornite da ogni singolo plugin. Questo meccanismo lo vedremo in dettaglio piu' avanti.
+
+Ora rimane solo da verificare che tutto funzioni
 
 
 
