@@ -1,5 +1,5 @@
-Architettura 2
-==============
+Architettura Plugins
+====================
 
 Qui elencheremo la struttura dei plugins di moodle.
 
@@ -33,8 +33,6 @@ Alcuni dei moduli attivita' preinstallati comprendono
 * Feedback di gradimento
 * Pacchetti SCORM
 
-*esempio di aggiunta attivita' al corso*
-
 Questi plugin definiscono dei moduli che possono essere inseriti in uno o piu' corsi. Si hanno quindi molteplici istanze diverse del modulo sulla piattaforma.
 
 I plugin di tipo mod hanno delle eccezioni alle regole sul codice dovute al fatto di essere la prima categoria di plugin storicamente implementata.
@@ -58,7 +56,7 @@ I blocchi possono avere le caratteristiche piu' disparate, ma potendo essere ovu
 enrol - Iscrizione a corsi
 --------------------------
 
-Sono plugin che permettono e definiscono le modalita' di iscrizione, e se previsa disiscrizione, dai corsi.
+Sono plugin che permettono e definiscono le modalita' di iscrizione e, se prevista, disiscrizione, dai corsi.
 
 Esempi sono l'autoiscrizione, l'iscrizione manuale, l'iscrizione tramite acquisto del corso, iscrizione tramite link mail, ecc...
 
@@ -77,7 +75,7 @@ Moodle ha comunque dei suoi temi predefiniti: **Boost**, che e' un tema che util
 
 Molti temi prevedono la possibilita' di alterare o creare le pagine, come la dashboard dell'utente, ma anche altri elementi.
 
-Data la complessita' ed estensivita', non e' impossibile che i temi creino conflitti o problemi con altri plugin o con i sistemi core di moodle, anettodicamente ci e' capitato di dover correggere alcune linee di codice in temi acquistati.
+Data la complessita' ed estensivita', non e' inaudito che i temi creino conflitti o problemi con altri plugin o con i sistemi core di moodle, anettodicamente ci e' capitato di dover correggere alcune linee di codice in temi acquistati.
 
 ### course/format - formato corsi
 
@@ -132,7 +130,7 @@ vi sono gia' diversi plugin di cache preinstallati, tra cui memchached e redis, 
 
 La performance della cache e' molto rilevante nelle performance generali del sito. Per le installazioni ad istanza singola vi e' una differenza sostanziale passando ad un SSD, mentre per le installazioni con multiple istanze e' praticamente richiesto usare redis o simile.
 
-[Documentazione ufficiale](https://docs.moodle.org/403/en/Caching)
+> [Documentazione ufficiale](https://docs.moodle.org/403/en/Caching)
 
 
 

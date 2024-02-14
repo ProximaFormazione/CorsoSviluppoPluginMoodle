@@ -1,7 +1,7 @@
 Installazione ambiente di sviluppo
 ==================================
 
-In questi due moduli eseguiremo l'installazione di un ambiente di sviluppo utilizzato per il resto del corso.
+In questo modulo eseguiremo l'installazione di un ambiente di sviluppo utilizzato per il resto del corso.
 
 Da notare che per lo sviluppo e' caldamente consigliato installare lo stack su un computer locale dove si ha accesso ad un IDE con capacita' di debug. Il rilascio su macchine di test o produzione puo' essere eseguito in fasi successive.
 
@@ -41,16 +41,16 @@ La procedura e' copiata da quelle utilizzate generalmente su Ubuntu
 
 Installare il locale IT:
 
-`sudo apt-get install language-pack-it`
+$ `sudo apt-get install language-pack-it`
 
 ### Installare MariaDb
 
-$`sudo apt install mariadb-server mariadb-client`
+$ `sudo apt install mariadb-server mariadb-client`
 
 attenzione alla versione utilizzata: serve almeno la versione 10.4, se vi ritrovate con una versione antecedente assicuratevi di accedere al repository apt corretto (selezionate [qui](https://mariadb.org/download/?t=repo-config) la versione richiesta).
 
 Si consiglia di procedere con lo script preimpostato per la rimozione degli elementi di default che vengono installati, con il comando
-`sudo mysql_secure_installation` e selezionando le opzioni richieste (Y a tutto). Questo e' un buon momento per **SALVARE LA PASSWORD DI ROOT DEL DATABASE** che avete appena scelto nelle modalita' a voi preferite per evitarvi di penare in futuro.
+$ `sudo mysql_secure_installation` e selezionando le opzioni richieste (Y a tutto). Questo e' un buon momento per **SALVARE LA PASSWORD DI ROOT DEL DATABASE** che avete appena scelto nelle modalita' a voi preferite per evitarvi di penare in futuro.
 
 A questo punto possiamo gia' configurare il database che useremo per moodle:
 
@@ -127,13 +127,13 @@ indicando il percorso corretto e la porta a vostro piacimento
 
 Dopo aver terminato le modifiche rilanciare il servizio fpm
 
-$ `sudo service php7.4-fpm restart`
+$ `sudo service php8.1-fpm restart`
 
 ### NGINX
 
 installare nginx
 
-`sudo apt install nginx`
+$ `sudo apt install nginx`
 
 E poi procedere alla configurazione del sito: da notare che non abbiamo ancora caricato il sito quindi questo step andrebbe normalmente fatto alla fine
 
@@ -212,7 +212,7 @@ Chiaramente in quanto sviluppatori avrete necessita' di tracciare eventuali modi
 
 Non e' presente in moodle un sistema di aggiornamento automatico, i files vanno scaricati nuovi per ogni versione. 
 
-Sebbene si possa caricare i files a manina, tutti i vari plugin aggiuntivi o personalizzazioni al codice andrebber riportate sulla nuova versione.
+Sebbene si possa caricare i files a manina, tutti i vari plugin aggiuntivi o personalizzazioni al codice andrebbero riportate sulla nuova versione.
 Quando si inizia a gestire un certo numero di piattaforme diventa difficile tenere traccia di tutte le modifiche fatte e si rischia di lasciare indeitro qualcosa.
 
 Utilizzare il git permette di tenere traccia delle personalizzazioni ed eseguire l'aggiornamento alla versione piu' recente (minor) semplicemente eseguendo un `git merge`.
