@@ -1,4 +1,4 @@
-Installazione ambiente di sviluppo
+Installazione Moodle
 ==================================
 
 In questo modulo eseguiremo l'installazione di un ambiente di sviluppo utilizzato per il resto del corso.
