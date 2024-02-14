@@ -266,8 +266,6 @@ Segue poi una maschera con il riassunto dei plugin che verranno installati ed ag
 
 Se si procede, moodle provvedera' ad aggiornare le tabelle del db, secondo le istruzioni fornite da ogni singolo plugin. Questo meccanismo lo vedremo in dettaglio piu' avanti.
 
-Ora rimane solo da verificare che tutto funzioni.
-
 Cron
 ----
 
@@ -293,16 +291,36 @@ Su windows e' presente un tool adatto allo scopo
 
 1. cercare l'applicazione "Task Scheduler"
 2. inserire un nuovo task con frequenza maggiore possibile (dovrebbe essere 5 minuti, ma piu' frequente e' meglio)
-3. Inserire un azione "start a program" con il programma `C:\xampp\php\php.exe` (o dove avete installato il php) con argomento `-f "C:\xampp\htdocs\moodle30\admin\cli\cron.php"`
+3. Inserire un azione "start a program" con l'eseguibile del php (es: `C:\xampp\php\php.exe`) con argomento il file con lo script (es: `-f "C:\xampp\htdocs\moodle30\admin\cli\cron.php"`)
 
 ### Via Web Server
 
 Se non si ha accesso alla macchina dove e' installato moodle, esiste un opzione per lanciare il cron di moodle via una chiamata ad una url specifica.
 
-E' un'opzione sconsigliata per la sua scarsa sicurezza, ma in certe installazioni non vi e' altra scelta
+E' un'opzione sconsigliata per la sua scarsa sicurezza, ma in certe installazioni non vi e' altra scelta.
 
-.....
+Di default questa opzione e' disattivata, e' necessario abilitarla all'interno del sito in *Sicurezza -> Impostazioni di sicurezza del sito -> Esecuzione cron solamente a linea di comando* , dove e' necessario impostare la password per l'api.
 
+Una volta abilitata l'api, dovete schedulare la chiamata su una vostra macchina, ad esempio lanciando:
+
+> curl https://nomesito.it/admin/cron.php?password=12345
+
+Si tratta di una chiamata in get con la password in chiaro, quindi evitate di usare una password che un idiota userebbe per la sua valigia.
+
+Impostazioni utili
+==================
+
+Vedremo in seguito come impostare moodle, ma intanto inserisco alcune impostazioni utili da controllare al momento della creazione di una nuova piattaforma.
+
+Tutte queste voci si trovano nel menu' di amministrazione
+
+* **Impostazioni di pulizia**: lasciare i default tranne l'eliminazione dello storico delle modifiche delle valutazioni da mai a dopo 365 giorni
+* **log Standard**: Conserva il log per: 1000 gg
+* **Sicurezza/Impostazioni di sicurezza del sito**: controllare limite caricamento file
+* **Amministrazione del sito/Localizzazione/impostazioni**: controllare il fuso orario
+* Impostare settaggi per le mail in uscita in **Server/EMail**. Per l'ambiente di sviluppo consiglio di usare una mail personale invece che configurare sendmail sulla macchina locale
+
+Ora rimane solo da verificare che tutto funzioni.
 
 
 
