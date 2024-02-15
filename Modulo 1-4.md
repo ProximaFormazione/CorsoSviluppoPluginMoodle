@@ -203,6 +203,10 @@ Se siete in un sistema Unix evitatevi tutta una serie di problemi con un chmod 7
 
 Nel resto della guida questa cartella verra' chiamata **moodledata**, ma voi siate liberi di chiamarla come preferite. Ricordatevi il percorso servira' dopo.
 
+1. `sudo mkdir /var/moodledata` per creare la cartella
+2. `sudo chown -R www-data /var/moodledata` per assegnare la propieta' della cartella all'utente NGINX
+3. `sudo chmod -R 0777 /var/moodledata` per dare pieni diritti, valutare se usare invece `0770` per limitare altri utenti del server
+
 Cartella Moodle
 ---------------
 
@@ -225,6 +229,11 @@ per iniziare clonate il repository ufficiale di moodle:
 
 * `git clone git://git.moodle.org/moodle.git`
 * `git config --global --add safe.directory /var/www/html/develop/moodle` se richiesto dall'OS
+
+Bisogna poi assegnare i diritti corretti alla cartella 
+
+* `sudo chown -R www-data:www-data /var/www/html/develop/` 
+* `sudo chmod -R 777 /var/www/html/moodle/` o anche 755 per essere piu' stringenti
 
 i branch sul repository ufficiale hanno una nomenclatura basata sul numero di versione usato, quindi per la 4.1 cercheremo i branch con scritto 401
 

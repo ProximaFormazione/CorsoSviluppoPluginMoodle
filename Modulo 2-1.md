@@ -1,7 +1,9 @@
 Pillole di PHP
 ==============
 
-Questo modulo si propone di dare una velocissima infarinatura di PHP, non e' assolutamente una guida al linguaggio, ma indica alcune delle sue peculiarita'.
+Questo modulo si propone di dare una velocissima infarinatura di PHP, non e' assolutamente una guida al linguaggio, ma indica alcune delle sue peculiarita'. 
+
+Si tratta di un introduzione mirata a chi non conosce il linguaggio, ma ha esperienza di c++, c# o java; chi ha gia' conoscenze di PHP puo' tranquillamente saltare il capitolo
 
 > Una guida piu' dettaglia potete trovare a questo [link](https://www.w3schools.com/php/default.asp)
 
@@ -86,13 +88,13 @@ Non c'e' un requisito di mettere la definizione delle funzioni prima della loro 
 Funzioni utili
 --------------
 
-* `echo` stampa la stringa sul documento,ile per produrre testo senza dovere chiudere il blocco php.
-* `var_dump($x)` stampa su schermo il contenuto della variabile `$x`
+* `echo` stampa la stringa sul documento, utile per produrre testo senza dovere chiudere il blocco php.
+* `var_dump($x)` stampa su schermo in maniera verbosa il contenuto della variabile `$x`, e' una funzione di debug
 
 Stringhe
 -------
 
-le stringhe possono essere delimitate sia da ""che da ''. Con le virgolette doppie vengono considerati caratteri speciali mentre con quelle singole no. L'operatore per la concatenazione di stringhe e' il punto.
+le stringhe possono essere delimitate sia da `"  "` che da `'  '`. Con le virgolette doppie vengono considerati caratteri speciali mentre con quelle singole no. L'operatore per la concatenazione di stringhe e' il punto `.`.
 
 ```
 $nome = "Mario";
@@ -193,6 +195,8 @@ alcune osservazioni:
 
 * Per accedere ai membri di un oggetto si usa il separatore `->` (il punto e' il concatenatore di stringhe). Per le propieta' statiche invece si usa `::`
 * Per accedere ai membri della classe stessa e' necessario usare `$this->...` , altrimenti cerca le variabili solo nello scope locale
+* e' possibile eseguire un `foreach` su un oggetto, in tal caso verra' eseguita l'iterazione sulle propieta' dello stesso
+* L'argomento e' chiaramente estensivo, ma e' assimilabile ad altri linguaggi noti
 
 StdClass
 --------
@@ -263,7 +267,7 @@ Nel PHP esistono delle variabili che vengono fornite dall'ambiente
 
 Questi oggetti contengono informazioni relativi ad ambiente, sessione, chiamata http, ecc.
  
-Per dettagli sulle variabili rimando alla documentazione PHP
+Per dettagli sulle variabili rimando ad una guida piu' dettagliata ([link](https://www.w3schools.com/php/php_superglobals.asp))
 
 Costanti magiche
 ----------------
