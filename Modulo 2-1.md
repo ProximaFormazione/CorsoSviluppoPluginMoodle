@@ -40,7 +40,7 @@ Gli elementi assimilabili a tale sintassi non verranno indicati in questa guida 
 
 I nomi delle variabili sono case sensitive, mentre tutto il resto no.
 
-tutte le variabili vanno precedute dal `$`, altrimenti non vengono riconosciute come tali.
+tutte le variabili vanno precedute dal `$`, altrimenti non vengono riconosciute come tali. le costanti invece non usano il `$`
 
 ```
 <?php
@@ -190,6 +190,22 @@ class Fruit {
 }
 ?>
 ```
+
+l'ereditarieta' e' su singola classe, e si indica con la parola chiave `extends`
+
+```
+class Strawberry extends Fruit {
+  
+  // ....
+}
+```
+
+abbiamo le seguenti funzionalita' similarmente a java e c#:
+
+* Modificatori di accesso: `private`, `protected` e `public`
+* Classi e Membri statici
+* Interfacce e classi astratte
+* Namespaces
 
 alcune osservazioni:
 
