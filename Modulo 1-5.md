@@ -1,7 +1,7 @@
 Installazione ambiente di sviluppo
 ==================================
 
-Ora vedremo come configurare l'ambiente di sviluppo per moodle. L'installazione effettiva di Moodle e' indicata nel capitolo precedetne, qui ci dedicheremo invece agli strumenti necessari per sviluppare plugin aggiuntivi.
+Ora vedremo come configurare l'ambiente di sviluppo per moodle. L'installazione effettiva di Moodle e' indicata nel capitolo precedente, qui ci dedicheremo invece agli strumenti necessari per sviluppare plugin aggiuntivi.
 
 Questa guida e' per l'installazione in un ambiente windows, ma passaggi analoghi possono essere eseguiti anche su ambienti linux
 
