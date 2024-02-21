@@ -100,7 +100,7 @@ require_once('../../config.php');
 require_login();
 
 $PAGE->set_title(get_string('pluginname', 'enrol_magiclink'));
-$PAGE->set_title(get_string('pluginname', 'enrol_magiclink'));
+$PAGE->set_heading(get_string('pluginname', 'enrol_magiclink'));
 
 ```
 
@@ -219,7 +219,7 @@ require_once('../../config.php');
 require_login();
 
 $PAGE->set_title(get_string('pluginname', 'enrol_magiclink'));
-$PAGE->set_title(get_string('pluginname', 'enrol_magiclink'));
+$PAGE->set_heading(get_string('pluginname', 'enrol_magiclink'));
 $PAGE->set_url(new moodle_url('/enrol/magiclink/helloworld.php'));
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
