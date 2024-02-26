@@ -218,6 +218,10 @@ I **gruppi globali**, o **cohorts** nella versione inglese, sono degli insiemi d
 
 I gruppi globali sono solo di carattere organizzativo, vi sono diverse operazioni, in primis l'iscrizione ad un corso, che puo' essere fatta a tutto un gruppo globale in un unica operazione.
 
+E' possibile fare delle assegnazioni massive di ruoli nel contesto user ai gruppi globali, ma di certo esistono plugins che eseguono anche altre assegnazioni.
+
+I gruppi globali, essendo trans-corso, sono in effetti usati abbastanza spesso per la loro semplicita'.
+
 
 
 
