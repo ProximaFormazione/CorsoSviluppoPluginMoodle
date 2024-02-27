@@ -54,7 +54,7 @@ Condizioni
 
 Il parametro `$conditions` permette di definire delle condizioni per filtrare il risultato (WHERE). Si tratta di un array dove la chiave e' il nome del campo ed il valore e' il valore usato nel filtro.
 
-Tutte le consizioni devono essere verificate contemporaneamente (and)
+Tutte le condizioni devono essere verificate contemporaneamente (and)
 
 ```php
 $user = $DB->get_record('user', ['firstname'  => 'Mario', 'lastname'  => 'Rossi']);
