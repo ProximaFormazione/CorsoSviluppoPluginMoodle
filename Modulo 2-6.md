@@ -17,7 +17,7 @@ Da notare che esistono anche due altri concetti in Moodle che, malgrado il loro 
 Contesti
 ========
 
-Moodle prevede diversi livelli al quale si applicano le autorizzazioni, lo stesso utente puo' ad esempio essere un docente in un corso, ma essere uno studente in un altro, e potrebbe ad esempio anche avere accesso alla reposrtistica del sito.
+Moodle prevede diversi livelli al quale si applicano le autorizzazioni, lo stesso utente puo' ad esempio essere un docente in un corso, ma essere uno studente in un altro, e potrebbe ad esempio anche avere accesso alla reportistica del sito.
 
 Questi livelli vengono definiti **contesti**. Le autorizzazioni saranno possibili e/o avranno effetto a seconda del contesto in cui ci troviamo.
 
