@@ -101,6 +101,8 @@ per le clausole IN(....) esiste il metodo `get_in_or_equal` che restituisce sia 
 
 Si raccomanda di non inserire i parametri delle query direttamente come stringa per evitare attacchi tramite SQL injection
 
+![Esempio, chiaramente reale, di SQL injection](https://imgs.xkcd.com/comics/exploits_of_a_mom.png  "Esempio, chiaramente reale, di SQL injection")
+
 Strictness
 ----------
 
