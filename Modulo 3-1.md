@@ -246,3 +246,5 @@ function(
 
 Questo metodo fa si che il javascript venga inserito nel footer della pagina dopo il caricamento di requirejs.
 
+L'uso del javascript in moodle non e' oggetto di questo corso, documentazione completa la potete trovare [qui](https://moodledev.io/docs/guides/javascript)
+
