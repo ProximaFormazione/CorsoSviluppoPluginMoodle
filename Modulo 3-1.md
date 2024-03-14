@@ -52,7 +52,7 @@ Il renderer e' l'elemento che provvede a fornire l'html della pagina. Richiede c
 
 Storicamente il renderer era responsabile della produzione dell'html tramite uso della classe `html_writer` o simili. La prassi suggerita adesso e' l'utilizzo di un **template** scritto in mustache ([Link](https://mustache.github.io/mustache.5.html)).
 
-Il vantaggio di avere un renderer e' che e' possibile eseguire un override in un tema, permettendo quindi di alterare il meccanismo di presentazione.
+Il vantaggio di avere un renderer e' che e' possibile eseguire un override di un qualsiasi renderer in un tema, permettendo quindi di alterare il meccanismo di presentazione.
 
 un renderer deve ereditare dalla classe `plugin_renderer_base` e fornire i vari metodi per disegnare le pagine del plugin nella forma `render_<page>` dove al posto di page abbiamo un identificativo per il contenuto.
 
@@ -68,18 +68,18 @@ class renderer extends plugin_renderer_base {
     /**
      * Defer to template.
      *
-     * @param index_page $page
+     * @param index_page $renderable
      *
      * @return string html for the page
      */
-    public function render_index_page($page): string {
-        $data = $page->export_for_template($this);
+    public function render_index_page($renderable): string {
+        $data = $renderable->export_for_template($this);
         return parent::render_from_template('nome_plugin/index_page', $data);
     }
 }
 ```
 
-In questo caso il renderer utilizza il `renderable` nella variabile `$page` per farsi dare i dati, e poi usa un template per la visualizzazione. Sarebbe stato alresi' valido.
+In questo caso il renderer utilizza il `renderable` nella variabile `$renderable` per farsi dare i dati, e poi usa un template per la visualizzazione. 
 
 e' possibile omettere il renderer nel processo: avendo un renderable fatto a dovere con il nome della classe identico al nome del template si puo' utilizzare il renderer di default, ovvero `$OUTPUT`.
 
@@ -87,7 +87,7 @@ e' possibile omettere il renderer nel processo: avendo un renderable fatto a dov
 Renderable
 ----------
 
-il Renderable e' semplicemente una classe che contiene i dati necessari per le logiche di visualizzazione, nella sua forma base e' una classe che implementa le interfacce `renderable` e `templatable`, che si porta il metodo `export_for_template`. Quest'ultimo metodo deve restituire un tipo non complesso (ovvero array, stdClass, bool, int, float o string).
+il Renderable e' semplicemente una classe che contiene i dati necessari per le logiche di visualizzazione, nella sua forma base e' una classe che implementa le interfacce `renderable` e `templatable`, che si porta il metodo `export_for_template`. Quest'ultimo metodo deve restituire un tipo non complesso (ovvero array, stdClass, bool, int, float o string) in quanto produce un JSON.
 
 ```php
 <?php
@@ -115,7 +115,7 @@ class index_page implements renderable, templatable {
      */
     public function export_for_template(renderer_base $output): stdClass {
         $data = new stdClass();
-        $data->dati = $this->dati;
+        $data->dati = $this->dati; // qui possiamo eseguire operazioni sui dati necessarie per le logiche di presentazione
         return $data;
     }
 }
@@ -179,9 +179,9 @@ e' possibile avere delle sezioni per le liste di oggetti:
 }
 ```
 
-il testo nella sezione verra' ripetuto per ogni elemento della lista, per false o liste vuote la sezione viene saltata.
+il testo nella sezione verra' ripetuto per ogni elemento della lista, per false o liste vuote la sezione viene saltata. In questo modo e' possibile avere delle sezioni la cui presenza e' condizionale
 
-Moodle ha una serie di metodi helper per il moustache.
+Moodle ha una serie di metodi helper per il moustache, che usano la stessa sintassi delle sezioni.
 
 ### str
 
