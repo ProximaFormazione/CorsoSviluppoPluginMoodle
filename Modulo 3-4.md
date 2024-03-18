@@ -28,8 +28,8 @@ $definitions = [
 
 `'mode'` puo' assumere tre valori:
 
-* `MODE_APPLICATION` e' per le cache applicative, che sono condivise tra tutti gli utenti
-* `MODE_SESSION` e' una cache specifica per una sessione utente
+* `MODE_APPLICATION` e' per le cache applicative, che sono condivise tra tutti gli utenti. Di fatto e' il tipo di cache piu' usato.
+* `MODE_SESSION` e' una cache specifica per una sessione utente. Da notare che di default queste cache sono impostate per essere servite dal database, quindi sono utili solo se la piattaforma e' stata configurata diversamente
 * `MODE_REQUEST` mantenuta in vita solo fino alla fine della attuale richiesta (raramente usata)
 
 il nome per l'utente della cache andra' definito nelle stringhe del linguaggio con una stringa dal nome `cachedef_` + nome cache
@@ -92,6 +92,12 @@ per un uso base delle cahces non serve sapere altro
 
 (NOTA: e' possibile usare una cache senza definirla nel file `db/caches.php` con un metodo ad-hoc, ma siccome la definizione sul file e' semplice, ed evidenzia il fatto che avete una cache nel codice e non definirla non ha particolari vantaggi si tratta di una pratica sconsigliata).
 
+L'implementazione e' abbastanza lineare, rimane allo sviluppatore il compito di decidere come popolare le cache, alcune modalita':
+
+* Inserire le caches in una classe che, laddove il valore non e' presente, provveda a recuperarlo e metterlo in cache. (esiste una configurazione per dare alle cache nativamente tale comportamento)
+* Popolare la cache con un task schedulato che carica valori statici e/o provvede a fare pulizia
+* Popolare la cache in risposta ad un evento di creazione di un entita'.
+
 Configurazione avanzata
 -----------------
 
@@ -135,7 +141,28 @@ Si tratta di una lista di settaggi estensiva. Una descrizione per tutti i parame
 * `canuselocalstore` indica se si puo' utilizzare lo store locale per la cache, lo store locale non e' condiviso in caso di piu' istanze dietro load balancer quindi la cache va implementata con attenzione a questo aspetto
 * `overrideclass` e `overrideclassfile` sono per utilizzare una propria implementazione del metodo factory per la creazione della classe do cache. Inutile dire che e' una feature avanzata, cito la documentazione ufficiale a riguardo : *This is a super advanced feature and should not be done. Ever. Unless you have a very good reason to do so.*
 * `datasource` e `datasourcefile` servono per implementare un meccanismo di caricamento dei dati se viene richiesto una chiave mancante. `datasource` e' la classe da usare, che deve ereditare da `cache_data_source`.
+* `sharingoptions` e `defaultsharing` indicano se la cache e' da condividere con altri siti, di default e' impostato per nessuna condivisione. Chiaramente il plugin ed il caso d'uso devono essere compatibili.
 
 
 Configurazione
 --------------
+
+La configurazione delle caches viene fatta in Plugins > Caching > Configuration. In questa scheramta e' presente tutto cio' che e' neessario per la configurazione delle caches.
+
+La prima tabella presenta la lista dei plugin di store delle cache correntemente installati, con la lista delle loro capacita'. Queste vengono confrontati con i parametri richiesti nel file `db/caches.php` per stabilire quale cache viene fornita ad un plugin dal framework.
+
+La seconda tabella e' la lista delle istanze di cache store configurate al momento sulla piattaforma, ad esempio se abbiamo impostato uno (o piu') server Redis ltroviamo elencato qui, con il numero di plugin correntemente serviti dallo store, e la possibilita di svuotarlo o configurarlo.
+
+La terza, lunghissima, tabella presenta la lista delle cache definite nei plugin, ed e' possibile mappare ciascuna di esse ad uno store specifico. E' inoltre possibile svuotarle singolarmente o decidere il livello di condivisione (con altri siti). Normalmente non e' richiesto ne opportuno indicare manualmente le mappature per tutte le cache, ma potrebbe essere necessario per uno specifico plugin.
+
+La quarta tabella ha le istanze di plugin di lock delle cache, una tipologia di plugin che la stessa documentazione di moodle ammette non essere mai servita a memoria d'uomo.
+
+La quinta tabella e' per indicare lo store di default da utilizzare in assenza di mappature. Se si vmodificare l'impostazione della piattaforma questo generalmente e' il settaggio da impostare.
+
+La configurazione corretta delle cache e' sicuramente un argomento complesso, per motivi trasversali ad altre tecnologie. E' necessario prestare attenzione e pianificare questo aspetto laddove necessario. Alcuni punti chiave:
+
+* per un installazione su una singola macchina modificare le impostazioni di default non e' necessario ne porta grandi benefici. In tali condizione e' invece opportuno ragionare sulla tipologia di hardware, in primis il tipo di hard disk usato (HDD o SSD)
+* e' opportuno avere una certa dimestichezza con il provider usato se diverso da quello standard
+* e' importante avere metriche di test per verificare l'efficacia delle caches, ad esempio usando JMeter
+* Le caches locali vanno abilitate nel file `config.php`, si tratta di cache usate in instalazioni con piu' macchine per quei dati che possono essere salvati in locale (duplicati su ogni macchina). In tali installazioni e' assolutamente sconsigliato usare un drive di rete condiviso per le caches
+
