@@ -41,9 +41,9 @@ defined('MOODLE_INTERNAL') || die();
 
 $functions = [
     // Nome tecnico dell'endpoint.
-    'enrrol_magiclink_create_link' => [
+    'enrol_magiclink_create_link' => [
         / Il nome della classe (con namespace) con il codice
-        'classname'   => 'enrrol_magiclink\external\create_link',
+        'classname'   => 'enrol_magiclink\external\create_link',
 
         // Una breve descrizione per l'utente di cosa fa il servizio
         'description' => 'Crea un nuovo link',
@@ -76,7 +76,7 @@ La classe con il servizio andra' definita correttamente nella posizione indicata
 - deve essere nel sottonamespace `external` del plugin
 - deve essere messa in un file nella cartella `/classes/external`
 
-Ad esempio, per la funzione di sopra `enrrol_magiclink_create_link` creeremo una classe chiamata `enrrol_magiclink\external\create_link` nel file `enrol/magiclink/classes/external/create_link.php`
+Ad esempio, per la funzione di sopra `enrol_magiclink_create_link` creeremo una classe chiamata `enrol_magiclink\external\create_link` nel file `enrol/magiclink/classes/external/create_link.php`
 
 La classe in questione deve soddisfare alcune caratteristiche:
 

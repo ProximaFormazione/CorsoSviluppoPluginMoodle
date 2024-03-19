@@ -28,7 +28,7 @@ Generalmente, un unit test si compone di tre fasi:
 
 Esistono diversi framework per gli Unit test. Nel PHP Moodle utilizza PHPUnit([link](https://docs.phpunit.de/en/9.6/)).
 
-Gli Unit test da definizione dovrebbero occuparsi di testare la minima unita' di codice possibile, ma per fare cio' e' necessario che l'architettura sia compatibile (ad esempio implementando un meccanismo di inversione delle dipendenze). Moodle non e' strutturato per aderire perfettamente a tale standard, per cui propiamente non sempre i test che si creano sono definibili come "unit test". (spesso sono piu' propiamente integration test) 
+Gli Unit test da definizione dovrebbero occuparsi di testare la minima unita' di codice possibile, ma per fare cio' e' necessario che l'architettura sia compatibile (ad esempio implementando un meccanismo di inversione del controllo). Moodle non e' strutturato per aderire perfettamente a tali standard, per cui propiamente non sempre i test che si creano sono definibili come "unit test". (spesso sono piu' propiamente integration test) 
 
 Le best practice e la teoria dei test automatici del codice non e' argomento di questo corso. Nel resto di questo modulo per "Unit test" si puo' intendere grossolanamente "Test automatico".
 
@@ -60,7 +60,7 @@ Inizializzazione ambiente di test
 
 [Documentazione ufficiale](https://moodledev.io/general/development/tools/phpunit)
 
-Il framework di test di moodle richiede l'inizializzazione di tabelle e dati, di fatto installa una replica del sito che viene utilizzata in fase di test. Tale replica viene poi reinizializzata dal framework per garantire che sia sempre identica ad ogni run deio test.
+Il framework di test di moodle richiede l'inizializzazione di tabelle e dati, di fatto installa una replica del sito che viene utilizzata in fase di test. Tale replica viene poi reinizializzata dal framework per garantire che sia sempre identica ad ogni run dei test.
 
 Prima dell'installazione bisogna aggiungere delle informazioni al config.php
 
@@ -69,7 +69,7 @@ $CFG->phpunit_prefix = 'phpu_';
 $CFG->phpunit_dataroot = '/home/example/phpu_moodledata';
 ```
 
-Si tratta delle stesse informazioni della piattaforma principale, il prefisso e' per le tabelle del DB e la dataroot e' una seconda cartella dati. E' possibile anche definire un database separato
+Si tratta delle stesse informazioni della piattaforma principale, il prefisso e' per le tabelle del DB e la dataroot e' una seconda cartella dati. Opzionalmente e' possibile anche definire un database separato
 
 ```php
 $CFG->phpunit_dbtype    = 'pgsql'; 
