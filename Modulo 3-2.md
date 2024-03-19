@@ -42,7 +42,7 @@ defined('MOODLE_INTERNAL') || die();
 $functions = [
     // Nome tecnico dell'endpoint.
     'enrol_magiclink_create_link' => [
-        / Il nome della classe (con namespace) con il codice
+        // Il nome della classe (con namespace) con il codice
         'classname'   => 'enrol_magiclink\external\create_link',
 
         // Una breve descrizione per l'utente di cosa fa il servizio
