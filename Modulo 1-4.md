@@ -316,6 +316,8 @@ Una volta abilitata l'api, dovete schedulare la chiamata su una vostra macchina,
 
 Si tratta di una chiamata in get con la password in chiaro, quindi evitate di usare una password che un idiota userebbe per la sua valigia.
 
+![Attenzion a non scegliere password semplici](https://i.imgflip.com/3jcn63.png)
+
 Impostazioni utili
 ==================
 

@@ -11,6 +11,8 @@ Unico requisito di sistema per funzionare e' un web server che supporti il php e
 
 Moodle e' una piattaforma LMS (Learning management system) che permette agli utenti di partecipare in "Corsi" nelle quali partecipano ad una serie di "Attivita'" preparate dal creatore del corso, idealmente imparando qualcosa nel processo.
 
+![Esempio corso](https://docs.moodle.org/403/en/images_en/b/bb/Boost40course.png)
+
 Essendo un progetto open source esistente da oltre 20 anni vi e' un'ampia comunita' di utilizzatori e contributori online, e sono disponibili ampie documentazioni online.
 
 Moodle e' progettato specificatamente per essere esteso tramite l'installazione di plugins. Nel corso degli anni diversi plugin popolari sono stati inclusi nell'installazione base di moodle. Questo causa anche una certa differenza di stili e strategie nel codice.
@@ -25,6 +27,8 @@ Vediamo un esempio di corso online, collegandoci al seguente url abbiamo il mate
 Da notare che in questo caso e' necessaria una login per accedere, il che e' preferibile laddove si vuole identificare l'attivita' dello studente, ma e' possibile fare accedere gli utenti in maniera anonima se richiesto. Chiaramente il corso in questo caso deve essere "stateless"
 
 Qui possiamo vedere la struttura di un corso: lo studente si trova all'interno una serie di **Attivita** eventualmente divisi in gruppi/argomenti. Le attivita' possono essere le piu' disparate e vanno da semplici blocchi di testo, a contenuti quali video, audio o pacchetti SCORM; fino a plugin con comportamenti complessi come ad esempio questionari o scaricamento attestati o qualsiasi altra cosa.
+
+![Lista attivita'](https://docs.moodle.org/403/en/images_en/c/cc/actchooser4%2B.png)
 
 L'accesso alle attivita' puo' essere libero o determinato da condizioni di vario tipo. Ad esempio richiedendo il completamento dell'attivita' precedente. Il completamento dell'attivita' e' anch'esso configurabile nei limiti dell'attivita' stessa. Ad esempio considerando l'attivita' completata al primo accesso, o per i test richiedendo il completamento con un certo voto e cosi' via...
 
