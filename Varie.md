@@ -471,6 +471,19 @@ XHProf
 
 Si tratta di un estensione per eseguire la profilazione delle risorse usate dal php a livello di singole funzioni. Vi e' un'alternativa chiamata tideways ([link](https://tideways.com/profiler/features)) a pagamento con sorgenti open source.
 
+Moosh
+-----
+
+[link](https://moosh-online.com/)
+
+Moosh e' un tool di amministrazione di moodle a linea di comando, va installato a parte sul server dove avete la piattaforma. Ha una serie di comandi utili che eseguono operazioni a volte non accessibili altrove. Ad esempio il comando
+
+```
+moosh delete-missingplugins
+```
+
+Elimina tutti i riferimenti a plugin la cui cartella non e' piu' presente su disco (ovvero non sono stati disinstallati correttamente)
+
 Ambiente demo
 -------------
 
