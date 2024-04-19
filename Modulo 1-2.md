@@ -208,12 +208,14 @@ Un plugin notabile, e preinstallato, e' **File System**, che permette di designa
 lang
 ----
 
-la cartella **lang** contiene le stringhe del language pack che vengono modificae manualmente dagli utenti autorizzati a farlo. la carrella ha una struttura similare a quella nella cartella del sito
+la cartella **lang** contiene le stringhe del language pack che vengono modificate manualmente dagli utenti autorizzati a farlo. la carrella ha una struttura similare a quella nella cartella del sito
 
 Altre cartelle
 --------------
 
 Altre cartelle utilizzate dalla piattaforma includono le cartelle **temp**, **trashdir**, **lock**. Queste cartelle possono essere escluse dai backup (eccetto trashdir) e dal controllo di versione se usato nella cartella moodledata (in tal caso escludere anche cache e sessions ).
+
+I files in temp e trashdir vengono regolarmente cancellati da moodle in base ad impostazioni sul sito.
 
 
 

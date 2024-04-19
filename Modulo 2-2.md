@@ -45,7 +45,7 @@ nel resto della guida indicheremo questo prefisso con `tipo_nome`
 Files e cartelle richieste
 ==========================
 
-tutti i files di un plugin sono contenuti in una cartella con il nome del plugin stesso, la qualve va sistemata nella cartella corrispondente al tipo di plugin (quindi il plugin di iscrizione "self" andra' al percorso `/enrol/self`).
+tutti i files di un plugin sono contenuti in una cartella con il nome del plugin stesso, la quale va sistemata nella cartella corrispondente al tipo di plugin (quindi il plugin di iscrizione "self" andra' al percorso `/enrol/self`).
 
 All'interno della cartella devono poi essere presenti alcuni files necessari. 
 
@@ -62,8 +62,15 @@ Inoltre, generalmente vi serviranno anche:
 * Un file per definire i tipi di permessi possibili `db/access.php`
 * Un file `lib.php` che contiene funzioni particolari richieste o volute per collegarsi a specifici sistemi di moodle
 * Un file per definire come aggiornare il database tra due versioni del plugin, se richiesto `db/upgrade.php`
-* Un file che definisce come il vostro plugin consuma gli eventi di moodle `db/events.php`
 * altri files a seconda della tipologia di plugin
+
+Inoltre varie funzionalita' di moodle richiederanno di censire degli appositi array in files specifici, ad esempio:
+
+* consumare gli eventi di moodle: `db/events.php`
+* operazioni schedulate: `db/tasks.php`
+* web services: `db/events.php`
+* caches: `db/caches.php`
+
 
 Sviluppo di primo plugin
 ========================

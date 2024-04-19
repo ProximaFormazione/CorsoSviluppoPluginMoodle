@@ -45,7 +45,7 @@ A dicembre 2023 e' terminato il supporto per le ultime versioni 3 (ovvero la 3.9
 
 moodle non prevede un meccanismo integrato per la gestione degli aggiornamenti, si richiede quindi l'utilizzo di una procedura accorta da parte del gestore del sito (si raccomanda CALDAMENTE l'uso del Git per questo)
 
-In ambiente windows e' disponibile un pacchetto di installazione di uno stack LAMP semplificato nel pacchetto [XAMPP](https://www.apachefriends.org/it/index.html), tuttavia sara' comunque richiesto un certo grado di configurazione manuale
+In ambiente windows e' disponibile un pacchetto di installazione di uno stack LAMP semplificato nel pacchetto [XAMPP](https://www.apachefriends.org/it/index.html), tuttavia sara' comunque richiesto un certo grado di configurazione manuale, inoltre il lato MariaDb di XAMPP e' notoriamente capriccioso, per cui si raccomanda di utilizzare invece un database installato separatamente (come mariaDb stesso, che si installa facilmente su Windows con un installer)
 
 database
 --------
