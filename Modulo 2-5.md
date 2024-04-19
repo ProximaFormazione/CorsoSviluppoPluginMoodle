@@ -3,7 +3,7 @@ Gestire l'input utente
 
 Nel PHP per recuperare parametri dalla richiesta http si possono usare le variabili superglobali come `$_GET` o `$_POST`, tuttavia in moodle e' presente una serie di metodi per semplificare e garantire la sicurezza, per cui e' sconsigliato richiamare i superglobali.
 
-Ricordate che questi parametri possono essere creati a piacimento in una richiesta http ad hoc ad opera di untenti malintenzionati, per cui garantire la sicurezza degli input e' un dovere a carico dello sviluppatore.
+Ricordate che questi parametri possono essere creati a piacimento in una richiesta http ad hoc ad opera di utenti malintenzionati, per cui garantire la sicurezza degli input e' un dovere a carico dello sviluppatore.
 
 Essendo una soluzione open source, in moodle vi e' una grande attenzione all'aspetto sicurezza, ed eventuali falle sono impedite. 
 

@@ -3,7 +3,7 @@ Utilizzo database
 
 Finora abbiamo utilizzato plugin stateless, ma nella maggior parte dei casi e' necessario far persistere dei dati su una qualche forma di database.
 
-Avere una struttura modulare, dove i plugin possono essere installati ed aggiornati, comporta una serie di complessita' nella gestione dello schema, che fortunatemente sono gestite in moodle in maniera sistematica.
+Avere una struttura modulare, dove i plugin possono essere installati ed aggiornati, comporta una serie di complessita' nella gestione dello schema, che fortunatamente sono gestite in moodle in maniera sistematica.
 
 Vediamo in questo capitolo le basi di quanto serve per utilizzare il database nei plugin in moodle.
 
@@ -174,7 +174,7 @@ $DB->execute($update_sql, ['value' => $value, 'cmid' => $cmid, 'facilitafield' =
 Transazioni
 -----------
 
-`$DB` possiede delle API per la gestione delel transazioni, che quindi non vanno gestite direttamente nel SQL.
+`$DB` possiede delle API per la gestione delle transazioni, che quindi non vanno gestite direttamente nel SQL.
 
 ```php
 try {

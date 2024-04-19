@@ -66,7 +66,7 @@ I ruoli vanno sempre letti assieme al contesto: un utente puo' avere ruoli diver
 
 Un concetto molto importante da tenere a mente e' che i ruoli sono **interamente customizzabili dall'utente** e che quindi non si ha nessuna garanzia che un particolare ruolo sia definito, per cui nel codice noi i ruoli non li useremo mai per verificare un'autorizzazione, ma useremo invece le capacita' (vedi sotto).
 
-Per esempio: su moodle core sono preimpostati ruoli come *studente*, *docente*, *manager*, eccetera, ma un utente potrebbe rimuovere tali ruoli, inserire un nuovo ruolo "supervisore", o passare ad un sustema completamente diverso con ruoli tipo *amministratore delegato* ,*direttore*, *responsabile di ufficio*, *dipendente*, ecc.
+Per esempio: su moodle core sono preimpostati ruoli come *studente*, *docente*, *manager*, eccetera, ma un utente potrebbe rimuovere tali ruoli, inserire un nuovo ruolo "supervisore", o passare ad un sistema completamente diverso con ruoli tipo *amministratore delegato* ,*direttore*, *responsabile di ufficio*, *dipendente*, ecc.
 
 I ruoli vengono definiti nel menu' di amministrazione Utenti -> Autorizzazioni. Nel menu' di amministrazione del sito e' poi possibile assegnare utenti a ruoli nel contesto di sistema, mentre per gli altri contesti bisogna andare nelle configurazioni specifiche di quell'oggetto (es: settaggi del corso).
 
@@ -77,7 +77,7 @@ Siccome i ruoli in se non sono fissi in moodle, esiste il concetto di **archetip
 
 Il caso d'uso principale e' il settaggio delle autorizzazioni di default di un plugin installato: se non potessimo assegnarle costringeremmo l'utente ad eseguire manualmente tutte le autorizzazioni nel momento in cui installa il plugin.
 
-Moodle definisce quindi questi archetipi, al quale appartengono i ruoli. In fase di assegnazione delle autorizzazioni di defult noi assegnamo tutto agli archetipi, e poi le autorizzazioni andranno al ruolo corrispondente.
+Moodle definisce quindi questi archetipi, al quale appartengono i ruoli. In fase di assegnazione delle autorizzazioni di defult noi assegniamo tutto agli archetipi, e poi le autorizzazioni andranno al ruolo corrispondente.
 
 Di fatto i ruoli di default alla prima installazione di moodle corrispondono agli archetipi, e nella maggior parte delle installazioni non vi e' bisogno di ritoccare i ruoli cosicche' ruoli ed archetipi sono esattamente sovrapponibili.
 
@@ -92,7 +92,7 @@ Gli archetipi sono:
 * `user`
 * `frontpage`
 
-Che corrispondono ai gruppi
+Che corrispondono ai ruoli
 
 * **Manager** I manager possono accedere ai corsi e modificarli ma in  genere non vi partecipano.
 * **Creatore di corsi** I creatori di corsi possono creare nuovi  corsi.
@@ -165,7 +165,7 @@ le caratteristiche da attribuire alle capacita' sono:
 * `RISK_XSS` Se da possibilita' di fornire input non sanificato
 * `RISK_CONFIG` Se puo' modificare configurazioni globali
 * `RISK_MANAGETRUST` Se puo' modificare i permessi degli utenti
-* `RISK_DATALOSS` Se puo' causare, intenzionalmente o per errore, perdite di dati non facilmente recuoperabili
+* `RISK_DATALOSS` Se puo' causare, intenzionalmente o per errore, perdite di dati non facilmente recuperabili
 
 Moodle consiglia di non dare ad utenti guest capacita' con rischi associati, agli studenti al massimo dare capacita' con RISK_SPAM, ed ai docenti dare anche al massimo RISK_PERSONAL e RISK_XSS.
 
