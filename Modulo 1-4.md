@@ -227,13 +227,13 @@ per iniziare clonate il repository ufficiale di moodle:
 
 * cd `/var/www/html/develop` per NGINX, oppure altra location in base al vostro web server 
 
-* `git clone git://git.moodle.org/moodle.git`
-* `git config --global --add safe.directory /var/www/html/develop/moodle` se richiesto dall'OS
+* `git clone git://git.moodle.org/moodle.git .`
+* `git config --global --add safe.directory /var/www/html/develop` se richiesto dall'OS
 
 Bisogna poi assegnare i diritti corretti alla cartella 
 
 * `sudo chown -R www-data:www-data /var/www/html/develop/` 
-* `sudo chmod -R 777 /var/www/html/moodle/` o anche 755 per essere piu' stringenti
+* `sudo chmod -R 777 /var/www/html/develop/` o anche 755 per essere piu' stringenti
 
 i branch sul repository ufficiale hanno una nomenclatura basata sul numero di versione usato, quindi per la 4.1 cercheremo i branch con scritto 401
 
