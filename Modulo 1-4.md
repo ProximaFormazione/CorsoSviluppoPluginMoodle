@@ -5,7 +5,9 @@ In questo modulo eseguiremo l'installazione di un ambiente di sviluppo utilizzat
 
 Da notare che per lo sviluppo e' caldamente consigliato installare lo stack su un computer locale dove si ha accesso ad un IDE con capacita' di debug. Il rilascio su macchine di test o produzione puo' essere eseguito in fasi successive.
 
-Una guida ufficiale con altre casistiche e' disponibile al seguente [link](https://docs.moodle.org/403/en/Installing_Moodle)
+Una guida ufficiale con altre casistiche e' disponibile al seguente [link](https://docs.moodle.org/403/en/Installing_Moodle).
+
+E' chiaramente possibile installare un'immagine con un container gia' preconfigurato, vedi ad esempio il [Docker Hub ufficiale di moodle](https://hub.docker.com/r/moodlehq/moodleapp/tags). Tuttavia in questo corso verra' eseguita invece l'installazione manualmente in modo da prendere dimestichezza con i vari elementi e saper risolvere eventuali problemi
 
 Installazione tecnologie necessarie
 ===================================
@@ -35,7 +37,7 @@ Linux
 
 Qui seguiremo una procedura di installazione su macchina vergine.
 
-La procedura e' copiata da quelle utilizzate generalmente su Ubuntu
+La procedura e' copiata da quelle utilizzate generalmente su Ubuntu, ovviamente non e' necessariamente il migliore modo di configurare un server allo scopo ma e' utile a livello esemplificativo
 
 ### Preliminari
 
@@ -151,11 +153,6 @@ creare il file `/etc/nginx/sites-available/moodle` ed inserire il seguente incan
        location / {
        try_files $uri $uri/ =404;        
        }
- 
-       location /dataroot/ {
-       internal;
-       alias /var/www/html/moodledata/;
-       }
 
        location ~ [^/]\.php(/|$) {
            include snippets/fastcgi-php.conf;
@@ -205,7 +202,7 @@ Nel resto della guida questa cartella verra' chiamata **moodledata**, ma voi sia
 
 1. `sudo mkdir /var/moodledata` per creare la cartella
 2. `sudo chown -R www-data /var/moodledata` per assegnare la propieta' della cartella all'utente NGINX
-3. `sudo chmod -R 0777 /var/moodledata` per dare pieni diritti, valutare se usare invece `0770` per limitare altri utenti del server
+3. `sudo chmod -R 0777 /var/moodledata` per dare pieni diritti, valutare se necessario usare invece `0770` per limitare altri utenti del server
 
 Cartella Moodle
 ---------------
@@ -217,7 +214,7 @@ Chiaramente in quanto sviluppatori avrete necessita' di tracciare eventuali modi
 Non e' presente in moodle un sistema di aggiornamento automatico, i files vanno scaricati nuovi per ogni versione. 
 
 Sebbene si possa caricare i files a manina, tutti i vari plugin aggiuntivi o personalizzazioni al codice andrebbero riportate sulla nuova versione.
-Quando si inizia a gestire un certo numero di piattaforme diventa difficile tenere traccia di tutte le modifiche fatte e si rischia di lasciare indeitro qualcosa.
+Quando si inizia a gestire un certo numero di piattaforme diventa difficile tenere traccia di tutte le modifiche fatte e si rischia di lasciare indietro qualcosa.
 
 Utilizzare il git permette di tenere traccia delle personalizzazioni ed eseguire l'aggiornamento alla versione piu' recente (minor) semplicemente eseguendo un `git merge`.
 
@@ -269,7 +266,7 @@ Moodle ha robusto sistema per verificare che il database sia aggiornato alla ver
 
 Questo secondo processo esegue le operazioni sul database per aggiungere effettivamente le tabelle, quindi da un certo punto di vista e' la vera installazione.
 
-La procedura parte automaticamente se si logga un utente amministratore al sito, e pre prima cosegue un controllo sui requisiti prima di procedere, con una maschera riassuntiva con tutti i problemi ed i warning del caso.
+La procedura parte automaticamente se si logga un utente amministratore al sito, e pre prima cosa esegue un controllo sui requisiti prima di procedere, con una maschera riassuntiva con tutti i problemi ed i warning del caso.
 
 Segue poi una maschera con il riassunto dei plugin che verranno installati ed aggiornati. Per la prima installazione sara' una lista oscenamente lunga in quanto include tutti i plugin nel pacchetto di moodle base.
 
@@ -294,6 +291,8 @@ Su una macchina linux e' sufficiente utilizzare il cron di linux, modificatelo c
 
 > */1 * * * * /usr/bin/php /var/www/html/moodle/admin/cli/cron.php >/dev/null
 
+Non vi e' necessita' di conservare i log dei cron, anche perche' questi sono comunque conservati per i task schedulati ed altri eventi dal meccanismo di log interno di moodle, e salvare queste informazioni puo' occupare spazio inutilmente 
+
 ### Su Windows
 
 Su windows e' presente un tool adatto allo scopo
@@ -306,7 +305,7 @@ Su windows e' presente un tool adatto allo scopo
 
 Se non si ha accesso alla macchina dove e' installato moodle, esiste un opzione per lanciare il cron di moodle via una chiamata ad una url specifica.
 
-E' un'opzione sconsigliata per la sua scarsa sicurezza, ma in certe installazioni non vi e' altra scelta.
+E' un'opzione sconsigliata per motivi di sicurezza, ma in certe installazioni non vi e' altra scelta. 
 
 Di default questa opzione e' disattivata, e' necessario abilitarla all'interno del sito in *Sicurezza -> Impostazioni di sicurezza del sito -> Esecuzione cron solamente a linea di comando* , dove e' necessario impostare la password per l'api.
 

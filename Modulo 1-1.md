@@ -39,13 +39,16 @@ La struttura dei corsi e' molto versatile: Oltre all'uso della piattaforma per l
 Tecnologie
 ==========
 
-Moodle e' una piattaforma scritta in PHP, vi sono diverse versioni disponibili. attualmente siamo alla versione 4.3 . e' possibile usare versioni piu' vecchie e, siccome fare l'upgrade di una versione major  non e' banale (es da 4.1 a 4.2) generalmente si trovano diverse piattaforme in essere con versioni piu' vecchie.
+Moodle e' una piattaforma scritta in PHP, vi sono diverse versioni disponibili. attualmente siamo alla versione 4.5 . e' possibile usare versioni piu' vecchie e, siccome fare l'upgrade di una versione major  non e' banale (es da 4.1 a 4.2) generalmente si trovano diverse piattaforme in essere con versioni piu' vecchie.
 
-A dicembre 2023 e' terminato il supporto per le ultime versioni 3 (ovvero la 3.9 e la 3.11) cosi' come per la versione 4.0. La versione 4.1 e' considerata una versione LTS ed attualmente si progetta di mantenerla fino a dicembre 2025.
+A dicembre 2023 e' terminato il supporto per le ultime versioni 3 (ovvero la 3.9 e la 3.11) cosi' come per la versione 4.0. La versione 4.1 e' considerata una versione LTS ed attualmente si progetta di mantenerla fino a dicembre 2025, mentre l'ultima verione LTS e' la 4.5.
+
+La prossima versione, prevista per il 2025 e' la 5.0. Da questa versione la logica della numerazione cambia e vi saranno passaggi di serie (es da moodle 4 a moodle 5) ogni due anni, con l'ultima major release pensata per essere una release LTS
 
 moodle non prevede un meccanismo integrato per la gestione degli aggiornamenti, si richiede quindi l'utilizzo di una procedura accorta da parte del gestore del sito (si raccomanda CALDAMENTE l'uso del Git per questo)
 
-In ambiente windows e' disponibile un pacchetto di installazione di uno stack LAMP semplificato nel pacchetto [XAMPP](https://www.apachefriends.org/it/index.html), tuttavia sara' comunque richiesto un certo grado di configurazione manuale, inoltre il lato MariaDb di XAMPP e' notoriamente capriccioso, per cui si raccomanda di utilizzare invece un database installato separatamente (come mariaDb stesso, che si installa facilmente su Windows con un installer)
+
+In ambiente windows, se si vuole procedere nativamente in maniera semplice, e' disponibile un pacchetto di installazione di uno stack LAMP semplificato nel pacchetto [XAMPP](https://www.apachefriends.org/it/index.html), tuttavia sara' comunque richiesto un certo grado di configurazione manuale, inoltre il lato MariaDb di XAMPP e' notoriamente capriccioso, per cui si raccomanda di utilizzare invece un database installato separatamente (come mariaDb stesso, che si installa facilmente su Windows con un installer)
 
 database
 --------
@@ -66,7 +69,7 @@ PHP
 
 [Documentazione Ufficiale](https://docs.moodle.org/403/en/PHP)
 
-La versione di PHP supportata dipende dalla versione major utilizzata. dalla versione di moodle 4.2 si richiede almeno PHP 8.  altrimenti 7.4 va bene
+La versione di PHP supportata dipende dalla versione major utilizzata. dalla versione di moodle 4.5 si richiede almeno PHP 8.1 
 
 Ci sono alcuni parametri consigliati per il PHP.
 
@@ -86,7 +89,7 @@ Si consiglia di impostare la lingua in italiano in tutti i punti che lo permetto
 Web server
 ----------
 
-Qualsiasi web server in grado di far girare il PHP e' in grado di fare funzionare moodle. In questa guida utilizzeremo NGINX, ma e' possibile configurare facilmente anche Apache o IIS in tal senso.
+Qualsiasi web server in grado di far girare il PHP e' in grado di fare funzionare moodle. In questa guida utilizzeremo NGINX, ma e' possibile configurar anche Apache o IIS in tal senso.
 
 Bisogna avere premura a configurare i limiti di caricamento dei files almeno allo stesso livello impostato nel PHP, generalmente il default sara' piu' basso dei requisiti per un LMS. Altresi' sara' necessario configurare eventuali altri elementi dell'infrastruttura (es: interfaccia ingress su Kubernetes) in tal senso.
 

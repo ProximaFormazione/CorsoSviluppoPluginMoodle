@@ -94,7 +94,7 @@ Funzioni utili
 Stringhe
 -------
 
-le stringhe possono essere delimitate sia da `"  "` che da `'  '`. Con le virgolette doppie vengono considerati caratteri speciali mentre con quelle singole no. L'operatore per la concatenazione di stringhe e' il punto `.`.
+le stringhe possono essere delimitate sia da `"  "` che da `'  '`. Con le virgolette doppie vengono considerati i caratteri speciali mentre con quelle singole no. L'operatore per la concatenazione di stringhe e' il punto `.`.
 
 ```
 $nome = "Mario";

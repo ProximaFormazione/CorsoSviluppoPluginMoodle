@@ -26,7 +26,7 @@ Installare lo stack LAMP
 
 Se non lo si ha gia' fatto, procedere ad installare un web server, un database, e soprattutto il PHP necessari per moodle.
 
-Su Windows consiglio di utilizzare XAMPP 
+Su Windows, a meno di non avere gia' il PHP funzionante, consiglio di utilizzare XAMPP 
 
 > https://www.apachefriends.org/
 
@@ -84,7 +84,7 @@ Una volta che avete installato VSCode, dovrete poi installare una serie di esten
 * [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client) per avere alcune funzionalita' di intellisense
 * [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) per collegarsi all'estensioe xDebug del PHP (debugger PHP)
 
-Sono poi presenti diverse estensioni con snippet gia' pronti come [Moodle Pack](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-moodle-snippets) (il piu' usato) e [MDLCode](https://marketplace.visualstudio.com/items?itemName=LMSCloud.mdlcode) (potente, ma con versione a pagamento)
+Sono poi presenti diverse estensioni con snippet gia' pronti come [Moodle Pack](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-moodle-snippets) e [MDLCode](https://marketplace.visualstudio.com/items?itemName=LMSCloud.mdlcode) (potente, ma a pagamento)
 
 Debug
 -----
