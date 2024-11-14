@@ -49,7 +49,7 @@ $ `sudo apt-get install language-pack-it`
 
 $ `sudo apt install mariadb-server mariadb-client`
 
-attenzione alla versione utilizzata: serve almeno la versione 10.4, se vi ritrovate con una versione antecedente assicuratevi di accedere al repository apt corretto (selezionate [qui](https://mariadb.org/download/?t=repo-config) la versione richiesta).
+attenzione alla versione utilizzata: serve almeno la versione 10.6, se vi ritrovate con una versione antecedente assicuratevi di accedere al repository apt corretto (selezionate [qui](https://mariadb.org/download/?t=repo-config) la versione richiesta).
 
 Si consiglia di procedere con lo script preimpostato per la rimozione degli elementi di default che vengono installati, con il comando
 $ `sudo mysql_secure_installation` e selezionando le opzioni richieste (Y a tutto). Questo e' un buon momento per **SALVARE LA PASSWORD DI ROOT DEL DATABASE** che avete appena scelto nelle modalita' a voi preferite per evitarvi di penare in futuro.
