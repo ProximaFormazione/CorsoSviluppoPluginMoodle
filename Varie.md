@@ -493,49 +493,7 @@ E' possibile loggarsi con vari ruoli (amministratore, docente, studente, ecc). L
 
 ------------------
  
-Analitica
-=========
 
-[Documentazione ufficiale](https://moodledev.io/docs/apis/subsystems/analytics)
-
-Moodle ha integrato un meccanismo di analisi dati basato sul machine learning, che puo' essere utilizzato su dataset creati a partire da dati di qualsiasi tabella del database.
-
-Un esempio puo' essere il modello preimpostato che prevede la probabilita' che uno studente abbandoni un particolare corso.
-
-L'utilizzo del sistema di analitica richiede una minima conoscenza relativa al machine learning: la documentazione a riguardo e' ben fatta ed introduce quello che e' necessario sapere, ma verificare la bonta' di un modello richiede di sapere come muoversi. 
-
-Sono implementati in moodle core sono modelli basati sulla classificazione binaria, ma sono presenti interfacce per implementare algoritmi di classificazione con piu' categorie ed algoritmi di regressione.
-
-Moodle utilizza le seguenti terminologie:
-
-* i **Target**s sono le label, ovvero i vaolri che vogliamo prevedere
-* gli **Indicator**s sono le features normalizzate, ovvero i dati usati per eseguire la predizione
-* gli **Analyser**s sono i preprocessori delle labels, ovvero raccolgono i dati grezzi e li preparano per l'analisi o il training dei modelli
-* gli **Intervalli di analisi** stabiliscono gli intervalli temporali da utilizzare per le analisi, ad esempio per un modello sui corsi andranno definiti intervalli basati sulle dati dei corsi
-* i **Backend di machine learning** sono le implementazioni degli algoritmi di ML
-* gli **Insights** sono notifiche generate dai vari processi di ML 
-
-![Schema funzionamento](https://moodledev.io/assets/images/Inspire_API_components-e456d58a4230fca6d50f7450ceeb6ae2.png)
-
-l'affinamento dei modelli e la loro esecuzione e' gestita dai task schedulati `\tool_analytics\task\predict_models` e `\tool_analytics\task\train_models`
-
-Per utilizzare all'interno del nostro plugin dobbiamo definire i vari elementi utilizzando nomenclature e prassi corrette, vedi la documentazione per i dettagli
-
-Backend ML
-----------
-
-[Documentazione ufficiale](https://moodledev.io/docs/apis/plugintypes/mlbackend)
-
-I modelli di ML utilizzati in moodle sono definiti dai plugin di classe `mlbackend`.
-
-L'implementazione di tali plugin richiede l'utilizzo di una o entrambe le interfacce `classifier` per gli algoritmi di classificazione e `regressor` per gli algoritmi di regressione.
-
-Di base in moodle sono disponibili due plugin di questo tipo: 
-
-* un backend PHP, utilizzabile out of the box, che usa la regressione logistica
-* un backend Python che usa una rete neurale basata sulla libreria [tensorflow](https://www.tensorflow.org/). Questo plugin richiede python installato sulla macchina (raccomandato 3.7) ed utilizza un [package](https://pypi.org/project/moodlemlbackend/0.0.5/) propietario di moodle
-
-------------------
 
 Features non incluse in moodle 4.1
 ==================================
