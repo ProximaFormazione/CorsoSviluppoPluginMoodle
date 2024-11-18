@@ -9,13 +9,17 @@ In Moodle esistono due meccanismi che possono essere definite di "intelligenza a
 Implementazioni servizi terzi
 =============================
 
-Moodle prevede la possibilita' di usare modelli di "intelligenza artificiale generativa" esterni per i seguenti task:
+A partire da moodle 4.5, Moodle prevede la possibilita' di usare modelli di "intelligenza artificiale generativa" esterni per i seguenti task:
 
 - Generazione di testo
 - Generazione di immagini
 - Riassunto di testi
 
 In Moodle base sono previsti collegamenti con OpenAI e Azure AI, questi vanno abilitati in Amministrazione del sito -> IA -> Provider IA.
+
+E' possibile editare quali azioni il provider fornisce, ed editare eventuali configurazioni, che per la generazione di test includono gli elementi aggiunti al prompt vero e proprio dell'utente.
+
+In questa guida non ci soffermeremo su come utilizzare al meglio un modello LLM, ma semplicemente come inserirlo in Moodle
 
 Successivamente bisogna abilitare le varie funzionalita' in Amministrazione del sito -> IA -> Posizionamento IA.
 
@@ -34,9 +38,31 @@ Come i lettori piu' attenti potranno immaginare, queste sono una nuova tipologia
 
 I **Provider** di servizi IA sono i plugin `aiprovider` e permettono il collegamento con API, o comunque producono i risultati dei prompt utente
 
-I **Piazzamenti** di servizi IA sono i plugin `Placements` e determinano come l'utente richiede il prompt e come ottiene il risultato
+I **Piazzamenti** di servizi IA sono i plugin `Placements` e determinano dove e come l'utente richiede il prompt e come ottiene il risultato
 
-TODO: Entrare nelle specifiche dei plugins, e valutare come fa il riassuntore ad infilarsi nelle pagine (e' un'implementazione core?)
+La documentazione e' abbastanza scarna in quanto la feature e' nella sua fase iniziale di rilascio. Indubbiamente nei mesi futuri vedremo notevoli sviluppi di plugin e provider aggiuntivi (18/11/2024).
+
+### Provider
+
+[Documentazione](https://moodledev.io/docs/4.5/apis/plugintypes/ai/provider)
+
+I Provider sono responsabili delle chiamate ai servizi esterni ed a gestire le risposte. Generalmente sono wrapper di API.
+
+I Provider devono definire una classe `aiprovider_nome` che implementi `\core_ai\provider`. Qui devono definire un metodo `get_action_list()` che restituisca una lista di **azioni** gestite dal plugin.
+
+Le Azioni sono una lista predefinita di possibili tipologie di utilizzo dell'AI e definiscono i parametri richiesti e la forma della risposta, vengono preparate dai plugin di piazzamento e forniti al provider.
+
+Le azioni al momento sembrano essere solo tre:
+
+- `core_ai\aiactions\generate_image`
+- `core_ai\aiactions\generate_text`
+- `core_ai\aiactions\summarise_text`
+
+E' probabile che questa lista verra' estesa in futuro.
+
+Per ogni azione implementata il provider dovra' implementare una classe apposita.
+
+Il provider deve poi fornire i menu con i 
 
 Analitica
 =========
