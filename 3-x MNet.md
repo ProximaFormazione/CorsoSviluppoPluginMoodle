@@ -30,7 +30,7 @@ Opzionalmente e' possibile impostare una delle due piattaforme in modalita' *pro
 Identity Provider
 -----------------
 
-La funzionalita' di IdP permette agli utenti di navigare da un moodle all'altro senza passare dalla maschera di login.
+La funzionalita' di IdP permette agli utenti di navigare da un moodle all'altro.
 
 Per abilitare questa funzionalita e' necessario:
 
@@ -38,7 +38,7 @@ Per abilitare questa funzionalita e' necessario:
 - Attivare il plugin di autenticazione "MNet"
 - Fornire la capacita' `moodle/site:mnetlogintoremote` "Roam to a remote Moodle" agli utenti cui si vuole fornire tale possibilita' (assegnarlo ad "Authenticated user" per abilitarlo per tutti)
 
-Una volta eseguito cio' un utente puo' navigare sul secondo moodle. Potete inserire link all'altra piattaforma e l'utente non si accorge della differenza.
+Una volta eseguito cio' un utente puo' navigare sul secondo moodle. Potete inserire link all'altra piattaforma e l'utente sara' in grado di utilizzare le sue credenziali.
 
 Di fatto gli utenti vengono importati sulla seconda piattaforma al primo login su di essa. E' possibile alterare la mappatura dei campi utente se necessario in una relativa opzione del menu' Amministrazione > Networking
 
