@@ -22,7 +22,7 @@ Esempio pratico
 
 Vediamo un esempio di corso online, collegandoci al seguente url abbiamo il materiale di questo corso:
 
-> [link](https://www.e-prox.it/course/view.php?id=1079)
+> [link](https://www.e-prox.it/course/view.php?id=1249)
 
 Da notare che in questo caso e' necessaria una login per accedere, il che e' preferibile laddove si vuole identificare l'attivita' dello studente, ma e' possibile fare accedere gli utenti in maniera anonima se richiesto. Chiaramente il corso in questo caso deve essere "stateless"
 

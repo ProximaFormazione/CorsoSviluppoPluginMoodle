@@ -3,7 +3,6 @@ Architettura Plugins
 
 Qui elencheremo la struttura dei plugins di moodle.
 
-
 I plugins sono suddivisi in tipi diversi a seconda della loro funzionalita'. Questa tipizzazione non e' unicamente a scopo organizzativo, ma stabilisce le funzionalita' accessibili al plugin stesso.
 
 I plugin possono essere pubblicati sulla cosiddetta [Moodle plugins Directory](https://moodle.org/plugins/?q=) che e' un sito dove e' possibile ricercarli per tipo o parole chiave. Ed e' la prima fermata nel processo di sviluppo di una nuova funzionalita' di moodle (probabilmente qualcuno ci ha gia' pensato).
@@ -37,6 +36,8 @@ Questi plugin definiscono dei moduli che possono essere inseriti in uno o piu' c
 
 I plugin di tipo mod hanno delle eccezioni alle regole sul codice dovute al fatto di essere la prima categoria di plugin storicamente implementata.
 
+Nella creazione di un plugin attivita' dovremo definire una serie di parametri aggiuntivi, generalmente opzionali, quali ad esempio i criteri di completamento, o l'interazione con i gruppi
+
 Auth - Plugin di autenticazione
 -------------------------------
 
@@ -44,14 +45,16 @@ Sono plugin che gestiscono il metodo di autenticazione sul sito, come ad esempio
 
 Ogni utente in moodle e' legato ad uno specifico metodo di autenticazione, sul sito possono essercene diversi abilitati.
 
-Sono presenti gia' un certo numero di plugin di autenticazione per i principali protocollli in voga. Di default sono tutti disattivati ed e' attivo solo la login "manuale", ovvero tramite username e password.
+Sono presenti gia' un certo numero di plugin di autenticazione per i principali protocolli in voga. Di default sono tutti disattivati ed e' attivo solo la login "manuale", ovvero tramite username e password.
 
 Blocks - Blocchi
 ----------------
 
 I blocchi sono elementi che e' possibile inserire, tramite interfaccia, in vari punti di altre pagine moodle.
 
-I blocchi possono avere le caratteristiche piu' disparate, ma potendo essere ovunque spesso sono funzionalita' generiche.
+I blocchi possono avere le caratteristiche piu' disparate, ma potendo essere ovunque spesso sono funzionalita' generiche. Da segnalare il blocco "Testo" che, permettendo di inserire html generico, permette una vasta gamma di personalizzazioni del sito.
+
+I blocchi possono essere mostrati o no in base ai ruoli
 
 enrol - Iscrizione a corsi
 --------------------------
@@ -62,14 +65,14 @@ Esempi sono l'autoiscrizione, l'iscrizione manuale, l'iscrizione tramite acquist
 
 Come per i plugin di autenticazione, piu' di uno puo' essere disponibile ed ogni utente avra' un solo metodo associato per l'iscirizione ad uno specifico corso.
 
-I plugin di enrol vanno abilitati sia a livello di sito, sia a livello di specifico corso
+I plugin di enrol vanno abilitati sia a livello di sito (nella maschera di amministrazione), sia a livello di specifico corso (in un apposito menu accessibile dal tab "partecipanti")
 
 theme - temi
 ------------
 
 I plugin del tema decidono come le pagine rappresentano i loro contenuti. Questi plugin hanno il maggior impatto sull'aspetto generale della piattaforma.
 
-Sono plugin generalmente estensivi e complessi, che generalmente sono realizzati da aziende e disponibili a pagamento. 
+Sono plugin generalmente estensivi e complessi, che spesso sono realizzati da aziende e disponibili a pagamento. 
 
 Moodle ha comunque dei suoi temi predefiniti: **Boost**, che e' un tema che utilizza bootstrap 4 con ampie possibilita' di customizzazione; e **Classic**, che malgrado il nome e' posteriore a boost.
 
@@ -84,12 +87,14 @@ plugin che determinano il formato con cui le attivita' vengono presentate all'in
 local
 -----
 
-i plugin locali sono plugin che non rientrano nelle altre categorie. Si tratta di plugin che agiscono a livello di sito
+i plugin locali sono plugin che non rientrano nelle altre categorie. Si tratta di plugin che agiscono a livello di sito.
+
+I plugin local sono ottimi candidati per inserire operazioni legate ad eventi che avvengono nel sito, o operazioni schedulate. 
 
 report
 ------
 
-Plugin per la realizzaione di report vari, course/report invece e' per i report di corso
+Plugin per la realizzaione di report vari, course/report invece e' la categoria di plugin per i report di corso
 
 repository
 ----------
@@ -111,7 +116,7 @@ Per i files sono possibili diverse modalita' di accesso, che andranno definite i
 
 ### Contesto
 
-il repository puo' essere unicamentea livello di sito, oppure e' possibile ammettere istanze separate a livello di corso e di utente.
+il repository puo' essere unicamente a livello di sito, oppure e' possibile ammettere istanze separate a livello di corso e di utente.
 
 /cache/stores - caches
 ----------------------

@@ -32,7 +32,7 @@ Il file **version.php** e' il file che definisce la versione attuale della piatt
 Il file ha solo una serie di propieta':
 
 `$version`
-:  E' il numero di versione effettivo, scritto nel formato YYYYMMDDXX.YY , dove YYYY MM e DD sono la data di commit, XX e' un progressivo per avere piu' versioni nella stessa data, ed YY e' un'ulteriore progressivo usato nella versione del sito perche' evidentemente due cifre non bastavano. La modifica di questo valore scatena la procedura di aggiornamento del sito
+:  E' il numero di versione effettivo, scritto nel formato YYYYMMDDXX.YY , dove YYYY MM e DD sono la data di commit, XX e' un progressivo per avere piu' versioni nella stessa data, ed YY e' un'ulteriore progressivo usato nella versione del sito. La modifica di questo valore scatena la procedura di aggiornamento del sito
 
 `$release`
 : e' un numero di versione leggibile per l'utente
@@ -45,7 +45,7 @@ Il file ha solo una serie di propieta':
 
 La riga `defined('MOODLE_INTERNAL') || die();` e' una riga usata molto comunemente in moodle per i file ad uso interno e serve ad impedire che lo script venga fatto girare se richiesto direttamente tramite il web server.
 
-La struttura di questo file e' la stessa usata nelle cartelle di plugin.
+La struttura di questo file e' la stessa usata nelle cartelle di plugin. Vedremo piu' in dettaglio in seguito le opzioni aggiuntive (non modificheremo il file del sito)
 
 config.php
 ----------
@@ -110,7 +110,7 @@ Questo file viene creato in fase di installazione di moodle dallo script di inst
 Cartelle
 --------
 
-Le cartelle di moodle contengomo i vari files con pagine e librerie di supporto.
+Le cartelle di moodle contengono i vari files con pagine e librerie di supporto.
 
 i plugin installati devono trovarsi nella cartella corretta per la classe di plugin affinche' vengano correttamente identificati dal sistema.
 
@@ -131,7 +131,7 @@ mod
 altre cartelle ospitano i plugin di quella classe, di cui generalmente moodle core ha uno o piu' esemplari, tra queste:
 
 auth
-: Modalita' di autenticanzione
+: Modalita' di autenticazione
 
 blocks
 : Blocchi di html inseribili ovunque
@@ -140,7 +140,7 @@ enrol
 : Modalita' di iscrizione ai corsi
 
 local
-: Plguin generici non riconducilbili a classi esistenti
+: Plguin generici non riconducibili a classi esistenti
 
 repository
 : Gestione files salvati
@@ -186,16 +186,16 @@ L'implementazione delle cache e' mediata da un sistema chiamato MUC (Moodle Univ
 
 Vi sono diversi plugin possibili per il salvataggio delle cache, alcuni preinstallati, tra cui il salvataggio su filesystem, che avviene appunto nella cartella moodledata nella sottocartella **cache**
 
-le cache vanno condivise tra le istanze della piattaforma, tuttavia e' possibile definire una cartella di cache locale tramite il parametro `$CFG->localcachedir` per caches di elementi grafici o comunque iimutabili che possono essere replicati sulle varie istanze. Questo approccio e' utile se le cache utilizzate non sono all'altezza delle aspettative.
+le cache vanno condivise tra le istanze della piattaforma, tuttavia e' possibile definire una cartella di cache locale tramite il parametro `$CFG->localcachedir` per caches di elementi grafici o comunque immutabili che possono essere replicati sulle varie istanze. Questo approccio e' utile se le cache utilizzate non sono all'altezza delle aspettative.
 
 E' possibile ripulire le caches del sito tramite apposito comando all'interno della piattaforma nel menu' di amministrazione -> sviluppo
 
 filedir
 -------
 
-la cartella **filedir** e' il deposito di tutti i files caricati sulla piattforma.
+la cartella **filedir** e' il deposito di tutti i files caricati sulla piattaforma.
 
-Al caricamento di un file, moodle esegue l'hash del file (sha1sum) e immagazina il file usando l'hash come nome, questo fa si che non ci sian files duplicati.
+Al caricamento di un file, moodle esegue l'hash del file (sha1sum) e immagazzina il file usando l'hash come nome, questo fa si che non ci sian files duplicati.
 
 I files sono poi conservati in cartelle basate sui primi due bytes dell'hash, immagino per evitare cartelle con troppi files.
 

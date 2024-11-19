@@ -7,7 +7,7 @@ Da notare che per lo sviluppo e' caldamente consigliato installare lo stack su u
 
 Una guida ufficiale con altre casistiche e' disponibile al seguente [link](https://docs.moodle.org/403/en/Installing_Moodle).
 
-E' chiaramente possibile installare un'immagine con un container gia' preconfigurato, vedi ad esempio il [Docker Hub ufficiale di moodle](https://hub.docker.com/r/moodlehq/moodleapp/tags). Tuttavia in questo corso verra' eseguita invece l'installazione manualmente in modo da prendere dimestichezza con i vari elementi e saper risolvere eventuali problemi
+E' chiaramente possibile installare un'immagine con un container gia' preconfigurato, vedi ad esempio il [Docker Hub di Bitnami](https://hub.docker.com/r/bitnami/moodle). Tuttavia in questo corso verra' eseguita invece l'installazione manualmente in modo da prendere dimestichezza con i vari elementi e saper risolvere eventuali problemi
 
 Installazione tecnologie necessarie
 ===================================
@@ -17,6 +17,7 @@ Per il funzionamento di moodle sono richiesti tre elementi tecnologici:
 * PHP
 * Database
 * Web Server
+* (file system)
 
 Fintanto vengono fatte delle scelte compatibili e' possibile utilizzare le specifiche tecnologie che si preferiscono. In questo modulo si provvedera a fornire le istruzioni per un'installazione su macchina ubuntu, ma su altri sistemi si puo' procedere eseguendo gli step analoghi.
 
@@ -25,12 +26,7 @@ Inoltre e' necessario avere per lo sviluppo:
 * Git 
 * IDE per sviluppo PHP
 
-Windows - Accenni
------------------
 
-Se si sta usando un dispositivo windows, dove non e' installato uno stack LAMP, un metodo rapido di installare i prerequisiti e' installare il pacchetto XAMPP ([Link](https://www.apachefriends.org/)). Che contiene il php, apache e mariaDb.
-
-Altrimenti si puo' procedere come si preferisce, ad esempio con IIS ([Guida per configurare PHP ed IIS](https://learn.microsoft.com/it-it/iis/application-frameworks/scenario-build-a-php-website-on-iis/configure-a-php-website-on-iis))
 
 Linux
 -----
@@ -183,6 +179,66 @@ alcune osservazioni:
 Una volta completato il file mettere un link nell'elenco dei siti abilitati con $ `sudo ln -s /etc/nginx/sites-available/moodle /etc/nginx/sites-enabled/`
 
 infine scacciate gli spiriti maligni con la formula  $ `sudo systemctl restart nginx.service`
+
+Windows
+-------
+
+Se si sta usando un dispositivo windows, dove non e' installato uno stack LAMP, un metodo rapido di installare i prerequisiti e' installare il pacchetto XAMPP ([Link](https://www.apachefriends.org/)). Che contiene il php, apache e mariaDb.
+
+E' comunque possibile installare moodle usando unicamente tecnologie native microsoft, in questo capitolo accenniamo alla procedura di configurazione usando IIS come web server e Microsoft SQL (MSSQL) come database.
+
+L'installazione su uno stack Microsoft presenta una serie di controindicazioni:
+
+- Le performance sono peggiori rispetto ad una equivalente installazione su Linux e Nginx, anche se comunque il sito funziona in maniera accettabile. Nei nostri test su macchine equivalenti il benchmark impiega quasi il doppio del tempo su Windows
+- Il PHP e' sviluppato prevalentemente per ambienti Linux, alcune estensioni potrebbero non essere disponibili o avere problemi imprevisti di compatibilita'
+
+Detto cio', se non avete scelta e' comunque possibile procedere
+
+### Installare PHP su IIS
+
+Per installare il PHP possiamo semplicemente scaricarlo dal sito ufficiale ([Link](https://windows.php.net/download/)), selezionate voi la versione del PHP richiesta (es: 8.1) per l'architettura del vostro server (x86 o x64). Utilizzando fastCGI su IIS non dovrebbe essere richiesta la versione thread safe ed anzi converrebbe scaricare la versione non thread safe per migliorare la performance (da verificare sul campo).
+
+Possiamo semplicemente copiare il contenuto della cartella in un folder a piacere sul server (diciamo c:\PHP\8.1).
+
+Nel folder del PHP dobbiamo rinominare uno dei files `php.ini-development` o `php.ini-production` in `php.ini`, a seconda dell'ambiente che stiamo configurando in modo da avere una configurazione di partenza adatta (che poi possiamo modificare)
+
+Una volta installato si raccomanda di aggiungere il folder alla variabile PATH
+
+- nella casella di ricerca digitiamo "env" per accedere alla maschera di configurazione, ed in baso "variabili di ambiente" (o similare)
+- cerchiamo PATH ed aggiungiamo la cartella (es c:\PHP\8.1) alla lista
+
+### Configurare IIS
+
+Per prima cosa dobbiamo accertarci di avere IIS installato, e che sia abilitato il modulo CGI.
+
+- Aprire il pannello per modificare le funzionalita' di windows
+  - In windows home/pro in Pannello di controllo -> Programmi e Funzionalita -> Attiva o disattiva funzionalita' di windows
+  - In windows Server in Server Manager -> Manage(alto a dx) -> Add Roles adn Features -> Roles
+- Selezionare CGI sotto Internet Information Services -> World Wide Web services -> Application development features -> CGI
+
+![Immagine](https://stackify.com/wp-content/uploads/2019/03/image-6.png)
+
+In IIS CGI include FastCGI di default senza bisogno di configurazioni aggiuntive. Una volta abilitato il CGI riavviare IIS Manager.
+
+Bisogna poi abilitare la mappatura con l'interprete PHP.
+
+- L'impostazione delle mappature e' accessibile sul IIS manager selezionando il nodo base del server stesso IIS-> Handler mappings -> doppio click
+
+![Immagine](https://stackify.com/wp-content/uploads/2019/03/image-16.png)
+
+- Aggiungiamo una mappatura indicando
+  - Come path `*.php`
+  - Come modulo "FastCIModule"
+  - Come eseguibile l'eseguibile "php-cgi.exe" contenuto nella cartella del PHP (es: `c:\PHP\8.1\php-cgi.exe`)
+  - Un nome friendly a piacere, es `PHP-CGI`
+
+Per concludere dobbiamo andare nell'impostazione dei documenti di default (sempre nel nodo del server) ed aggiungere `index.php`
+
+TODO: TEST
+
+### MSSQL
+
+TODO: installare i driver
 
 Ottenere i files di Moodle
 ==========================
