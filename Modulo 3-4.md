@@ -1,7 +1,7 @@
 Caches
 ======
 
-Moodle ha un sistema standardizzato per le caches, progettato per essere relativamente semplice da implementare nei propri plugin, ma allo stesso tempo permettendo diverse opzioni di customizzazione per casi d'uso specifici, o per ottimizare al meglio la performance della cache.
+Moodle ha un sistema standardizzato per le caches, progettato per essere relativamente semplice da implementare nei propri plugin, ma allo stesso tempo permettendo diverse opzioni di customizzazione per casi d'uso specifici, o per ottimizzare al meglio la performance della cache.
 
 Molti di questi strumenti richiedono una conoscenza avanzata per valutarne l'opportunita', e nel caso e' fondamentale avere un meccanismo di benchmark del codice adatto alla valutazione dei risultati. Per contro l'utilizzo base delle cache e' molto semplice.
 

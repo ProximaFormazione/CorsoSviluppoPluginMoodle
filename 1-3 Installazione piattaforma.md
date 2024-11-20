@@ -232,13 +232,36 @@ Bisogna poi abilitare la mappatura con l'interprete PHP.
   - Come eseguibile l'eseguibile "php-cgi.exe" contenuto nella cartella del PHP (es: `c:\PHP\8.1\php-cgi.exe`)
   - Un nome friendly a piacere, es `PHP-CGI`
 
-Per concludere dobbiamo andare nell'impostazione dei documenti di default (sempre nel nodo del server) ed aggiungere `index.php`
+Per concludere dobbiamo andare nell'impostazione dei documenti di default (sempre nel nodo del server) ed aggiungere `index.php` alla lista
 
-TODO: TEST
+Per testare il corretto funzionamento, andate nella root dell'IIS (normalmente \inetpub\wwwroot) e create un file `test.php`, poi editate il contenuto con notepad ed inserite il seguente testo:
+
+```
+<?php phpinfo(); ?>
+```
+
+navigando su http://localhost/test.php dovreste vedere una schermata del php viola con la lista delle configurazioni, se la vedete il PHP sta girando correttamente. (Quest presume un IIS con configurazione di default, se necessario inserite il file in posizione esposta dall'IIS)
 
 ### MSSQL
 
-TODO: installare i driver
+Se dovete utilizzare Microsoft SQL server avete bisogno di installare driver aggiuntivi per permettere alle applicazione PHP (come moodle) di accedere al server.
+
+I dirver sono necessari anche nel caso di MSSQL installato su ambiente Linux, dove si puo' facilmente procedere con apt o simili (vedi [Documentazione Microsoft](https://learn.microsoft.com/en-us/sql/connect/php/installation-tutorial-linux-mac?view=sql-server-ver16)).
+
+I driver per Windows sono delle estensioni per il PHP da aggiungere. Possono essere scaricate dalle fonti Microsoft: [>Link<](https://go.microsoft.com/fwlink/?linkid=2258816) e [Documentazione](https://learn.microsoft.com/en-us/sql/connect/php/download-drivers-php-sql-server?view=sql-server-ver16).
+
+Il pacchetto contiene tutte le varie versioni possibili, vi e' un file di istruzioni incorporato, ma la documentazione effettiva la trovate a [Questo link](https://learn.microsoft.com/en-us/sql/connect/php/loading-the-php-sql-driver?view=sql-server-ver16), in breve:
+
+- verificate sul file `SQLSRV_Readme.htm` le dll richieste in base all PHP installato, sia per numero di versione che per il caso thread safe(ts) o non thread safe(nts) 
+- spacchettate le due dll necessarie e copiatele nella cartella delle estensioni del PHP (es: `c:\PHP\8.1\ext`), se non siete sicuri di dove si trovi la cartella potete consultare il phpinfo() di sopra
+- modificate il file php.ini aggiungendo le seguenti righe (con i nomi delle vostre dll) nella sezione delle estensioni:
+
+```
+extension=php_pdo_sqlsrv_81_nts_x64.dll
+extension=php_sqlsrv_81_nts_x64.dll
+```
+
+riavviate il web server se necessario.
 
 Ottenere i files di Moodle
 ==========================
@@ -278,20 +301,20 @@ Se non eseguite modifiche sul codice core, non dovrebbe mai dare conflitti e fil
 
 per iniziare clonate il repository ufficiale di moodle:
 
-* cd `/var/www/html/develop` per NGINX, oppure altra location in base al vostro web server 
+* cd `/var/www/html/moodle` per NGINX, oppure altra location in base al vostro web server 
 
-* `git clone git://git.moodle.org/moodle.git .`
-* `git config --global --add safe.directory /var/www/html/develop` se richiesto dall'OS
+* `git clone git://git.moodle.org/moodle.git .` occhio al punto ;)
+* `git config --global --add safe.directory /var/www/html/moodle` se richiesto dall'OS
 
 Bisogna poi assegnare i diritti corretti alla cartella 
 
-* `sudo chown -R www-data:www-data /var/www/html/develop/` 
-* `sudo chmod -R 777 /var/www/html/develop/` o anche 755 per essere piu' stringenti
+* `sudo chown -R www-data:www-data /var/www/html/moodle/` 
+* `sudo chmod -R 777 /var/www/html/moodle/` o anche 755 per essere piu' stringenti
 
-i branch sul repository ufficiale hanno una nomenclatura basata sul numero di versione usato, quindi per la 4.1 cercheremo i branch con scritto 401
+i branch sul repository ufficiale hanno una nomenclatura basata sul numero di versione usato, quindi per la 4.5 cercheremo i branch con scritto 405
 
-* `sudo git branch --track MOODLE_401_STABLE origin/MOODLE_401_STABLE`
-* `sudo git checkout MOODLE_401_STABLE`
+* `sudo git branch --track MOODLE_405_STABLE origin/MOODLE_405_STABLE`
+* `sudo git checkout MOODLE_405_STABLE`
 
 a questo punto converra' creare un branch separato per la nostra versione
 
@@ -322,11 +345,13 @@ Moodle ha robusto sistema per verificare che il database sia aggiornato alla ver
 
 Questo secondo processo esegue le operazioni sul database per aggiungere effettivamente le tabelle, quindi da un certo punto di vista e' la vera installazione.
 
-La procedura parte automaticamente se si logga un utente amministratore al sito, e pre prima cosa esegue un controllo sui requisiti prima di procedere, con una maschera riassuntiva con tutti i problemi ed i warning del caso.
+La procedura parte automaticamente se si logga un utente amministratore al sito, e per prima cosa esegue un controllo sui requisiti prima di procedere, con una maschera riassuntiva con tutti i problemi ed i warning del caso.
 
 Segue poi una maschera con il riassunto dei plugin che verranno installati ed aggiornati. Per la prima installazione sara' una lista oscenamente lunga in quanto include tutti i plugin nel pacchetto di moodle base.
 
 Se si procede, moodle provvedera' ad aggiornare le tabelle del db, secondo le istruzioni fornite da ogni singolo plugin. Questo meccanismo lo vedremo in dettaglio piu' avanti.
+
+Se tutto va bene vi verra' mostrata una schermata dove dovrete inserire i dettagli dell'utente amministratore, questo utente sara' necessario per accedere alla piattaforma quindi segnatevi le credenziali. Successivamente vi verranno chieste alcune informazioni di base per il sito come il nome e la mail di contatto. Infine dovreste arrivare sul sito funzionante
 
 Cron
 ----
@@ -347,7 +372,7 @@ Su una macchina linux e' sufficiente utilizzare il cron di linux, modificatelo c
 
 > */1 * * * * /usr/bin/php /var/www/html/moodle/admin/cli/cron.php >/dev/null
 
-Non vi e' necessita' di conservare i log dei cron, anche perche' questi sono comunque conservati per i task schedulati ed altri eventi dal meccanismo di log interno di moodle, e salvare queste informazioni puo' occupare spazio inutilmente 
+Non vi e' necessita' di conservare i log dei cron, anche perche' questi sono comunque conservati per i task schedulati ed altri eventi dal meccanismo di log interno di moodle, e salvare queste informazioni puo' occupare spazio inutilmente. 
 
 ### Su Windows
 
@@ -355,7 +380,7 @@ Su windows e' presente un tool adatto allo scopo
 
 1. cercare l'applicazione "Task Scheduler"
 2. inserire un nuovo task con frequenza maggiore possibile (dovrebbe essere 5 minuti, ma piu' frequente e' meglio)
-3. Inserire un azione "start a program" con l'eseguibile del php (es: `C:\xampp\php\php.exe`) con argomento il file con lo script (es: `-f "C:\xampp\htdocs\moodle30\admin\cli\cron.php"`)
+3. Inserire un azione "start a program" con l'eseguibile del php (es: `C:\xampp\php\php.exe` o `c:\PHP\8.1\php.exe`) con argomento il file con lo script (es: `-f "C:\xampp\htdocs\moodle30\admin\cli\cron.php"` o `-f "C:\inetpub\wwwroot\moodle\admin\cli\cron.php"`)
 
 ### Via Web Server
 
@@ -371,7 +396,7 @@ Una volta abilitata l'api, dovete schedulare la chiamata su una vostra macchina,
 
 Si tratta di una chiamata in get con la password in chiaro, quindi evitate di usare una password che un idiota userebbe per la sua valigia.
 
-![Attenzion a non scegliere password semplici](https://i.imgflip.com/3jcn63.png)
+![Attenzione a non scegliere password semplici](https://i.imgflip.com/3jcn63.png)
 
 Impostazioni utili
 ==================
