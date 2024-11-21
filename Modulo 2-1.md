@@ -7,7 +7,7 @@ Si tratta di un introduzione mirata a chi non conosce il linguaggio, ma ha esper
 
 > Una guida piu' dettaglia potete trovare a questo [link](https://www.w3schools.com/php/default.asp)
 
-Il PHP (Hypertext Preprocessor) e' un linguaggio di scripting, il cui "scopo principale" e' la creazione di testo, generalmente HTML.
+Il PHP ~~(Personal Http Page)~~ (Hypertext Preprocessor) e' un linguaggio di scripting, il cui "scopo principale" e' la creazione di testo, generalmente HTML.
 
 Consisite in files con estensione .php che vengono processati dall'inteprete PHP lato server, per produrre del testo che viene ricevuto dal client, quindi l'utente non ha mai diretto accesso al sorgente semplicemente consultando la pagina.
 
@@ -25,7 +25,7 @@ Un file php puo' contenere anche html, che viene processato normalmente, e/o puo
 i blocchi di codice vengono eseguiti nell'ordine in cui vengono trovati nel documento.
 
 ```
-<p> Il numero casuale e' <?php echo rand(1,6) ?> </p>
+<p> Il numero casuale e' <?php echo rand(1,6); ?> </p>
 ```
 
 Per lo sviluppo di moodle, non si usano quasi mai files con un mix di HTML e PHP, ma si usano sempre files con solo codice PHP. In questo caso non e' necessario chiudere il blocco con `?>` alla fine, ed e' anzi sconsigliato farlo per evitare di outputtare per errore del codice. 

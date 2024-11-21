@@ -133,7 +133,7 @@ Il primo e' configurare il server che fa girare moodle per contattare il server 
 
 Quale usare dipende dal vostro caso d'uso, e a seconda dell'IDE che utilizzate una o entrambe potrebbero non essere disponibili, o potrebbero esistere alternative. In questa sezione ci concentreremo su **VS Code** come IDE.
 
-La prima opzione ha la controindicazione di richiedere l'allineamento tra i files del server e quelli dell'IDE, che in assenza di meccanismi di CI/CD si preannuncia una grande scomodita'. La seconda ha come controindicazione che esegue delle installazioni sul server (per VS Code, potenzialmente altri IDE hanno approcci meno invasivi).
+La prima opzione ha la controindicazione di richiedere l'allineamento tra i files del server e quelli dell'IDE, che in assenza di meccanismi di CI/CD si preannuncia una grande scomodita'. La seconda ha come controindicazione che esegue delle installazioni sul server (per VS Code, potenzialmente altri IDE hanno approcci meno invasivi), inoltre richiede di potersi collegare in SSH (non scontato su macchine Windows).
 
 Per lo sviluppo su docker raccomando la seconda opzione in quanto funziona e basta, e non richiede duplicazione di sorgente. La prima opzione e' interessante per eseguire debug in ambienti non di sviluppo (ricordate che xDebug riduce drasticamente le prestazioni e non va lasciato attivo in produzione)
 
