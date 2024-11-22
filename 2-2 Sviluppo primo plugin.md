@@ -1,77 +1,3 @@
-Linee Guida
-===========
-
-Moodle e' un progetto open source, se si desidera partecipare all'interno della comuinita' di sviluppatori e' necessario aderire a delle precise regole di codice.
-
-> Documentazione completa [Qui](https://moodledev.io/general/development/policies/codingstyle)
-
-Ovviamente queste sono solo linee guida, siete liberi di seguire lo stile di codice che preferite.
-
-Alcuni elementi interessanti:
-
-* viene richiesto di non chiudere i tag php in files  solo codice (la stragrande maggioranza)
-* viene suggerito di usare solo nomi minuscoli separati da underscore (Snake case)
-* viene suggerito di avere un massimo di caratteri per riga di non oltre 180 caratteri
-* viene suggerito di non inserire chiamate a funzioni come parametri, ma di usare variabili intermedie 
-
-Sono regole utili ad aumentare la leggibilita' del codice. Se provate a fare delle pull request su repository di moodle senza seguire queste regole preparatevi a dover correggere tutte queste minuzie.
-
-Le uniche prassi che hanno conseguenze operative sono:
-
-* nome del plugin
-* nome dei files base di un plugin, e delle cartelle
-
-Nomi plugin e namespaces
-------------------------
-
-La nomenclatura di un plugin deve rispettare la forma:
-
-> `tipo_nome`
-
-Dove `tipo` e' la tipologia di plugin (es: local, report, auth) e `nome` e' il nome del plugin, dove sono permessi solo lettere ed underscore. Consiglio di scegliere nomi brevi perche' finiscono in tutti i namespace e nelle tabelle (dove c'e' un limite di caratteri stringente)
-
-Questa nomenclatura del dominio e' riferite nelle documentazioni di moodle come nomenclatura [FrankenStyle](https://moodledev.io/general/development/policies/codingstyle/frankenstyle) e va rispettata perche' alcuni elementi di moodle dipendono da essa.
-
-le attivita' dei corsi hanno tipo `mod`, che e' l'unico tipo ad avere delle eccezioni nelle regole di uso del nome del plugin (ovvero in certi casi *mod* andra' omesso)
-
-il nome completo del plugin va usato nelle seguenti situazioni:
-
-* come prefisso nelle funzioni che non sono sotto namespace
-* come prefisso nei namespaces
-* come prefisso per le tabelle del database
-
-nel resto della guida indicheremo questo prefisso con `tipo_nome`
-
-Files e cartelle richieste
-==========================
-
-tutti i files di un plugin sono contenuti in una cartella con il nome del plugin stesso, la quale va sistemata nella cartella corrispondente al tipo di plugin (quindi il plugin di iscrizione "self" andra' al percorso `/enrol/self`).
-
-All'interno della cartella devono poi essere presenti alcuni files necessari. 
-
-Come minimo indispensabile vi serve:
-
-* un file `version.php` nella root del plugin con la versione attuale ed il nome del plugin
-* un file con le stringhe di testo in inglese, al percorso `lang/en/tipo_nome.php` con almeno la stringa con il nome del plugin
-
-Inoltre, generalmente vi serviranno anche:
-
-* Se avete tabelle sul database, un file `db/install.xml` con le definizioni delle stesse
-* Una cartella `classes` per abilitare l'autocaricamento delle classi in base ai namespaces usati
-* In file con i settaggi del plugin `settings.php`
-* Un file per definire i tipi di permessi possibili `db/access.php`
-* Un file `lib.php` che contiene funzioni particolari richieste o volute per collegarsi a specifici sistemi di moodle
-* Un file per definire come aggiornare il database tra due versioni del plugin, se richiesto `db/upgrade.php`
-* altri files a seconda della tipologia di plugin
-
-Inoltre varie funzionalita' di moodle richiederanno di censire degli appositi array in files specifici, ad esempio:
-
-* consumare gli eventi di moodle: `db/events.php`
-* operazioni schedulate: `db/tasks.php`
-* web services: `db/events.php`
-* caches: `db/caches.php`
-
-
 Sviluppo di primo plugin
 ========================
 
@@ -81,13 +7,13 @@ Eseguiamo ora gli step necessari per la creazione di un plugin semplice, in modo
 
 Come primo progetto creeremo un plugin semplice, ma che sara' un prodotto utilizzabile
 
-Il plugin da creare si chiamera' **magiclink** e permettera' l'iscrizione automatica di un utente ad un corso tramite un link specifico e aperto, che ad esempio puo' essere messo in un QR code o inviato via mail. Nel proseguire del corso aggiungeremo funzionalita' nuove al plugin.
+Il plugin da creare si chiamera' **anagrafe** e premettera' di eseguire operazioni automatiche in risposta alla prima registrazione di un utente. Nel proseguire del corso aggiungeremo funzionalita' nuove al plugin.
 
-Trattandosi di un plugin che permette l'iscrizione ai corsi, si tratta di un plugin di tipo *enrol*, quindi il nome completo sara' `enrol_magiclink`.
+Trattandosi di un plugin che esegue operazioni a livello di sistema sara' un plugin di tipo *local*, quindi il nome completo sara' `local_anagrafe`.
 
-Inizialmente creeremo il plugin privo di funzionalita' di iscrizione ai corsi, che aggiungeremo dopo aver installato il plugin inizialmente. Quindi di fatto seguendo i requisiti di un plugin di tipo *local*.
+Inizialmente creeremo il plugin privo di funzionalita', che aggiungeremo dopo aver installato il plugin inizialmente. 
 
-Per prima cosa creiamo una cartella di nome `magiclink` all'interno della cartella `enrol`, questa cartella sara' l'unica cartella in cui lavoreremo, e la convertiremo in un repository git.
+Per prima cosa creiamo una cartella di nome `anagrafe` all'interno della cartella `local`, questa cartella sara' l'unica cartella in cui lavoreremo, e la convertiremo in un repository git.
 
 version.php
 -----------
@@ -115,7 +41,7 @@ All'inizio del file apriamo il tag php, ed inseriamo un cartiglio con commenti s
 // GNU General Public License for more details: http://www.gnu.org/copyleft/gpl.html
 
 /**
- * @package    enrol_magiclink
+ * @package    local_anagrafe
  * @author     Mario Rossi <mario.rossi@mailinesistente.it>
  * @copyright  2024 Azienda S.r.l. (https://www.sitoazienda.it/)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -129,20 +55,20 @@ Nello stesso file, inserite poi le seguenti variabili:
 ```
 defined('MOODLE_INTERNAL') || die();         
 
-$plugin->component = 'enrol_magiclink';
+$plugin->component = 'local_anagrafe';
 $plugin->version = 2024022001;
 
 $plugin->maturity = MATURITY_ALPHA;
 $plugin->release   = "0.1";
 ```
 
-La prima riga, `defined('MOODLE_INTERNAL') || die();` e' uno stratagemma, utilizzato ovunque in moodle e di fatto prassi, per evitare che il file venga servito dal web server quando l'utente naviga su `http://moodle/enrol/magiclink/version.php`. 
+La prima riga, `defined('MOODLE_INTERNAL') || die();` e' uno stratagemma, utilizzato ovunque in moodle e di fatto prassi, per evitare che il file venga servito dal web server quando l'utente naviga su `http://moodle/local/anagrafe/version.php`. 
 
 Di fatto i files php dentro moodle sono divisibili in due categorie: le pagine web pensate per essere mostrate agli utenti, ed i files di "libreria" che non vanno fornite direttamente all'utente. La riga `defined('MOODLE_INTERNAL') || die();` categorizza un file in questa seconda tipologia. Ovunque vedete questa riga quindi non state vedendo una pagina accessibile all'utente. Questa riga va all'inizio per evitare di eseguire operazioni di alcun tipo.
 
 Il significato delle variabili e':
 
-* `$plugin->component = 'enrol_magiclink';` e' OBBLIGATORIO ed e' il nome del plugin, seguendo la nomenclatura "Frankenstyle"
+* `$plugin->component = 'local_anagrafe';` e' OBBLIGATORIO ed e' il nome del plugin, seguendo la nomenclatura "Frankenstyle"
 * `$plugin->version = 2024022001;` e' OBBLIGATORIO ed e' il numero di versione del plugin, se viene modificato allora viene scatenata la procedura di aggiornamento. Si tratta di una data in formato YYYYMMDDXX dove XX e' un progressivo per permettervi di avere piu' versioni in un giorno
 * `$plugin->maturity = MATURITY_ALPHA;` e' utile da aggiungere in modo che venga visualizzato un warning qualora qualcuno provi ad installare il plugin, in modo che sia chiaro che stanno installando un prodotto non finito. Al termine dei lavori sostuirete con la costante `MATURITY_STABLE` (altri valori sono `MATURITY_BETA` e `MATURITY_RC`). Se non inserite un valore non verra' mostrato alcun warning
 * `$plugin->release   = "0.1";` e' un numero di versione unicamente visivo per l'utente, da modificare ad ogni rilascio. Se manca verra' mostrato il version sopra
@@ -151,6 +77,8 @@ Questi sono i valori minimi da inserire. Vi sono poi tutta una serie di valori a
 
 * `$plugin->requires = 2018120300.00;` Indica la versione minima di moodle da utilizzare 
 * `$plugin->dependencies = ['local_altroplugin' => 2022042100, .... ]` per inserire dipendenze da altri plugin.
+
+I numeri di versione possono essere inseriti anche prevedendo una versione massima, che puo' essere utile per garantire al 100% la funzionalita' indipendentemente da sviluppi futuri, con la controindicazione che dovete mantenere questo settaggio
 
 Cartella stringhe
 -----------------
@@ -164,8 +92,8 @@ Il language pack inglese e' obbligatorio, quindi almeno quello va inserito.
 All'interno di ogni cartella della lingua, dovrete mettere un file con il nome "Frankensytle" del plugin dove dovrete associare valori all'array associativo `$string`.
 
 ```
-$string['pluginname'] = 'magiclink';
-$string['pluginname_localized'] = 'Magic Link';
+$string['pluginname'] = 'anagrafe';
+$string['pluginname_localized'] = 'Anagrafe';
 $string['hello_world'] = 'Hello World';
 ```
 
@@ -173,7 +101,7 @@ $string['hello_world'] = 'Hello World';
 
 La chiave usata sara' poi utilizzata per richiamare la stringa tramite il metodo `get_string`:
 
-`get_string('hello_world', 'enrol_magiclink');`
+`get_string('hello_world', 'local_anagrafe');`
 
 Alcune chiavi hanno ruoli di sistema, come ad esempio 'pluginname_localized' sopra, o descrizioni nei plugin mod (la lista e' disponibile nella documentazione del plugin).
 

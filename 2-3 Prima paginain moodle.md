@@ -3,7 +3,7 @@ Prima interfaccia grafica in moodle
 
 In questo modulo realizzeremo una semplice interfaccia grafica per prendere dimestichezza con le API di moodle relative.
 
-Continueremo ad espandere il plugin `enrol_magiclink` fornendogli una pagina con contenuto banale. I plugin di enrol non devono avere tale interfaccia necessariamente, ma nulla gli vieta di averne una.
+Continueremo ad espandere il plugin `local_anagrafe` fornendogli una pagina con contenuto banale. I plugin locali non devono avere tale interfaccia necessariamente, ma spesso ce l'hanno.
 
 Variabili Globali in Moodle
 ===========================
@@ -21,7 +21,7 @@ Le variabili sono:
 * `$COURSE` dettagli del corso visualizzato
 * `$SITE` dettagli della front page, che e' il corso con id = 1
 
-per utilizzare una variabile globale all'interno di una funzione va dichiarata con la parola chiave `global`
+(per utilizzare una variabile globale all'interno di una funzione va dichiarata con la parola chiave `global`)
 
 ```
 public static function get_data(){
@@ -39,11 +39,11 @@ Creazione della pagina
 
 Iniziamo creando il file con la pagina da mostrare, creiamo nella root il file `helloworld.php`. Nel resto della guida lavoreremo su quello.
 
-> Il nome del file fara' parte dell'url della pagina (per noi www.sito.it/enrol/magiclink/helloworld.php), scegliete quindi nomi consoni
+> Il nome del file fara' parte dell'url della pagina (per noi www.sito.it/local/anagrafe/helloworld.php), scegliete quindi nomi consoni
 
-All'interno del file apriamo il tag `<?php`, ed enetualmente inseriamo il commento generale al file (copiandolo da version.php)
+All'interno del file apriamo il tag `<?php`, ed eventualmente inseriamo il commento generale al file (copiandolo da version.php)
 
-All'interno del file inseriamo subito evetuali dipendenze, iniziando dal file di configurazione
+All'interno del file inseriamo subito eventuali dipendenze, iniziando dal file di configurazione
 
 ```php
 <?php
@@ -51,7 +51,7 @@ All'interno del file inseriamo subito evetuali dipendenze, iniziando dal file di
 // .....
 
 /**
- * @package    enrol_magiclink
+ * @package    local_anagrafe
  * @author     Mario Rossi <mario.rossi@mailinesistente.it>
  * @copyright  2024 Azienda S.r.l. (https://www.sitoazienda.it/)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -73,7 +73,7 @@ La prossima riga da aggiungere e' `require_login()`, che ci assicura che l'utent
 
 > ATTENZIONE: laddove e' abilitato l'account guest `require_login()` di default esegue da solo la login come guest, ci sono parametri opzionali al metodo per modificare il comportamento
 
-Ovviamente se la pagina deve essere accessibile senza plugin potete omettere tale riga.
+Ovviamente se la pagina deve essere accessibile senza autenticazione (pagina statica) potete omettere tale riga.
 
 Definizione caratteristiche pagina
 ==================================
@@ -90,7 +90,7 @@ per farlo usiamo i metodi `set_title(string)` e `set_heading(string)` della vari
 // .....
 
 /**
- * @package    enrol_magiclink
+ * @package    local_anagrafe
  * @author     Mario Rossi <mario.rossi@mailinesistente.it>
  * @copyright  2024 Azienda S.r.l. (https://www.sitoazienda.it/)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -99,8 +99,8 @@ per farlo usiamo i metodi `set_title(string)` e `set_heading(string)` della vari
 require_once('../../config.php');
 require_login();
 
-$PAGE->set_title(get_string('pluginname', 'enrol_magiclink'));
-$PAGE->set_heading(get_string('pluginname', 'enrol_magiclink'));
+$PAGE->set_title(get_string('pluginname', 'local_anagrafe'));
+$PAGE->set_heading(get_string('pluginname', 'local_anagrafe'));
 
 ```
 
@@ -109,7 +109,7 @@ Per la stringa da inserire, abbiamo utilizzato il metodo `get_string(string, str
 Inseriamo poi l'url della pagina con il metodo `set_url`
 
 ```php
-$PAGE->set_url(new moodle_url('/enrol/magiclink/helloworld.php'));
+$PAGE->set_url(new moodle_url('/local/anagrafe/helloworld.php'));
 ```
 
 la classe `moodle_url` e' un helper per costruire url con parametri, che include automaticamente la root quando poi la stringa viene usata.
@@ -157,23 +157,23 @@ echo $OUTPUT->footer();
 
 vengono chiusi i tag e finalizzata la pagina.
 
-Tutto il contnuto della pagina deve quindi essere definito tra queste due istruzuzioni. 
+Tutto il contenuto della pagina deve quindi essere definito tra queste due istruzioni. 
 
 Per questa semplicissima pagina stamperemo manualmente l'html usando la classe `html_writer` che ha una serie di metodi per aiutare la creazione di html secco
 
 ```php
-echo html_writer::tag('p', get_string('helloworld', 'enrol_magiclink'));
+echo html_writer::tag('p', get_string('helloworld', 'local_anagrafe'));
 ```
 
 Esistono metodi piu' sofisticati che separano la logica di rappresentazione da quella business, ma per pagine semplicissime questo approccio va benissimo.
 
-Da notare che abbiamo usato una stringa nuova, che quindi andra' definita all'interno del file `lang/en/enrol_magiclink.php`
+Da notare che abbiamo usato una stringa nuova, che quindi andra' definita all'interno del file `lang/en/local_anagrafe.php`
 
 ```php
 $string['helloworld'] = 'Hello world!';
 ```
 
-ed eventualmente in italiano in `lang/it/enrol_magiclink.php`
+ed eventualmente in italiano in `lang/it/local_anagrafe.php`
 
 ```php
 $string['helloworld'] = 'Ciao Mondo!';
@@ -186,7 +186,7 @@ Ora possiamo controllare l'effettiva presenza della pagina, prima pero' aggiorni
 
 Lo abbiamo fatto unicamente a scopo didattico non e' necessario per il funzionamento. Con le modifiche che abbiamo fatto sarebbe bastato svuotare le cache per popolare la nuova stringa che abbiamo aggiunto.
 
-La pagina e' accessibile all'url `localhost/nomesito/enrol/magiclink/helloworld.php`
+La pagina e' accessibile all'url `localhost/nomesito/local/anagrafe/helloworld.php`
 
 Se avete fatto tutto correttamente, dovrebbe essere visualizzata con lo stesso stile delle altre pagine e dovrebbe essere presente in basso a destra un punto interrogativo con il footer.
 
@@ -209,7 +209,7 @@ la struttura finale della pagina e' la seguente:
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details: http://www.gnu.org/copyleft/gpl.html
 /**
- * @package    enrol_magiclink
+ * @package    local_anagrafe
  * @author     Mario Rossi <mario.rossi@mailinesistente.it>
  * @copyright  2024 Azienda S.r.l. (https://www.sitoazienda.it/)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -218,9 +218,9 @@ la struttura finale della pagina e' la seguente:
 require_once('../../config.php');
 require_login();
 
-$PAGE->set_title(get_string('pluginname', 'enrol_magiclink'));
-$PAGE->set_heading(get_string('pluginname', 'enrol_magiclink'));
-$PAGE->set_url(new moodle_url('/enrol/magiclink/helloworld.php'));
+$PAGE->set_title(get_string('pluginname', 'local_anagrafe'));
+$PAGE->set_heading(get_string('pluginname', 'local_anagrafe'));
+$PAGE->set_url(new moodle_url('/local/anagrafe/helloworld.php'));
 $PAGE->set_context(context_system::instance());
 $PAGE->set_pagelayout('standard');
 
@@ -228,7 +228,7 @@ $PAGE->set_pagelayout('standard');
 
 echo $OUTPUT->header();
 
-echo html_writer::tag('p', get_string('helloworld', 'enrol_magiclink'));
+echo html_writer::tag('p', get_string('helloworld', 'local_anagrafe'));
 
 echo $OUTPUT->footer();
 ```

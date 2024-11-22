@@ -40,10 +40,10 @@ non tutti i plugin possono utilizzare tutti i tipi di callback, ma per iniziare 
 ad esempio se volessimo aggiungere un link al nostro plugin definiremmo la seguente funzione in `lib.php`
 
 ```
-function enrol_magiclink_extend_navigation_frontpage(navigation_node $frontpage) {
+function local_anagrafe_extend_navigation_frontpage(navigation_node $frontpage) {
     $frontpage->add(
-        get_string('pluginname', 'enrol_magiclink'),
-        new moodle_url('/enrol/magiclink/helloworld.php')
+        get_string('pluginname', 'local_anagrafe'),
+        new moodle_url('/local/anagrafe/helloworld.php')
     );
 }
 ```
@@ -106,17 +106,17 @@ $observers = array(
 
     array(
         'eventname'   => '\core\event\course_viewed',
-        'callback'    => 'local_linkfacilita_observer::course_viewed',
+        'callback'    => 'local_anagrafe_observer::course_viewed',
     ),
 
     array(
         'eventname'   => '\core\event\user_loggedin',
-        'callback'    => 'local_linkfacilita_observer::user_loggedin',
+        'callback'    => 'local_anagrafe_observer::user_loggedin',
     ),
 
     array(
         'eventname'   => '\core\event\course_module_viewed',
-        'callback'    => 'local_linkfacilita_observer::course_module_viewed',
+        'callback'    => 'local_anagrafe_observer::course_module_viewed',
     ),
 
 );
@@ -139,9 +139,9 @@ Nel metodo che consuma l'evento avremo l'evento stesso, che e' una classe, come 
 public static function course_viewed(\core\event\course_viewed $event) {
 
         try{
-            local_linkfacilita_observer::_handle_event($event->get_data()['userid'],$event->get_data()['courseid'],null);
+            local_anagrafe_observer::_handle_event($event->get_data()['userid'],$event->get_data()['courseid'],null);
         } catch (Error $ex){
-            local_linkfacilita_observer::_handle_error($ex);
+            local_anagrafe_observer::_handle_error($ex);
         }
     }
 ```
