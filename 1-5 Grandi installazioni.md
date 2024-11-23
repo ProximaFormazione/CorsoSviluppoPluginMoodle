@@ -35,11 +35,15 @@ Di fatto le uniche informazioni salvate sono nella cartella moodledata o sul dat
 
 Detto questo, fintanto tutte le istanze hanno accesso agli stessi dati del database e della cartella moodledata, possono girare un qualsiasi numero di istanze senza problemi.
 
-La configurazione delle singole istanze non richiede particolari attenzioni, il puntamento per database e dati dovrebbe essere identico, e laddove avete un reverse proxy anche l'hostname risultera' lo stesso (quello del proxy). Il reverse proxy non e' obbligatorio potete anche avere diverse istanze indipendenti raggiungibili con indirizzi diversi (magari per platee diversificate), in tal caso ogni istanza avra' il proprio parametro `wwwroot` indicato nel file `config.php`
+Le configurazioni gia' viste delle singole istanze non richiedono particolari attenzioni, il puntamento per database e dati dovrebbe essere identico, e laddove avete un reverse proxy anche l'hostname risultera' lo stesso (quello del proxy). Qualora non ci fosse un reverse proxy potete anche avere diverse istanze indipendenti raggiungibili con indirizzi diversi (magari per platee diversificate), in tal caso ogni istanza avra' il proprio parametro `wwwroot` indicato nel file `config.php`. Nel resto della guida ci soffermeremo sul caso che prevede il reverse proxy
 
-Vi sono pero' delle feature che non funzioneranno piu' correttamente: principalmente l'installazione di plugin via interfaccia, in quanto agirebbe unicamente sull'istanza raggiunta con il browser web. Nei moodle a piu' istanze le installazioni di plugin vanno gestite esternamente caricando direttamente la cartella  su tutte le istanze (di solito modificando il repository dal quale vengono create). 
+Vi sono delle feature che non funzioneranno piu' correttamente con piu' istanze: principalmente l'installazione di plugin via interfaccia, in quanto agirebbe unicamente sull'istanza raggiunta con il browser web. Nei moodle a piu' istanze le installazioni di plugin vanno gestite esternamente caricando direttamente la cartella su tutte le istanze (di solito modificando il repository dal quale vengono create). 
 
-Non mi sovvengono altre attenzioni particolari. In caso di plugin terzi bisogna verificare che non applichino modifiche ai files del sito affinche siano compatibili con questa configurazione
+In caso di plugin terzi bisogna verificare che non applichino modifiche ai files del sito affinche siano compatibili con questa configurazione
+
+### Gestione sessioni
+
+Moodle gestisce le sessioni lato server 
 
 Dati
 ----
