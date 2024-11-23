@@ -167,11 +167,9 @@ Per le installazioni con piu' istanze utilizzare il salvataggio delle sessioni i
 ```
 $CFG->session_handler_class = '\core\session\redis';
 $CFG->session_redis_host = '127.0.0.1';
-$CFG->session_redis_acquire_lock_timeout = 120;
-$CFG->session_redis_lock_expire = 7200;
 ```
 
-driver alternativi includono il database (anch'esso poco performante) e memcached.
+driver alternativi includono il database (anch'esso poco performante) e memcached. L'uso di redis nei casi con piu' istanze e' meglio dettagliato in un capitolo successivo
 
 [Documentazione dettagliata su sessioni](https://docs.moodle.org/403/en/Session_handling)
 
@@ -204,18 +202,32 @@ La mappatura tra file ed hash e' nel database nella tabella `files`.
 I plugin che determinano modalita' alternative di conservazione dei files sono i plugin di tipo **repository**, vi sono una vasta gamma di plugins (es: FTP, google drive, S3...).
 
 Un plugin notabile, e preinstallato, e' **File System**, che permette di designare delle cartelle sul file system dove accedere ai files in chiaro. Questa modalita' e' utile per permettere agli utenti di caricare files di grosse dimensioni (gigabytes) tramite FTP o altro metodo
+
+repository
+----------
+
+Non presente nell'installazione base, ma e' una cartella richiesta dal repository "file system" se abilitato. Tale repository permette di far leggere a moodle file in chiaro dal server, ed e' spesso usato quando e' necessario caricare contenuti tramite FTP o simili. 
+
+Il contenuto di tale cartella, se presente, e' interamente deciso dalle persone che caricano i files 
  
 lang
 ----
 
-la cartella **lang** contiene le stringhe del language pack che vengono modificate manualmente dagli utenti autorizzati a farlo. la carrella ha una struttura similare a quella nella cartella del sito
+la cartella **lang** contiene le stringhe del language pack che vengono eventualmente modificate manualmente dagli utenti autorizzati a farlo. la cartella ha una struttura similare a quella nella cartella del sito
+
+models
+------
+
+Models contiene files relativi ai modelli di machine learning allenati dai processi di moodle che ne fanno uso.
 
 Altre cartelle
 --------------
 
-Altre cartelle utilizzate dalla piattaforma includono le cartelle **temp**, **trashdir**, **lock**. Queste cartelle possono essere escluse dai backup (eccetto trashdir) e dal controllo di versione se usato nella cartella moodledata (in tal caso escludere anche cache e sessions ).
+Altre cartelle utilizzate dalla piattaforma includono le cartelle **temp**, **trashdir**, **lock**. Queste tre cartelle possono essere escluse dai backup (eccetto trashdir) e dal controllo di versione se usato nella cartella moodledata (in tal caso escludere anche cache e sessions ).
 
 I files in temp e trashdir vengono regolarmente cancellati da moodle in base ad impostazioni sul sito.
+
+Moodle e' in continua evoluzione e altre cartelle possono essere aggiunte in futuro, inoltre il path della cartella e' a disposizione dei plugin quindi non e' escluso che ci siano cartelle addizionali da plugin custom
 
 
 
