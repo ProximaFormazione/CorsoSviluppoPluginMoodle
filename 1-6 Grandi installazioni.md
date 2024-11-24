@@ -127,3 +127,4 @@ Per esperienza, tipicamente le prestazioni del disco sono generalmente il collo 
 Non tutto il contenuto della cartella moodledata puo' essere messo in sistemi alternativi. e' previsto un ulteriore settaggio che va inserito nel file config.php: `$CFG->localcachedir` che permette di utilizzare una cartella sul filesystem dell'istanza del web server come cache di elementi non modificabili, come il javascript o  le librerie. Questo velocizza la visualizzazione al costo di avere delle cache non facilmente svuotabili.
 
 Non mi risulta sia pratica comune moltiplicare la cartella moodledata, anche perche' sarebbe difficoltoso visto il fatto che e' spesso di dimensioni considerevoli.
+
