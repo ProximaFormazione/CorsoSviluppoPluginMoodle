@@ -250,7 +250,7 @@ skip-name-resolve=1
 
 Questo e' l'unico consiglio facile riguardo MariaDb. Ci sono altre considerazioni da fare che dipendono dal vostro sistema. Segnalo solo che il settaggio `query_cache_type` e' meglio lasciare disattivato in quanto comporta riduzioni di performance per tabelle con modifiche frequenti.
 
-Per un ulteriore analisi potete utilizzare MySQLTuner ([Link](https://github.com/major/MySQLTuner-perl)) che e' uno script di controllo automatico delle prestazioni che si porta dietro alcuni suggerimenti preimpostati, per scaricarlo
+Per un'ulteriore analisi potete utilizzare MySQLTuner ([Link](https://github.com/major/MySQLTuner-perl)) che e' uno script di controllo automatico delle prestazioni che si porta dietro alcuni suggerimenti preimpostati, per scaricarlo
 
 ```
 wget http://mysqltuner.pl/ -O mysqltuner.pl
