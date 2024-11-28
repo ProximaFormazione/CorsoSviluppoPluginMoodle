@@ -1,7 +1,7 @@
 Ricerca Globale
 ===============
 
-[Link Documentazione](https://docs.moodle.org/405/en/Global_search)
+[Link Documentazione](https://docs.moodle.org/405/en/Global_search) (nota: le informazioni sulla documentazione ufficiale sembrano essere non aggiornate)
 
 La ricerca globale e' una funzionalita' di ricerca a livello di sito che permette agli utenti di eseguire delle ricerche su tutta la piattaforma, prevalentemente sui contenuti dei corsi.
 
@@ -14,7 +14,7 @@ Configurazione in moodle
 
 Vediamo come configurare la funzionalita' lato moodle, lasciando per ora da parte l'aspetto di integrazione del motore di ricerca.
 
-La ricerca globale non e' attiva in un unstallazione base, ma e' una "funzionalita' avanzata" da attivare marcando l'apposito check nel menu Amministrazione del sito -> Funzionalita' avanzate.
+La ricerca globale non e' attiva in un installazione base, ma e' una "funzionalita' avanzata" da attivare marcando l'apposito check nel menu Amministrazione del sito -> Funzionalita' avanzate.
 
 Una volta attivata, possiamo trovare le relative configurazione nel menu' Amministrazione del sito -> Plugin -> Search engine. La prima voce (Gestione ricerca globale) presenta, oltre alle impostazioni, una checklist verificata con gli step da intraprendere.
 
@@ -57,7 +57,30 @@ Questo motore di ricerca ha il vantaggio di non richiedere altre configurazioni,
 
 ### Solr
 
-Solr ([Link](https://solr.apache.org/)) e' una soluzione di ricerca basata sulla libreria Apache Lucene ([Link](https://lucene.apache.org/)). Moodle viene gia' installato cin il plugin di integrazione con Solr (Probabilmente perche' e' intermanete open source).
+Solr ([Link](https://solr.apache.org/)) e' una soluzione di ricerca basata sulla libreria Apache Lucene ([Link](https://lucene.apache.org/)). Moodle viene gia' installato cin il plugin di integrazione con Solr (Probabilmente perche' e' interamente open source). 
+
+Utilizzando Solr le query includono sintassi avanzate, come la possibilita' di usare wildcard, operatori logici (AND, OR, NOT) o risultati simili nello spazio delle parole usando il carattere "~": "bluebutton~3" trova anche "bigbluebutton". (C'e' da chiedersi se gli utenti saranno a conoscenza di questa feature) 
+
+Solr include anche la funzionalita' di indicizzare i contenuti di files caricati, che va abilitata in moodle nella configurazione
 
 Solr va installato separatamente, ed il PHP va fornito di tutte le estensioni necessarie.
+
+Una guida su come installare Solr e' presente a questo [Link](https://solr.apache.org/guide/solr/latest/deployment-guide/installing-solr.html). In breve dovete scaricarvi i files dal sito, poi nella cartella `bin/` potete utilizzare lo script `install_solr_services.sh` per utilizzare solr come servizio, oppure lanciarlo manualmente con il comando `solr start`.
+
+Il comando `solr` nella cartella `bin` e' utile anche per creare l'indice che verra' poi usato in moodle (core in solr). Se avete installato solr come servizio di default lo trovate in `/opt/solr-9.7.0/bin`
+
+> ATTENZIONE: Solr e' molto sensibile ai permessi sulle cartelle, per evitare problemi impersonate l'utente corretto quando usate la linea di comando. (nell'installazione come servizio tale utente e' `solr`)
+
+```
+udo -u solr /opt/solr-9.7.0/bin/solr create -c moodle
+```
+
+Questo comando crea un core di nome moodle utilizzabile. I settaggi dei core di Solr non sono argomento di questo corso, ma con questa configurazione di default potrete almeno partire
+
+Alcune considerazioni:
+
+* Di default l'interfaccia web di Solr non e' raggiungibile se non con localhost, nel caso cambiare il settaggio `SOLR_JETTY_HOST` con 0.0.0.0 o 192.168.0.0 o quant'altro
+* In produzione Solr avra' bisogno di una buona quantita' di memoria, moodle raccomanda 10-20 GB rdi ram (il valore di default e' 512MB)
+
+[Link su dimensionamento Solr](https://lucidworks.com/post/solr-sizing-guide-estimating-solr-sizing-hardware/)
 
