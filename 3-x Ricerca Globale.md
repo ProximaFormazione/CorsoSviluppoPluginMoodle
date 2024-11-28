@@ -80,6 +80,7 @@ Questo comando crea un core di nome moodle utilizzabile. I settaggi dei core di 
 Alcune considerazioni:
 
 * Di default l'interfaccia web di Solr non e' raggiungibile se non con localhost, nel caso cambiare il settaggio `SOLR_JETTY_HOST` con 0.0.0.0 o 192.168.0.0 o quant'altro
+* In caso di errori del tipo `Too many boolean clauses error` dovete modificare il settaggio `maxBooleanClauses` nel settaggio del core. questo si trova nel file `/conf/solrconfig.xml` nella cartella del core, che di default e' `/var/solr/data/NOME_CORE`
 * In produzione Solr avra' bisogno di una buona quantita' di memoria, moodle raccomanda 10-20 GB rdi ram (il valore di default e' 512MB)
 
 [Link su dimensionamento Solr](https://lucidworks.com/post/solr-sizing-guide-estimating-solr-sizing-hardware/)
