@@ -22,7 +22,7 @@ Molti dei settaggi sono ben spiegati nella maschera stessa. Notabile e' il setta
 
 Altra attenzione e' decidere se limitare i risultati ai soli corsi in cui l'utente 'e iscritto o tutti i corsi a cui ha accesso, in questo secondo caso verranno inclusi corsi a cui si puo' accedere come ospite (se impostati), ed e' significativa per gli utenti manager. Non include corsi al quale l'utente puo' iscriversi (ad esempio tramite iscrizione manuale) se non puo' vederli evitando l'iscrizione.
 
-Se la ricerca e' abilitata, l'utente puo' accedervici tramite un icona di ricerca in alto a destra (sul tema boost almeno) e ricercare tra i contenuti a cui ha accesso.
+Se la ricerca e' abilitata, l'utente puo' accedervici tramite un icona di ricerca in alto a destra (sul tema boost almeno) e ricercare tra i contenuti a cui ha accesso. E' disponibile anche un blocco con la stessa funzionalita'
 
 ### Cosa e' incluso
 
@@ -84,4 +84,24 @@ Alcune considerazioni:
 * In produzione Solr avra' bisogno di una buona quantita' di memoria, moodle raccomanda 10-20 GB rdi ram (il valore di default e' 512MB)
 
 [Link su dimensionamento Solr](https://lucidworks.com/post/solr-sizing-guide-estimating-solr-sizing-hardware/)
+
+Per sviluppatori
+-----------------
+
+E' chiaramente possibile implementare il proprio motore di ricerca, a livello di moodle e' sufficiente implementare un unica classe con i metodi richiesti ([Vedi documentazione](https://docs.moodle.org/dev/Search_engines)), si puo' anche vedere l'implementazione di `search_simpledb` in `/search/engine` per un esempio.
+
+Ovviamente implementare un proprio motore di ricerca e' argomento assai piu' complesso e non oggetto di questo corso.
+
+Per fare si invece che il contenuto di un proprio plugin sia indicizzabile bisogna censire una nuova area di ricerca nel plugin.
+
+Per farlo bisogna creare una classe `\tipo_nome\search\NOMEAREA` che deve ereditare da una della classi in moodle core
+
+- `\core_search\base`
+- `\core_search\base_mod` per le attivita
+- `\core_search\base_activity` per le informazioni base dell'attivita'
+- `\core_search\base_block` per i blocchi
+
+Per un esempio, si puo' consultare l'implementazione in `mod_book`, ed eventualmente prenderla come esempio.
+
+Per i dettagli si rimanda alla documentazione ufficiale: [Link](https://docs.moodle.org/dev/Search_API)
 
