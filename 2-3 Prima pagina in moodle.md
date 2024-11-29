@@ -71,7 +71,7 @@ In files che gia' hanno importato tale file, potremo usare `$CFG->dirroot` per f
 
 La prossima riga da aggiungere e' `require_login()`, che ci assicura che l'utente sia loggato. Se l'utente non e' loggato gestisce il redirect sulla pagina di login, al termine del quale l'utente verra' reindirizzato nuovamente sulla nostra pagina.
 
-> ATTENZIONE: laddove e' abilitato l'account guest `require_login()` di default esegue da solo la login come guest, ci sono parametri opzionali al metodo per modificare il comportamento
+> ATTENZIONE: laddove e' abilitato l'account guest `require_login()` di default esegue da solo la login come guest, ci sono parametri opzionali al metodo per modificarne il comportamento
 
 Ovviamente se la pagina deve essere accessibile senza autenticazione (pagina statica) potete omettere tale riga.
 

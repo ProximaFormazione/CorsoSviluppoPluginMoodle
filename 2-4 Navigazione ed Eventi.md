@@ -5,9 +5,11 @@ Navigazione
 
 Moodle ha un sistema condiviso per gestire i link di navigazione all'interno delle pagine.
 
-Come poi il menu di navigazione e' presentato dipende dal tema in uso.
+Come poi il menu di navigazione e' presentato dipende dal tema in uso. La struttura qui descritta e' solo la struttura interna di moodle, non prevede automaticamente un metodo di visualizzazione (Poi di fatto tutti i temi la usano in qualche modo)
 
 Vi sono tre livelli di navigazione: Primario, secondario e terziario. Questi livelli vengono rappresentati con consecutivo ordine di importanza.  
+
+Nel tema Boost la navigazione primaria e' la tabview in testata con il link per l'amministrazione del sito, la navigazione secondaria e' la tabview sotto il titolo del corso, mentre la navigazione terziaria, quando presente, e' una combobox
 
 Esiste poi un secondo sistema di navigazione per i settaggi.
 
@@ -24,7 +26,24 @@ La navigazione 'e contestuale ad altri elementi contenuti in `$PAGE`:
 
 Per alterare la struttura della navigazione un modo possibile sarebbe usare il metodo `$PAGE->navigation->add()`, tuttavia cio' e' possibile solo all'interno del nostro codice, cioe' dove l'utente dovrebbe arrivare tramite la navigazione che dobbiamo aggiungere.
 
-Per ovviare a questo sono a disposizione dei **Callbacks** ([Documentazione](https://docs.moodle.org/dev/Callbacks)), ovvero funzioni che vengono chiamate dal codice core di moodle.
+Per ovviare a questo dovremo implementare degli **Hooks** (dalla 4.3 in poi) oppure dei **Callbacks**, oppure entrambi per avere compatibilita' maggiore. Indipendentemente dal metodo scelto dovremo utilizzare la funzione `add()` del nodo di navigazione ed aggiungere il nostro nodo
+
+```php
+$nodo->add(
+    get_string('pluginname', 'local_anagrafe'),
+    new moodle_url('/local/anagrafe/helloworld.php')
+);
+```
+
+Hooks
+=====
+
+//TODO
+
+Callbacks
+---------
+
+I **Callbacks** ([Documentazione](https://docs.moodle.org/dev/Callbacks)) sono dei metodi particolari che possiamo dichiarare nel nostro plugin e che vengono chiamati da altri processi di moodle core.
 
 I callbacks devono aderire a rigide regole di nomenclatura:
 
@@ -39,7 +58,7 @@ non tutti i plugin possono utilizzare tutti i tipi di callback, ma per iniziare 
 
 ad esempio se volessimo aggiungere un link al nostro plugin definiremmo la seguente funzione in `lib.php`
 
-```
+```php
 function local_anagrafe_extend_navigation_frontpage(navigation_node $frontpage) {
     $frontpage->add(
         get_string('pluginname', 'local_anagrafe'),
@@ -48,6 +67,11 @@ function local_anagrafe_extend_navigation_frontpage(navigation_node $frontpage) 
 }
 ```
 
+E' raccomandato non utilizzare i callbacks per i nuovi plugi, ed utilizzare invece degli Hooks (vedi sopra). I callback hanno i seguenti problemi:
+
+- La documentazione su quali callback esistono e su quali plugin possono utilizzarli non e' immediata da reperire.
+- Non vi e' audit a livello di sito dei callback attivi, inclusi metodi per vedere se il vostro callback e' effettivamente riconosciuto o no da moodle
+
 Blocco di navigazione
 ---------------------
 
@@ -55,7 +79,7 @@ Il blocco "navigazione" e' un blocco che visualizza l'albero della navigazione l
 
 > Il blocco navigazione non e' visualizzato nel tema di default di moodle 4, ma lo e' su versioni piu' vecchie o altri temi
 
-per estendere il contenuto del blocco di navigazione dobbiamo usare il callback `extend_navigation`. Questo hook pero' non e' disponibile ai plugin di tipo `enrol`, ma puo' ad esempio essere usato in un plugin `local`
+per estendere il contenuto del blocco di navigazione dobbiamo usare il callback `extend_navigation`. Questo hook pero' non e' disponibile a tutti i plugin, ma puo' ad esempio essere usato in un plugin `local`
 
 ```
 function local_greetings_extend_navigation(global_navigation $root) {
@@ -88,7 +112,7 @@ Nelle versioni precedenti, come la 3.11, si avevano tre elementi di navigazione
 Eventi
 ======
 
-Moodle definisce al suo interno un meccanismo di **eventi** al quale i vari plugin possono sottorscivere dei loro metodi da eseguire.
+Moodle definisce al suo interno un meccanismo di **eventi** al quale i vari plugin possono sottoscrivere dei loro metodi da eseguire.
 
 Dettagli e la lista degli eventi in moodle core e' disponibile sulla [Documentazione ufficiale](https://docs.moodle.org/dev/Events_API) oppure dal menu di amministrazione in Site administration > Reports > Event list
 

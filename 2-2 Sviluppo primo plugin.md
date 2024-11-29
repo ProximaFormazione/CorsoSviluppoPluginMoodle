@@ -3,7 +3,7 @@ Sviluppo di primo plugin
 
 Eseguiamo ora gli step necessari per la creazione di un plugin semplice, in modo da vedere la procedura.
 
-> Esistono vari sistemi per creare lo scheletro di un plugin in maniera automatica, come il [Plugin Skeleton Generator](https://docs.moodle.org/403/en/Plugin_skeleton_generator), in questa guida pero' eseguiremo manualmente le opearzioni
+> Esistono vari sistemi per creare lo scheletro di un plugin in maniera automatica, come il [Plugin Skeleton Generator](https://docs.moodle.org/403/en/Plugin_skeleton_generator), in questa guida pero' eseguiremo manualmente le operazioni
 
 Come primo progetto creeremo un plugin semplice, ma che sara' un prodotto utilizzabile
 
@@ -17,7 +17,6 @@ Per prima cosa creiamo una cartella di nome `anagrafe` all'interno della cartell
 
 version.php
 -----------
-
 
 All'interno della cartella del plugin, nella root creiamo il file `version.php`.
 
@@ -70,7 +69,7 @@ Il significato delle variabili e':
 
 * `$plugin->component = 'local_anagrafe';` e' OBBLIGATORIO ed e' il nome del plugin, seguendo la nomenclatura "Frankenstyle"
 * `$plugin->version = 2024022001;` e' OBBLIGATORIO ed e' il numero di versione del plugin, se viene modificato allora viene scatenata la procedura di aggiornamento. Si tratta di una data in formato YYYYMMDDXX dove XX e' un progressivo per permettervi di avere piu' versioni in un giorno
-* `$plugin->maturity = MATURITY_ALPHA;` e' utile da aggiungere in modo che venga visualizzato un warning qualora qualcuno provi ad installare il plugin, in modo che sia chiaro che stanno installando un prodotto non finito. Al termine dei lavori sostuirete con la costante `MATURITY_STABLE` (altri valori sono `MATURITY_BETA` e `MATURITY_RC`). Se non inserite un valore non verra' mostrato alcun warning
+* `$plugin->maturity = MATURITY_ALPHA;` e' utile da aggiungere in modo che venga visualizzato un warning qualora qualcuno provi ad installare il plugin, in modo che sia chiaro che stanno installando un prodotto non finito. Al termine dei lavori sostituirete con la costante `MATURITY_STABLE` (altri valori sono `MATURITY_BETA` e `MATURITY_RC`). Se non inserite un valore non verra' mostrato alcun warning
 * `$plugin->release   = "0.1";` e' un numero di versione unicamente visivo per l'utente, da modificare ad ogni rilascio. Se manca verra' mostrato il version sopra
 
 Questi sono i valori minimi da inserire. Vi sono poi tutta una serie di valori aggiuntivi che potete valorizzare, come
@@ -103,7 +102,7 @@ La chiave usata sara' poi utilizzata per richiamare la stringa tramite il metodo
 
 `get_string('hello_world', 'local_anagrafe');`
 
-Alcune chiavi hanno ruoli di sistema, come ad esempio 'pluginname_localized' sopra, o descrizioni nei plugin mod (la lista e' disponibile nella documentazione del plugin).
+Alcune chiavi hanno ruoli di sistema, come ad esempio 'pluginname_localized' sopra, o descrizioni nei plugin mod (la lista e' disponibile nella documentazione del plugin). Queste chiavi verranno richiamate in vari punti di moodle core 
 
 E' possibile avere dei placeholder all'interno delle stringhe
 
@@ -128,7 +127,7 @@ Potete ovviamente cablare invece le stringhe direttamente nel codice, che e' ind
 * Supporto in altre lingue, in primis inglese
 * Possibilita' per gli utenti di modificare le stringhe
 
-Valutate voi come preferite agire.
+Valutate voi come preferite agire. Chiaramente la funzionalita' multilingua e' interessante, ma non sottovalutate il tempo che dedicherete a compilare queste stringhe. Un buon compromesso potrebbe essere utilizzare unicamente il language pack "en" eventualmente con stringhe in italiano. In questo modo potete facilmente in futuro inserire il language pack inglese e conservare il lavoro fatto su quello italiano spostando il file
 
 Repository Git
 --------------

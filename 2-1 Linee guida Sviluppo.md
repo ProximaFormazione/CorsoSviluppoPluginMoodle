@@ -1,7 +1,7 @@
 Linee Guida
 ===========
 
-Moodle e' un progetto open source, se si desidera partecipare all'interno della comuinita' di sviluppatori e' necessario aderire a delle precise regole di codice.
+Moodle e' un progetto open source, se si desidera partecipare all'interno della comunita' di sviluppatori e' necessario aderire a delle precise regole di codice.
 
 > Documentazione completa [Qui](https://moodledev.io/general/development/policies/codingstyle)
 
@@ -28,7 +28,7 @@ La nomenclatura di un plugin deve rispettare la forma:
 
 > `tipo_nome`
 
-Dove `tipo` e' la tipologia di plugin (es: local, report, auth) e `nome` e' il nome del plugin, dove sono permessi solo lettere ed underscore. Consiglio di scegliere nomi brevi perche' finiscono in tutti i namespace e nelle tabelle (dove nella 4.1 c'e' un limite di caratteri stringente)
+Dove `tipo` e' la tipologia di plugin (es: local, report, auth) e `nome` e' il nome del plugin, dove sono permessi solo lettere ed underscore. Consiglio di scegliere nomi brevi perche' finiscono in tutti i namespace e nelle tabelle (fino alla 4.2 c'e' un limite di caratteri stringente)
 
 Questa nomenclatura del dominio e' riferite nelle documentazioni di moodle come nomenclatura [FrankenStyle](https://moodledev.io/general/development/policies/codingstyle/frankenstyle) e va rispettata perche' alcuni elementi di moodle dipendono da essa.
 
