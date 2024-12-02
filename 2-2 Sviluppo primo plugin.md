@@ -22,7 +22,7 @@ All'interno della cartella del plugin, nella root creiamo il file `version.php`.
 
 All'inizio del file apriamo il tag php, ed inseriamo un cartiglio con commenti sul file. A seconda di quanto volete fare circolare il vostro file puo' essere richiesto inserire una licenza GNU o similare
 
-```
+```php
 <?php
 
 // Copyright (C) 2024 Azienda S.r.l. (https://www.sitoazienda.it/)
@@ -51,7 +51,7 @@ All'interno di questo commento, che e' completamente opzionale, valutate voi cos
 
 Nello stesso file, inserite poi le seguenti variabili:
 
-```
+```php
 defined('MOODLE_INTERNAL') || die();         
 
 $plugin->component = 'local_anagrafe';
@@ -90,7 +90,7 @@ Il language pack inglese e' obbligatorio, quindi almeno quello va inserito.
 
 All'interno di ogni cartella della lingua, dovrete mettere un file con il nome "Frankensytle" del plugin dove dovrete associare valori all'array associativo `$string`.
 
-```
+```php
 $string['pluginname'] = 'anagrafe';
 $string['pluginname_localized'] = 'Anagrafe';
 $string['hello_world'] = 'Hello World';
@@ -106,14 +106,14 @@ Alcune chiavi hanno ruoli di sistema, come ad esempio 'pluginname_localized' sop
 
 E' possibile avere dei placeholder all'interno delle stringhe
 
-```
+```php
 $string['greeting'] = 'Dear {$a}';
 $string['info'] = 'There are {$a->count} new messages from {$a->from}.';
 ```
 
 e poi passare i parametri al momento di chiamarle
 
-```
+```php
 echo get_string('greeting', 'tool_example', 'Mr. Anderson');
 echo get_string('info', 'tool_example', ['count' => 42, 'from' => 'Mr. Smith']);
 ```

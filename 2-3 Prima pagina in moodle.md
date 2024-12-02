@@ -23,16 +23,19 @@ Le variabili sono:
 
 (per utilizzare una variabile globale all'interno di una funzione va dichiarata con la parola chiave `global`)
 
-```
+```php
 public static function get_data(){
 
         global $DB;
 
         // ......
 }
+
 ```
 
 per l'interfaccia grafica utilizzeremo `$PAGE` per dichiarare alcuni elementi come il titolo, e `$OUTPUT` per renderizzare il contenuto
+
+Con l'implementazione della dependency injection alcune di queste variabili globali sono disponibili come servizi iniettabili all'interno delle nostre classi
 
 Creazione della pagina
 ======================

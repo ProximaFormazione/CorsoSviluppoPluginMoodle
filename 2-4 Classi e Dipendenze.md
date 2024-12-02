@@ -79,7 +79,7 @@ $helloworld = \core\di::get(\local_anagrafe\biz\helloworld ::class);
 
 L'implementazione del container DI fatta da moodle include automaticamente le classi compliant con le regole del paragrafo precedente, non e' quindi richiesto definire i contenuti in un file centrale e si puo' usare la DI semplicemente in sostituzione al processo di sopra.
 
-Ovviamente e' possibile definire come i servizi all'interno del container, per fare cio' possiamo inserirci nell'hook `\core\hook\di_configuration`, ad esempio:
+Ovviamente e' possibile definire come i servizi all'interno del container, per fare cio' possiamo inserirci nell'hook (Vedi capitolo relativo) `\core\hook\di_configuration`, ad esempio:
 
 ```php
 
