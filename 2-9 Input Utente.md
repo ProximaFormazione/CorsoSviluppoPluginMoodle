@@ -29,7 +29,7 @@ Per la creazione di form html moodle mette a disposizione un meccanismo ad hoc c
 
 Tutto ruota intorno alla classe `moodleform` che fornisce il framework di base, voi dovete solo ereditare da questa classe e definire i vostri elementi facendo l'override del metodo `definition() : void` ed aggiungendo elementi alla propieta' `$_form` della classe.
 
-La classe e' definita nel file di moodle core `lib/formslib.php` che va incluso nel file con la classe del nostro form
+La classe e' definita nel file di moodle core `lib/formslib.php` che va incluso nel file con la classe del nostro form (non e' gestito dall'autocaricamento delle classi)
 
 Esempio:
 
@@ -56,7 +56,27 @@ class myform extends moodleform {
 
 per ogni elemento definiamo il nome del parametro, ed il tipo di controllo da visualizzare sul form. La lista completa dei controlli disponibili e' visibile sul codice o sulla [documentazione ufficiale](https://moodledev.io/docs/apis/subsystems/form). Ci sono molti controlli a disposizione.
 
-Alla fine del metodo dobbiamo ricordarci di aggiungere i pulsanti per submit e cancel se previsto. Il metodo `$this->add_action_buttons();` e' una scorciatoia per fare cio'.
+Alla fine del metodo dobbiamo ricordarci di aggiungere i pulsanti per submit e cancel se previsto. Il metodo `$this->add_action_buttons();` e' una scorciatoia per fare cio'. Dalla versione 4.3 e' disponibile anche la funzione `add_sticky_action_buttons` per avere i pulsanti sempre visibili anche in caso di scorrimento verticale.
+
+E' possibile inserire la validazione degli input lato client inserendo la funzione `validation($data, $files)`.
+
+```php
+class myform extends moodleform {
+    public function definition() {
+
+        // [...]
+
+        function validation($data, $files) {
+
+            // [...]
+
+            return [];
+            // oppure, in caso di errori:
+            return ['element_name' => 'stringa errore', ...]
+        }
+    }
+}
+```
 
 Utilizzare il form sulla pagina e' molto semplice, e' sufficiente instanziare la classe, e questa va a verificare da sola sulla pagina se esistono dei set di valori gia' postati, o se l'utente ha magari deciso di annullare.
 
@@ -79,7 +99,7 @@ Un esempio di gestione del form quindi e' il seguente
 // [...]
 
 // Istanzio il form
-$mform = new \plugintype_pluginname\form\myform();
+$mform = new \nome_plugin\form\myform();
 
 // Gestisco eventuali dati submittati
 if ($mform->is_cancelled()) {
@@ -107,81 +127,3 @@ $mform->display();
 
 echo $OUTPUT->footer();
 ```
-
-Settaggi
-========
-
-I settaggi di un plugin consistono in una serie di configurazioni che vengono salvate in una coppia chiave/valore nel database.
-
-Moodle ha una serie di funzioni che permettono il salvataggio e caricamento dei settaggi, oltre ad un robusto meccanismo per la creazione di menu appositi.
-
-Unica cosa da fare e' definire i settaggi in un apposito file denominato `settings.php`.
-
-I settaggi hanno una struttura simile all'albero della navigazione, e vanno ad incidere sulla variabile `$ADMIN`, alla quale aggiungeremo una pagina standard coi settaggi, con un oggetto di classe `admin_settingpage`.
-
-Dentro questa classe aggiungeremo i vari settaggi usando il tipo di controllo che vogliamo fare usare all'utente per impostare il messaggio
-
-Sembra complesso, ma una volta impostato una volta la struttura e' identica e si puo' prendere a modello per progetti successivi.
-
-Ad esempio inseriamo un settaggio per decidere se fare visualizzare il nostro plugin nella navigazione o no.
-
-L'esatta sintassi da utilizzare varia a seconda del plugin, per un plugin di tipo local ad esempio possiamo modificare l'albero dei settaggi ed aggiungere le voci
-
-```php
-defined('MOODLE_INTERNAL') || die();
-
-if ($hassiteconfig) {
-    $ADMIN->add('localplugins', new admin_category('local_helloworld_settings', new lang_string('pluginname', 'local_helloworld')));
-    $settingspage = new admin_settingpage('managelocalhelloworld', new lang_string('manage', 'local_helloworld'));
-
-    if ($ADMIN->fulltree) {
-        $settingspage->add(new admin_setting_configcheckbox(
-            'local_helloworld/showinnavigation',
-            new lang_string('showinnavigation', 'local_helloworld'),
-            new lang_string('showinnavigation_desc', 'local_helloworld'),
-            1
-        ));
-    }
-
-    $ADMIN->add('localplugins', $settingspage);
-}
-```
-
-* `local_helloworld/showinnavigation` e' il nome del settaggio da usare per richiamarlo
-* `$hassiteconfig` e' true se l'utente ha capacita' amministrative sul sito
-* `$ADMIN->fulltree` serve a verificare se stiamo visualizzando l'intero albero di navigazione. In modo da evitare di processare codice che non serve
-* Tutte le stringhe vanno definite nei file della lingua
-
-mentre per un plugin di tipo enrol conviene invece solo aggiungere elementi alla variabile `$settings`
-
-```php
- defined('MOODLE_INTERNAL') || die();
-
- if ($ADMIN->fulltree) {
-    $settings->add(new admin_setting_configcheckbox(
-        'enrol_magiclink/showinnavigation',
-        get_string('showinnavigation', 'enrol_magiclink'),
-        get_string('showinnavigation_desc', 'enrol_magiclink'),
-        1
-    ));
-}
-```
-
-Per consultare un settaggio sara' sufficiente utilizzare il metodo `get_config('nome_plugin','settaggio')`
-
-Ad esempio possiamo inserire un check nei metodi che aggiungono la navigazione nel nostro caso:
-
-```php
-function enrol_magiclink_extend_navigation_frontpage(navigation_node $frontpage) {
-    if(get_config('enrol_magiclink','showinnavigation') == '1'){
-        $frontpage->add(
-            get_string('pluginname', 'enrol_magiclink'),
-            new moodle_url('/enrol/magiclink/helloworld.php')
-        );
-    }
-}
-```
-
-I settaggi sono salvati come stringhe.
-
-[Documentazione Ufficiale](https://moodledev.io/docs/apis/subsystems/admin)

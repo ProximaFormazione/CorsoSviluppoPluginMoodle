@@ -44,7 +44,7 @@ Il blocco "navigazione" e' un blocco che visualizza l'albero della navigazione l
 
 per estendere il contenuto del blocco di navigazione dobbiamo usare il callback `extend_navigation`. Questo hook pero' non e' disponibile a tutti i plugin, ma puo' ad esempio essere usato in un plugin `local`
 
-```
+```php
 function local_greetings_extend_navigation(global_navigation $root) {
     $node = navigation_node::create(
         get_string('greetings', 'local_greetings'),
