@@ -51,7 +51,7 @@ Motore di ricerca
 
 Nella configurazione della ricerca globale si puo' stabilire che motore di ricerca utilizzare.
 
-Il motore di ricerca di default e' denominato **Ricerca semplice** e consiste sostanzialmente nell eseguire query su contenuto del database usando le normali funzioni di ricerca del db usato come `CONTAINS()` (MsSql) o `MATCH () AGAINST ()` (MySql). Notabilmente nel database Postgre utilizza delle feature di vettorizzazione del testo.
+Il motore di ricerca di default e' denominato **Ricerca semplice** e consiste sostanzialmente nell' eseguire query su contenuto del database usando le normali funzioni di ricerca del db usato come `CONTAINS()` (MsSql) o `MATCH () AGAINST ()` (MySql). Notabilmente nel database Postgre utilizza delle feature di vettorizzazione del testo.
 
 Questo motore di ricerca ha il vantaggio di non richiedere altre configurazioni, ma se i contenuti del sito sono molti, potrebbe non essere performante. In tal caso e' necessario utilizzare un altro motore di ricerca.
 

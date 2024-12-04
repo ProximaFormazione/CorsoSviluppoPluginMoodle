@@ -7,7 +7,7 @@ Ricordate che questi parametri possono essere creati a piacimento in una richies
 
 Essendo una soluzione open source, in moodle vi e' una grande attenzione all'aspetto sicurezza, ed eventuali falle sono impedite. 
 
-La lettura e caricamento dei parametri e' eseguita richiamando il file `config.php`. Per ottenere un parametro in una pagina si consiglia quindi di utilizzare uno dei metodi inseriti.
+La lettura e caricamento dei parametri e' eseguita richiamando il file `config.php`. Per ottenere un parametro in una pagina si consiglia quindi di utilizzare uno dei metodi delle API di moodle.
 
 `required_param()` restituisce il valore del parametro con il nome indicato, restituendo un errore qualora mancasse, mentre `optional_param()` vi permette invece di specificare un valore di default in caso il parametro mancasse.
 
@@ -54,14 +54,14 @@ class myform extends moodleform {
 }
 ```
 
-per ogni elemento definiamo il nome del parametro, ed il tipo di controllo da visualizzare sul form. La lista completa dei controlli disponibili e' visibile sul codice o sulla [documentazione ufficiale](https://moodledev.io/docs/apis/subsystems/form). Ci sono molti cintrolli a disposizione.
+per ogni elemento definiamo il nome del parametro, ed il tipo di controllo da visualizzare sul form. La lista completa dei controlli disponibili e' visibile sul codice o sulla [documentazione ufficiale](https://moodledev.io/docs/apis/subsystems/form). Ci sono molti controlli a disposizione.
 
 Alla fine del metodo dobbiamo ricordarci di aggiungere i pulsanti per submit e cancel se previsto. Il metodo `$this->add_action_buttons();` e' una scorciatoia per fare cio'.
 
 Utilizzare il form sulla pagina e' molto semplice, e' sufficiente instanziare la classe, e questa va a verificare da sola sulla pagina se esistono dei set di valori gia' postati, o se l'utente ha magari deciso di annullare.
 
 ```php
-$mform = new \plugintype_pluginname\form\myform();
+$mform = new \nome_plugin\form\myform();
 ```
 
 A questo punto di solito bisogna processare eventuale contenuto del form.

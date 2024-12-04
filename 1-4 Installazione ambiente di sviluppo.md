@@ -51,6 +51,15 @@ In locale Moodle non richiede troppe risorse. Come requisiti minimi moodle propo
 
 Se utilizzate docker sono disponibili immagini preconfezionate, come ad esempio quelle di [BitNami](https://hub.docker.com/r/bitnami/moodle), o i [file di configurazione forniti direttamente dalla Moodle](https://github.com/moodlehq/moodle-docker) (da non confondere con moodleapp che ha un hub su docker, ma che e' l'app mobile). Per l'installazione si rimanda alla documentazione delle stesse.
 
+Per l'immagine di bitnami, dopo averla scaricata dovete aggiungere un istanza di database, come mariadb di bitnami, ed attivare la persistenza dei dati. Se volete eseguire l'installazione nel modo piu' semplice possibile potete usare il file di docker compose proposto da bitnami ([Link](https://raw.githubusercontent.com/bitnami/containers/main/bitnami/moodle/docker-compose.yml)):
+
+```
+wget https://raw.githubusercontent.com/bitnami/containers/main/bitnami/moodle/docker-compose.yml
+docker compose up -d
+```
+
+Al primo avvio l'immagine esegue l'installazione, quindi potrebbero volerci alcuni minuti prima che la piattaforma sia raggiungibile, potete controllare lo stato nel log.
+
 XDebug
 ======
 
@@ -104,6 +113,13 @@ Una volta che avete installato VSCode, dovrete poi installare una serie di esten
 * [PHP Debug](https://marketplace.visualstudio.com/items?itemName=xdebug.php-debug) per collegarsi all'estensione xDebug del PHP (debugger PHP)
 
 Sono poi presenti diverse estensioni con snippet gia' pronti come [Moodle Pack](https://marketplace.visualstudio.com/items?itemName=imgildev.vscode-moodle-snippets) ed esiste una estensione specializzata per lo sviluppo, [MDLCode](https://marketplace.visualstudio.com/items?itemName=LMSCloud.mdlcode) (a pagamento), che ha moltissime utili funzionalita'. Questa ultima estensione e' estremamente utile nel lavoro quotidiano e vale l'investimento se si sviluppa regolarmente. In questa guida si raccomanda pero' di NON installarla nello svolgimento del corso in modo da prendere miglior dimestichezza con i sistemi e di installarla solo successivamente.
+
+Se si lavora su macchine remote o con container sono caldamente consigliate le seguenti estensioni:
+
+* [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) Per collegarsi in SSH
+* [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) Per i container docker
+
+Maggiori informazioni su come utilizzarle sono presenti nella sezione "Debug" sotto.
 
 Debug
 -----
@@ -172,6 +188,35 @@ Da notare che questa estensione installa sulla macchina remota un miniserver per
 Per fare cio' e' sufficiente aprire il tab delle estensioni, dove vedrete le estensioni che vanno reinstallate, ed installarle. Questo le installa nel miniserver sulla macchina remota. Trattandosi di un altro ambiente potreste dover modificare configurazioni o ottenere comportamenti diversi per il nuovo ambiente.
 
 Una volta connessi alla macchina remota possiamo cercare la cartella con il sorgente semplicemente facendo "open folder" (la navigazione avviene nella command palette) ed aprire la cartella con la nostra installazione. Qui possiamo configurare XDebug usando la stessa procedura per l'installazione su una macchina locale.
+
+#### Con Docker
+
+Entrambe le opzioni sono utilizzabili con docker, ma la loro implementazione richiede la modifica delle immagini per abilitare XDebug e/o altri requisiti (es abilitare connessioni SSH).
+
+VSCode prevede un'altra estensione: "Dev Containers" che semplifica il collegamento con i container di docker. Una volta installata e' possibile collegarsi ai container attivi cliccando sul menu' in basso a sinistra e/o selezionando la voce dalla command palette **Attach to running container...**, di fatto questa e' identica all'opzione 2 di sopra ma utilizzando un altro plugin di VSCode.
+
+Sull'immagine di bitnami, XDebug e' installata ma va attivata nel file di configurazione del PHP (in `/opt/bitnami/php/etc/php.ini`). Raccomando di utilizzare la configurazione di sopra per le macchine di sviluppo piuttosto che semplicemente decommentare le opzioni presenti
+
+In breve, se lavorate con l'immagine di bitnami:
+
+1. Installare l'estensione di VSCode **Dev Containers**
+2. Cliccare sull'icona di connessione remota in basso a sinistra e selezionare **Attach to running container...**
+3. Indicare il container con moodle
+4. File -> Open folder e selezionare la cartella con moodle (es `/bitnami/moodle`)
+
+In Aggiunta, per attivare il debug:
+
+5. modificare il file di configurazione del PHP (`/opt/bitnami/php/etc/php.ini`) per attivare XDebug. (Su bitnami XDebug e' inclusa, altrimenti dovete eventualmente installarla). Dopo aver modificato il file riavviate il servizio fpm (o il container)
+
+```
+[XDebug]
+zend_extension = xdebug
+xdebug.mode = debug
+xdebug.start_with_request = yes
+```
+
+6. Installare su VSCode aperto sulla cartella remota l'estensione **PHP Debug**, va installato in remoto indipendentemente dal fatto che lo abbiate in locale
+7. Generare un file launch.json dal tab "Debug" di visual studio, indicare *PHP* per avere una configurazione funzionante
 
 
 

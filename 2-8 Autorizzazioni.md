@@ -53,12 +53,12 @@ ed e' possibile recuperare il contesto per id:
 $context = context::instance_by_id($contextid);
 ```
 
-Il contesto viene ad esempio consumeto dai metodi per verificare le effettive autorizzazioni dell'utente. E' abbastanza pratico semplicemente assegnarlo ad una variabile nelle prime righe della pagina.
+Il contesto viene ad esempio consumato dai metodi per verificare le effettive autorizzazioni dell'utente. E' abbastanza pratico semplicemente assegnarlo ad una variabile nelle prime righe della pagina.
 
 Ruoli
 =====
 
-I **Ruoli** sono dei raggruppamenti di utenti che condividono le stesse autorizzazioni, come in molti altri meccanismi autorizzativi simili e' raccomandato assegnare le autorizzazioni ad un gruppo invece che assegnarle ai singoli utenti.
+I **Ruoli** sono dei raggruppamenti di utenti che condividono le stesse autorizzazioni, come in molti altri meccanismi autorizzativi simili e' raccomandato, ed in moodle obbligatorio, assegnare le autorizzazioni ad un gruppo invece che assegnarle ai singoli utenti. 
 
 > ATTENZIONE: i **gruppi** in moodle sono un altro concetto non direttamente legato a questo meccanismo
 

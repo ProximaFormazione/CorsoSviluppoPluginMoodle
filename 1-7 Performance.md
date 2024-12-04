@@ -232,7 +232,7 @@ Valutare se aumentare il valore di `memory_limit` nel PHP. Moodle puo' richieder
 MariaDb
 -------
 
-Il settaggio che puo' avere un enorme influenza sulle prestazioni del database MariaDb (e MySql) e' il settaggio della dimensione del buffer di memoria di InnoDb ([Documentazione ufficiale](https://dev.mysql.com/doc/refman/5.7/en/innodb-buffer-pool.html)). Essenzialmente e' spazio che in memoria che il database utiliza come cache per le query eseguite, piu' e' ampio piu' e' probabile che risulti utile alla piattaFORMA
+Il settaggio che puo' avere un enorme influenza sulle prestazioni del database MariaDb (e MySql) e' il settaggio della dimensione del buffer di memoria di InnoDb ([Documentazione ufficiale](https://dev.mysql.com/doc/refman/5.7/en/innodb-buffer-pool.html)). Essenzialmente e' spazio che in memoria che il database utiliza come cache per le query eseguite, piu' e' ampio piu' e' probabile che risulti utile alla piattaforma
 
 L'argomento e' sofisticato e richiede attenta valutazione per trovare il valore ottimale, quello che e' sicuro e' che il valore di default di 128MB non e' adeguato. Se il server e' dedicato unicamente al database e' raccomandazione comune dedicare a questo settaggio almeno il 70% della memoria totale del sistema. Altrimenti sicuramente assegnare almeno 1-2 GB dovrebbe comportare un notevole miglioramento
 
