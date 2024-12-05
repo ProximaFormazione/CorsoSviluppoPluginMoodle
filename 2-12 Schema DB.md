@@ -108,3 +108,4 @@ Le tabelle `mdl_analytics_XXX` sono invece relative ai meccanismi di Machine lea
 - la tabella dei log e' `mdl_logstore_standard_log`, mentre la tabella `mdl_log` e' deprecata
 - Molte funzionalita' tipicamente assimilabili a moodle base sono nelle tabelle `mdl_tool_XXXX`, ad esempio `mdl_tool_policy` ha le policy di privacy.
 
+
