@@ -4,15 +4,6 @@ Altre API
 
 Altri meccanismi di moodle che non abbiamo visto
 
-Settaggi utente
----------------
-
-I settaggi specifici di un utente sono salvati nel database ed accessibili in maniera similare ai settaggi del sito.
-
-Sono a disposizione i metodi `get_user_preferences()`, `set_user_preference()` e `unset_user_preference()`
-
-vedi il codice o la documentazione per altri dettagli ([link](https://moodledev.io/docs/apis/core/preference))
-
 Report Builder
 --------------
 
@@ -301,80 +292,6 @@ I campi custom sono aggiungibili a corsi ed utenti, ma e' possibile indicare nei
 
 Il vantaggio di cio' e' permetterci di utilizzare il lvaro gia' fatto da moodle a riguardo, inclusa la possibilita' di definire nuove tipologie di campi custom tramite plugin aggiuntivi.
 
-------------------
-
-Plugin attivita
-===============
-
-[Documentazione ufficiale](https://moodledev.io/docs/apis/plugintypes/mod)
-
-I plugin di attivita', (`mod`) sono la prima tipologia di plugin storicamente introdotta su moodle, e di fatto una delle piu' espanse.
-
-Per ragioni storiche, alcune regole e prassi di moodle sono leggermente diverse per i plugin mod, in particolare nella nomenclatura "Frankenstyle" il `mod_` va omesso nei nome delle tabelle del database.
-
-i plugin di tipo attivita' hanno esigenze diverse particolari rispetto ai plugin base, ad esempio richiedono la presenza di una tabella dal nome identico al nome plugin, con i seguenti campi almeno:
-
-* **id** *INT(10) auto sequence* 
-* **course** *INT(10) foreign key course(id)*
-* **name** *CHAR(255)* il nome indicato dall'utente per l'istanza dell'attivita' 
-* **timemodified** *INT(10)* data ultima modifica
-* **intro** *TEXT* la descrizione dell'istanza dell'attivita'
-* **introformat** *INT(4)* formato del testo di sopra
-
-inoltre richiedono i seguenti files:
-
-* `mod_form.php` deve contenere un form dal nome `mod_[modname]_mod_form` usato nella creazione di una nuova istanza
-* `index.php` che dovrebbe essere usata per elencare tutte le istanze della nostra attivita' alla quale l'utente puo' accedere nel corso
-
-e le seguenti funzioni in `lib.php`:
-
-```php
-function [modname]_add_instance($instancedata, $mform = null): int;
-function [modname]_update_instance($instancedata, $mform): bool;
-function [modname]_delete_instance($id): bool;
-```
-
-Queste funzioni vengono chiamate quando viene aggiunta, modificata o eliminata una istanza della nostra attivita', e vanno usate per gestire i dati nelle nostre tabelle. Il form usato e' quello di sopra.
-
-Condizioni completamento
-------------------------
-
-[link](https://moodledev.io/docs/apis/core/activitycompletion)
-
-Di base i nuovi plugin mod supportano solo il completamento manuale, ovvero la possibilita' per l'utente di marcare l'attivita' come completata premendo un pulsante.
-
-Per abilitare altre modalita' e' necessario implementare in `lib.php` una funzione `[nomeplugin]_supports`
-
-```php
-function forum_supports(string $feature): bool {
-    switch($feature) {
-        case FEATURE_COMPLETION_TRACKS_VIEWS:
-            return true;
-        case FEATURE_COMPLETION_HAS_RULES:
-            return true;
-        default:
-            return null;
-    }
-}
-```
-
-Sono disponibili molte modalita' di completamento del corso, per istruzioni dettagliate su come implementarle si rimanda alla documentazione
-
-Condizioni accesso
-------------------
-
-[link](https://moodledev.io/docs/apis/core/conditionalactivities)
-
-Altro elemento simile e' quello delle condizioni di accesso all'attivita', ovveroc come permettere all'utente di vedere l'attivita'.
-
-A differenza del completamento queste sono configurate dal sito. Sono gia' presenti modalita' come accesso da particolare data, accesso condizionato in base al completamento di attivita' precedenti, ecc..
-
-Esiste una classe di plugin `availability` per definire condizioni addizionali, ad esempio accesso dopo pagamento. Vedi [qui](https://moodledev.io/docs/apis/plugintypes/availability) per la documentazione 
-
-Backup
-------
-
-i moduli attivita' ed i blocchi supportano la feature di backup, usata per copiare il corso con tutto il contenuto. Per utilizzarla e' necessario che il plugin supporti le API corrispondenti ([link](https://docs.moodle.org/dev/Backup_2.0_for_developers))
 
 ------------------
 

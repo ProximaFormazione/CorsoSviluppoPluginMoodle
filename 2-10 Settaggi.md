@@ -1,6 +1,3 @@
-Settaggi
-========
-
 I settaggi di un plugin consistono in una serie di configurazioni che vengono salvate in una coppia chiave/valore nel database.
 
 Moodle ha una serie di funzioni che permettono il salvataggio e caricamento dei settaggi, oltre ad un robusto meccanismo per la creazione di menu appositi.
@@ -81,3 +78,12 @@ public static function estendi_navigazione(\core\hook\navigation\primary_extend 
 I settaggi sono salvati come stringhe.
 
 [Documentazione Ufficiale](https://moodledev.io/docs/apis/subsystems/admin)
+
+Settaggi utente
+---------------
+
+I settaggi specifici di un utente sono salvati nel database ed accessibili in maniera similare ai settaggi del sito.
+
+Sono a disposizione i metodi `get_user_preferences()`, `set_user_preference()` e `unset_user_preference()`
+
+vedi il codice o la documentazione per altri dettagli ([link](https://moodledev.io/docs/apis/core/preference))

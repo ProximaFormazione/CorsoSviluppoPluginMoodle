@@ -86,7 +86,7 @@ Moodle utilizza le seguenti terminologie:
 * i **Backend di machine learning** sono le implementazioni degli algoritmi di ML
 * gli **Insights** sono notifiche (output) generate dai vari processi di ML 
 
-![Schema funzionamento](https://moodledev.io/assets/images/Inspire_API_components-e456d58a4230fca6d50f7450ceeb6ae2.png)
+![Schema funzionamento](https://moodledev.io/assets/images/Inspire_data_flow-567a94675fdd615f15dac23ad11702a0.png)
 
 l'affinamento dei modelli e la loro esecuzione e' gestita dai task schedulati `\tool_analytics\task\predict_models` e `\tool_analytics\task\train_models`
 
