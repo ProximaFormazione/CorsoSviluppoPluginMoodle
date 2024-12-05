@@ -63,6 +63,8 @@ mentre per un plugin di tipo enrol conviene invece solo aggiungere elementi alla
 }
 ```
 
+E' anche possibile aggiungere all'albero di navigazione un oggetto di tipo `admin_externalpages` che reindirizza su una pagina. Potete usare questa opzione per avere un link ad una vostra pagina di settaggi che magari richiede il salvataggio di dati in una vostra tabella. Per uniformita' visiva potete utilizzare nella pagina creata il metodo `admin_externalpage_setup($pagename)`. Si raccomanda laddove possibile di utilizzare settaggi normali piuttosto che creare pagine ad hoc, perche' sono meglio integrati (ricerca e cache).
+
 Per consultare un settaggio sara' sufficiente utilizzare il metodo `get_config('nome_plugin','settaggio')`
 
 Ad esempio possiamo inserire un check nei metodi che aggiungono la navigazione nel nostro caso:

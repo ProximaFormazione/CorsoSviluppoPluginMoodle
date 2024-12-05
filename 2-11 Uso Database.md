@@ -12,7 +12,22 @@ Vediamo in questo capitolo le basi di quanto serve per utilizzare il database ne
 Consumare il database
 =====================
 
-Per utilizzare il database, moodle mette a disposizione delle sue API interne, nella variabile globale `$DB`
+Per utilizzare il database, moodle mette a disposizione delle sue API interne, nella classe `\moodle_database`
+
+```php
+class classe_che_usa_database {
+    public function __construct(
+        protected readonly \moodle_database $db,
+    ) {
+    }
+
+    public function get_utenti(): array {
+        return $this->db->get_records('user');
+    }
+}
+```
+
+In alternativa, moodle mette a disposizione la variabile globale `$DB` che e' un istanza della classe `moodle_database`. Prima dell'avvento dell DI questo era la via preferenziale per utilizzarla
 
 ```php
 function funzione_che_usa_database() {
@@ -22,13 +37,15 @@ function funzione_che_usa_database() {
 }
 ```
 
-`$DB` e' un istanza della classe `moodle_database` che si trova nel file `lib/dml/moodle_database.php`. La classe e' ben documentata ma dovete aprire il file per vedere i commenti. 
+La classe `moodle_database` si trova nel file `lib/dml/moodle_database.php`. E' ben documentata ma dovete aprire il file per vedere i commenti a seconda di come e' impostato l'IDE. Consigli di usare laddove possibile la DI, sia per gli unit test ma anche perche' VSCode riesce piu' facilmente a capire che classe state usando e vi mostra i commenti.
 
-Aprendo il file in VS Code dovreste avere i metodi nell'intellisense, altrimenti nelle estensioni di VS Code per moodle ci sono degli snippet di codice appositi. Alternativamente molti dei metodi sono elencati nella documentazione ([Data manipulation API](https://moodledev.io/docs/apis/core/dml)).
+Aprendo il file in VS Code dovreste avere i metodi nell'intellisense anche usando la variabile globale, altrimenti nelle estensioni di VS Code per moodle ci sono degli snippet di codice appositi. Alternativamente molti dei metodi sono elencati nella documentazione ([Data manipulation API](https://moodledev.io/docs/apis/core/dml)).
 
 `$DB` contiene sia metodi 'semplici' dove basta indicare la tabella e le condizioni, ma anche metodi che permettono l'esecuzione di query SQL per le operazioni piu' complesse.
 
-Laddove si crea una query SQL custom, bisogna fare attenzione a non utilizzare sintassi specifiche di un particolare tipo di database se si vuole garantire la compatibilita' con i vari motori di database supportati da moodle
+Laddove si crea una query SQL custom, bisogna fare attenzione a non utilizzare sintassi specifiche di un particolare tipo di database se si vuole garantire la compatibilita' con i vari motori di database supportati da moodle.
+
+Laddove fosse necessario, potete interrogare moodle per sapere il motore di database impostato con il metodo `$DB->get_dbfamily()` che restituisce la tipologia di sintassi (possibili valori (string): `mysql`, `postgres`, `mssql`, `oracle`, `sqlite`) 
 
 Generalmente i record sono restituiti cone `stdClass`. I metodi che restituiscono liste di record restituiscono un array di `stdClass` con il primo campo come chiave. Come prassi nelle tabelle di moodle il primo campo e' una primary key intera con identity chiamata `id`
 
@@ -80,24 +97,20 @@ $sql2 = 'SELECT * FROM {user} WHERE firstname = :nome AND lastname = :cognome';
 I metodi che usano le query hanno un parametro per passare i valori dei placeholder sotto forma di array, per i placeholder con nome bisogna usare il nome come chiave, mentre quelli anonimi dipendono dall'ordine in cui vengono forniti
 
 ```php
-$DB->get_record_sql(
-    $sql1 ,
-    [
-        'Mario',
-        'Rossi',
-    ]
-);
+$DB->get_record_sql($sql1 ,[ 'Mario', 'Rossi',]);
 
-$DB->get_record_sql(
-    $sql2,
-    [
-        'nome'  => 'Mario',
-        'cognome'  => 'Rossi',
-    ]
-);
+$DB->get_record_sql($sql2, [ 'nome'  => 'Mario', 'cognome'  => 'Rossi',]);
 ```
 
 per le clausole IN(....) esiste il metodo `get_in_or_equal` che restituisce sia il SQL da inserire che i parametri da utilizzare.
+
+```php
+list($sql_in, $parametri) = $DB->get_in_or_equal($userid_list, SQL_PARAMS_NAMED);
+
+$query = "SELECT * FROM {user} WHERE userid {$sql_in}";
+
+$risultati = $DB->get_records_sql($query, $parametri);
+```
 
 Si raccomanda di non inserire i parametri delle query direttamente come stringa per evitare attacchi tramite SQL injection
 
@@ -119,7 +132,7 @@ Altri parametri
 
 Altri parametri usati:
 
-* `$fields` permette di specificare i campi da includere nell'estrazione, va fornito come stringa con i nomi dei campi separati da `,`. Di default e' `'*'`. ATTENZIONE: ricordatevi che in caso di liste di record il primo campo viene usato come chiave dell'array, quindi assiccuratevi che sia unico. Raccomando di includere sempre l'`id`.
+* `$fields` permette di specificare i campi da includere nell'estrazione, va fornito come stringa con i nomi dei campi separati da `,`. Di default e' `'*'`. ATTENZIONE: ricordatevi che in caso di liste di record il primo campo viene usato come chiave dell'array, quindi assicuratevi che sia unico. Raccomando di includere sempre l'`id`.
 * `sort` permette di indicare l'ordine dei record nell'array restituito.
 * `limitfrom` e `$limitnum` sono per il paging del risultato.
 * metodi specifici potrebbero avere altri parametri
@@ -138,7 +151,7 @@ Alcuni esempi di utilizzo
 global $DB;
 
 //query con estrazione di piu' elementi
-$extraction = $DB->get_records('local_linkfacilita_cm_field', ['coursemoduleid' => $cmid], '', 'facilitafield,value'); //nota: non estraiamo l'id, auindi l'array $extraction ha come chiave il campo 'facilitafield'
+$extraction = $DB->get_records('local_esempio_corsivalore', ['courseid' => $id], '', 'shortname,value'); //nota: non estraiamo l'id, quindi l'array $extraction ha come chiave il campo 'shortname'
 
 //query di estrazione con JOIN e clausola IN(....)
 //(estrae alcuni campi custom di un utente)
@@ -159,15 +172,14 @@ $fields_data = $DB->get_records_sql("
 
 //inserimento record
 $new_record = new stdClass();
-$new_record->coursemoduleid = $cmid;
-$new_record->facilitafield = $facilitafield;
+$new_record->courseid = $id;
 $new_record->value = $value;
-$DB->insert_record('local_linkfacilita_cm_field', $new_record);
+$DB->insert_record('local_esempio_corsivalore', $new_record);
 
 
 //update record tramite query custom
-$update_sql = 'UPDATE {local_linkfacilita_cm_field} set `value` = :value where coursemoduleid = :cmid and facilitafield = :facilitafield';
-$DB->execute($update_sql, ['value' => $value, 'cmid' => $cmid, 'facilitafield' => $facilitafield]);
+$update_sql = 'UPDATE {local_esempio_corsivalore} set `value` = :value where courseid = :id and datainizio > :datainizio';
+$DB->execute($update_sql, ['value' => $value, 'courseid' => $id, 'datainizio' => $datainizio]);
 
 ```
 
@@ -179,7 +191,7 @@ Transazioni
 ```php
 try {
     $transaction = $DB->start_delegated_transaction();
-    // [...]
+    // [...] Eseguo le operazioni su DB
     $transaction->allow_commit();
 } catch (Exception $e) {
     // Eventuali operazioni aggiuntive richieste / cattura o log eccezioni
@@ -232,7 +244,7 @@ Interessante la funzione `userdate` e la funzione `usertime` che tengono present
 
 php ha una funzione `time()` per ottenere il timestamp attuale.
 
-sul database i campi sono INT(10)
+sul database i campi con le date sono INT(10)
 
 Definizione XMLDB ed editor
 ---------------------------
@@ -247,7 +259,7 @@ E' possibile compilare manualmente il file, magari copiandone uno simile, o per 
 
 L'editor XMLDB e' accessibile dal menu' Amministrazione del sito -> Sviluppo -> Editor XMLDB. 
 
-L'editor ha un'interfaccia spartana ma funziona bene, i file che legge e crea sono posizionati nella cartella corretta della piattaforma. Quindi per utilizzarlo si richiede di sviluppare direttamente in un ambiente installato (che comunque e' consigliabile).
+L'editor ha un'interfaccia spartana ma funziona bene, i file che legge e crea sono posizionati nella cartella corretta della piattaforma. Quindi per utilizzarlo si richiede di sviluppare direttamente in un ambiente installato (che comunque e' pratica consigliabile).
 
 Nell'editor inizialmente si ha una lista dei plugin installati, dove si puo' caricare o creare il file xml relativo. Una volta caricato si possono editare le tabelle ed i campi tramite interfaccia grafica.
 
@@ -255,7 +267,7 @@ Fare attenzione a salvare le modifiche usando gli appositi pulsanti.
 
 L'editor possiede poi dei generatori di codice php ed xml, utilizzabili per trasportare le definizioni fatte su altre cartelle, ma se sviluppate direttamente sull'ambiente che state utilizzando userete solo quello per il PHP.
 
-Nella definizione delle tabelle e' possibile anche definire chiavi ed indici, prestare attenzione al fatto che non vi e' un grande controllo degli input.
+Nella definizione delle tabelle e' possibile anche definire chiavi ed indici, tuttavia moodle non applica i costraint fdi foreign key in fase di installazione delle tabelle, probabilmente per questioni legacy con motori di database che non le supportavano.
 
 Definizione step aggiornamento
 ------------------------------
