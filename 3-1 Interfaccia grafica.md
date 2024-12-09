@@ -79,7 +79,7 @@ class renderer extends plugin_renderer_base {
 }
 ```
 
-In questo caso il renderer utilizza il `renderable` nella variabile `$renderable` per farsi dare i dati, e poi usa un template per la visualizzazione. 
+In questo caso il renderer utilizza il renderable nella variabile `$renderable` per farsi dare i dati, e poi usa un template per la visualizzazione. 
 
 e' possibile omettere il renderer nel processo: avendo un renderable fatto a dovere con il nome della classe identico al nome del template si puo' utilizzare il renderer di default, ovvero `$OUTPUT`.
 
@@ -201,7 +201,7 @@ equivalente alle clasi delle icone presenti in moodle ([link](https://docs.moodl
 
 ### userdate
 
-formatta un timestamp UINIX nel fuso orario dell'utente, accetta parametri per il formato 
+formatta un timestamp UNIX nel fuso orario dell'utente, accetta parametri per il formato 
 
 ```html
 {{#userdate}} {{time}}, {{#str}} strftimedate, core_langconfig {{/str}} {{/userdate}}

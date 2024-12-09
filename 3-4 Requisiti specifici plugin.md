@@ -16,7 +16,7 @@ class enrol_pluginname_plugin extends enrol_plugin {
 
 Eseguendo l'override dei metodi della classe base andremo a definire diverse caratteristiche del nostro plugin.
 
-Il nostro plugin di iscrizione agira' attraverso un link apposito, quindi non interagiremo molto con il processo usuale, aggiungeremo giusto la possibilita' di usare l'interfaccia esistente per gestire il plugin
+Un esempio di una implementazione minimale:
 
 ```php
 class enrol_pluginname_plugin extends enrol_plugin {
@@ -47,4 +47,4 @@ Di base la modalita' e' disattivata, ma noi possiamo attivarla premendo sull'occ
 
 > ATTENZIONE: Questo abilita solo il plugin a livello di sito, bisogna poi abilitare il plugin sui corsi dove si intende usarlo. E' possibile automatizzare il processo in modo che un nuovo corso abbia questa abilitazione di default, tuttavia nel nostro caso il requisito e' diverso.
 
-Ritorneremo su questa classe quando aggiungeremo altre funzionalita', ad esempio per stabilire i permessi per disiscrivere gli utenti.
+

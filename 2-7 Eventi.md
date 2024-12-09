@@ -44,7 +44,7 @@ E' poi possibile specificare dei parametri aggiuntivi:
 
 * **includefile** per includere dei files aggiuntivi oltre al metodo chiamato
 * **priority** un numero, i metodi con priorita' piu' alta vengono invocati per primi in un evento.
-* **internal** di defaul e' true, se e' false il metodo non viene chiamato prima che la transazione del database sia stata completata.
+* **internal** di default e' true, se e' false il metodo non viene chiamato prima che la transazione del database sia stata completata.
 
 Nel metodo che consuma l'evento avremo l'evento stesso, che e' una classe, come parametro
 

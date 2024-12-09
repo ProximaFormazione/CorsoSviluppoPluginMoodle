@@ -80,14 +80,12 @@ Ad esempio, per la funzione di sopra `enrol_magiclink_create_link` creeremo una 
 
 La classe in questione deve soddisfare alcune caratteristiche:
 
-- Deve estendere la classe `external_api` che si trova in `lib/externallib.php` (`require_once("$CFG->libdir/externallib.php");`) 
+- Deve estendere la classe `\core_external\external_api`
 - Deve avere il metodo `execute_parameters` che indica i parametri in ingresso dell'endpoint
 - Deve avere il metodo `execute_returns` che indica i valori di ritorno dell'endpoint
 - Deve avere il metodo `execute` che e' il metodo lanciato quando viene chiamato l'endpoint.
 
 E' poi possibile dichiarare un metodo `execute_is_deprecated` nel caso si volesse indicare che l'endpoint e' deprecato.
-
-*NOTA: Moodle sta rivedendo la definizione dei web services, dalla versione 4.2 questi potranno essere definiti da classi contenute in namespace e si dora' estendere la classe `\core_external\external_api` invece che richiedere di includere i files in un `require_once`. Dalla versione 4.6 si prevede poi di inserire dei warning per le classi non in namespace per indicarne la deprecazione*
 
 Un esempio preso dalla documentazione ufficiale:
 

@@ -3,7 +3,11 @@ Unit Test
 
 Moodle prevede un solido framework per gli unit test, con features di recupero dello stato iniziale per i test incorporate. In questo capitolo vedremo come utilizzarlo.
 
-Su ogni piattaforma installata e' presente una voce nel menu' di amministrazione in Sviluppo -> PHP Unit test con una checklist e link alle documentazioni
+Su ogni piattaforma installata e' presente una voce nel menu' di amministrazione in Sviluppo -> PHP Unit test con una checklist e link alle documentazioni.
+
+Questa guida e' stata scritta per una ambiente di sviluppo locale, per l'esatta implementazione su altri ambienti, come ad esempio i container, dovrete adattare quanto scritto al vostro caso.
+
+Da notare che il sistema indicato e' preesistente a moodle 4.3, e quindi precedente alla introduzione della dependency injection. E' probabile che questo sistema subisca modifiche in futuro
 
 Introduzione agli unit test
 ---------------------------
@@ -28,7 +32,7 @@ Generalmente, un unit test si compone di tre fasi:
 
 Esistono diversi framework per gli Unit test. Nel PHP Moodle utilizza PHPUnit([link](https://docs.phpunit.de/en/9.6/)).
 
-Gli Unit test da definizione dovrebbero occuparsi di testare la minima unita' di codice possibile, ma per fare cio' e' necessario che l'architettura sia compatibile (ad esempio implementando un meccanismo di inversione del controllo). Moodle non e' strutturato per aderire perfettamente a tali standard, per cui propiamente non sempre i test che si creano sono definibili come "unit test". (spesso sono piu' propiamente integration test) 
+Gli Unit test da definizione dovrebbero occuparsi di testare la minima unita' di codice possibile, ma per fare cio' e' necessario che l'architettura sia compatibile (ad esempio implementando un meccanismo di inversione del controllo come la dependency injection). Moodle non era strutturato per aderire perfettamente a tali standard, per cui propiamente non sempre i test che si creano sono definibili come "unit test". (spesso sono piu' propiamente integration test) 
 
 Le best practice e la teoria dei test automatici del codice non e' argomento di questo corso. Nel resto di questo modulo per "Unit test" si puo' intendere grossolanamente "Test automatico".
 
@@ -184,7 +188,7 @@ In generale il test si conclude con esito negativo se il codice restituisce un e
 
 Di default dopo un test lo stato della cartella dati e del database vengono riportati allo stato iniziale.
 
-E' necessario indicare nel test che e' sono previste delle modifiche, altrimenti se il reset esegue delle operazioni riportera' il fallimento del test.
+E' necessario indicare nel test che sono previste delle modifiche, altrimenti se il reset esegue delle operazioni riportera' il fallimento del test.
 
 E' possibile indicare tramite il metodo `$this->resetAfterTest(true)` se tali modifiche sono previste. Il messaggio di errore *"Warning: unexpected database modification, resetting DB state"* e' dovuto alla mancata presenza di tale istruzione (o se non prevista, da una modifica avvenuta).
 
