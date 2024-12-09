@@ -157,11 +157,12 @@ La terza, lunghissima, tabella presenta la lista delle cache definite nei plugin
 
 La quarta tabella ha le istanze di plugin di lock delle cache, una tipologia di plugin che la stessa documentazione di moodle ammette non essere mai servita a memoria d'uomo.
 
-La quinta tabella e' per indicare lo store di default da utilizzare in assenza di mappature. Se si vmodificare l'impostazione della piattaforma questo generalmente e' il settaggio da impostare.
+La quinta tabella e' per indicare lo store di default da utilizzare in assenza di mappature. Se si vuole modificare l'impostazione della piattaforma questo generalmente e' il settaggio da impostare.
 
 La configurazione corretta delle cache e' sicuramente un argomento complesso, per motivi trasversali ad altre tecnologie. E' necessario prestare attenzione e pianificare questo aspetto laddove necessario. Alcuni punti chiave:
 
-* per un installazione piccola su una singola macchina modificare le impostazioni di default non e' necessario ne porta grandi benefici. In tali condizione e' invece opportuno ragionare sulla tipologia di hardware, in primis il tipo di hard disk usato (HDD o SSD)
+* per un installazione piccola su una singola macchina modificare le impostazioni di default non e' necessario ne porta grandi benefici. In tali condizioni e' invece opportuno ragionare sulla tipologia di hardware, in primis il tipo di hard disk usato (HDD o SSD)
+* per installazioni su piu' istanze si raccomanda di utilizzare un motore di cache diverso da quello standard. Siccome avrete (o dovreste prevedere) un redis o memcached per gestire le sessioni potete usare quello
 * e' opportuno avere una certa dimestichezza con il provider usato se diverso da quello standard
 * e' importante avere metriche di test per verificare l'efficacia delle caches, ad esempio usando JMeter
 * Le caches locali vanno abilitate nel file `config.php`, si tratta di cache usate in instalazioni con piu' macchine per quei dati che possono essere salvati in locale (duplicati su ogni macchina). In tali installazioni e' assolutamente sconsigliato usare un drive di rete condiviso per le caches
