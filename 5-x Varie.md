@@ -9,7 +9,8 @@ Report Builder
 
 Da moodle 4.0 e' disponibile un generatore di reportistica dove gli utenti possono costruire le loro dashboard basate su cubi di dati preimpostati in moodle. 
 
-vedi [qui](https://moodledev.io/docs/apis/core/reportbuilder) per come aggiungere tabelle alla scelta dell'utente
+vedi [qui](https://moodledev.io/docs/apis/core/reportbuilder) per come aggiungere tabelle alla scelta dell'utente, in breve bisogna definire le singole colonne e le entita' che volgiamo aggiungere per nome, eventualmente indicando le join, e poi si deve definire il cubo di dati indicando quali entita' (standard o custom) si deve usare. Attenzione ai namespace delle classi.
+
 
 install/uninstall.php
 ---------------------
@@ -367,6 +368,7 @@ Un'altra considerazione per l'app e' la dimensione complessiva dei contenuti dei
 
 ------------------
 
+
 Altro
 =====
 
@@ -419,7 +421,13 @@ Features non incluse in moodle 4.1
 
 Una lista di alcune delle features che non sono incluse nella versione 4.1:
 
-Dalla versione 4.4 ([link](https://moodledev.io/docs/devupdate)):
+Dalla versione 4.5 ([link](https://moodledev.io/docs/4.5/devupdate)):
+
+* Provider AI generativa
+* Gateway per invio SMS
+* Supporto per Open Badge 3.0 (ma quelli prodotti sono ancora 2.0)
+
+Dalla versione 4.4 ([link](https://moodledev.io/docs/4.4/devupdate)):
 
 * Dependency injection ([link](https://moodledev.io/docs/apis/core/di)) 
 * Attributi PHP

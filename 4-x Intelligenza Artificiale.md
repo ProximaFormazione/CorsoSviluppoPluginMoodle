@@ -82,7 +82,7 @@ Moodle utilizza le seguenti terminologie:
 * i **Target**s sono le label, ovvero i vaolri che vogliamo prevedere
 * gli **Indicator**s sono le features normalizzate, ovvero i dati usati per eseguire la predizione
 * gli **Analyser**s sono i preprocessori delle labels, ovvero raccolgono i dati grezzi e li preparano per l'analisi o il training dei modelli
-* gli **Intervalli di analisi** stabiliscono gli intervalli temporali da utilizzare per le analisi, ad esempio per un modello sui corsi andranno definiti intervalli basati sulle dati dei corsi
+* gli **Intervalli di analisi** stabiliscono gli intervalli temporali da utilizzare per le analisi, ad esempio per un modello sui corsi andranno definiti intervalli basati sulle date dei corsi
 * i **Backend di machine learning** sono le implementazioni degli algoritmi di ML
 * gli **Insights** sono notifiche (output) generate dai vari processi di ML 
 
