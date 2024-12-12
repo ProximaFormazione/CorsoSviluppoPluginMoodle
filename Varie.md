@@ -109,7 +109,7 @@ Calendario
 
 [Documentazione](https://moodledev.io/docs/apis/core/calendar)
 
-Moodle ha un sistema di eventi trasversale sul sito, dove e' piossibile inserire date visibili agli utenti, come ad esempio la scadenza di un corso.
+Moodle ha un sistema di eventi trasversale sul sito, dove e' possibile inserire date visibili agli utenti, come ad esempio la scadenza di un corso.
 
 Il calendario e' visualizzabile nell'apposito blocco calendario, oppure nella dashboard. Chiaramente esisteranno plugin alternativi per la visualizzazione.
 
@@ -157,7 +157,7 @@ function [activityname]_supports(string $feature): ?bool {
 }
 ```
 
-La valutazione avanzata inserisce opzioni di valutazione custom (es: *insufficiente, sufficiente, buono, distinto, ottimo*), con possibilita di definire un rendere apposito. Per maggiori informazioni consultare la documantazione.
+La valutazione avanzata inserisce opzioni di valutazione custom (es: *insufficiente, sufficiente, buono, distinto, ottimo*), con possibilita di definire un render apposito. Per maggiori informazioni consultare la documantazione.
 
 Sottoplugin
 -----------
@@ -317,12 +317,14 @@ I blocchi sono molto utili nella creazione di plugin per funzionalita' specifich
 
 Notabile e' il blocco di tipo "testo" che permette di renderizzare html, e di fatto puo' essere usato per eseguire customizzazioni in maniera semplice. Attenzione che questo blocco non salva i dati in chiaro sul database ma esegue delle serializzazioni (base64), questo puo' essere un problema se sono stati fatti blocchi con dei link statici non relativi perche' non vi permette di identificare facilmente sul database cosa modificare in caso di cambio di dominio.
 
-Atto
-----
+TinyMCE ed Atto
+---------------
 
-*Atto* e' l'editor di testo usato nei campi "textarea" di moodle, e' di fatto un editor di html con alcuni pulsanti per alcune stilizzazioni comuni (es grassetto e corsivo).
+*TinyMCE* ed *Atto* sono gli editor di testo usato nei campi "textarea" di moodle, sono di fatto un editor di html con alcuni pulsanti per alcune stilizzazioni comuni (es grassetto e corsivo).
 
-Esiste tutta una classe di plugin che estendono Atto con nuove funzionalita', trattandosi di un editor di html vi sono moltissime potenzialita'. Ad esempio esiste un plugin per generare riunioni teams che e' un plugin di tipo atto (che genera degli iframe)
+Esiste tutta una classe di plugin che estendono gli editor di testo con nuove funzionalita', trattandosi di un editor di html vi sono moltissime potenzialita'. Ad esempio esiste un plugin per generare riunioni teams che e' un plugin di tipo atto (che genera degli iframe). Chiaramente i plugin si riferiscono solo al loro tipo di editor.
+
+L'editor utilizzabile e' impostabile a livello di sito, lasciando aperte le opzioni l'utente potra' sempre scegliere un editor alternativo dal proprio profilo utente
 
 Course format
 ------------
@@ -344,7 +346,7 @@ L'app e' open source, ma realisticamente dovrete utilizzare quella pubblicata da
 
 L'app puo' connettersi ad una installazione esistente di moodle, e permettere agli utenti di scaricare i corsi e consultarli offline. E' possibile consumare piu' piattaforme da una singola app.
 
-Moodle offre diversi piani di utilizzo dell'app
+Moodle offre diversi piani di utilizzo dell'app, i costi potrebbero essere variati dalla realizzazione di questa guida
 
 -	Il piano FREE e’ gratuito e permette l’accesso ai contenuti della piattaforma. Gli utenti possono tenere offline al massimo due corsi alla volta e vi e’ un limite di 50 utenti notificabili al mese
 -	Il piano PRO costa 200€ all’anno e aumenta i limiti a 4 corsi e 500 utenti notificabili, oltre che sbloccare altre funzionalita’
@@ -359,7 +361,7 @@ Per abilitare la comunicazione con l'app e' necessario attivare i web services s
 
 L'aspetto dei contenuti non e' customizzabile ma e' dettato dall'app, avete quindi una visualizzazione di default. Bisogna verificare poi quali attivita' sono compatibili con l'app e quali no. Mentre possiamo aspettarci che quelle core di Moodle siano tutte ben compatibili, non e’ garantito per plugin aggiuntivi. Le attivita’ non compatibili lo dicono e riportano un pulsante che apre la pagina corrispondente nel browser. Per rendere un plugin compatibile con il mobile vedi [qui](https://moodledev.io/general/app/development/plugins-development-guide)
 
-Chiaramente nulla vieta ad un utente di collegarsi alla piattaforma via il browser del porprio dispositivo mobile, senza bisogno di usare l'app. E' necessario che il tema sia responsive e fruibile su taglie xs.
+Chiaramente nulla vieta ad un utente di collegarsi alla piattaforma via il browser del porprio dispositivo mobile, senza bisogno di usare l'app. E' necessario che il tema sia responsive e fruibile su taglie xs (Quelli de default lo sono).
 
 Un'altra considerazione per l'app e' la dimensione complessiva dei contenuti dei corsi, magari evitando video 8k con un docente che mostra un powerpoint
 
